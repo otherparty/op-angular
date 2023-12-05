@@ -1,19 +1,9 @@
 <!-- PAGE -->
-<header class="padded flex middle" id="uptop" style="min-height: 25vh; margin-bottom: 0;">
-	<h1 class="fluid-text courier center fittext"><i class="bi bi-heat"></i><br />Other Party</h1>
-</header>
+<app-navbar></app-navbar>
 
-<div class="wrap-1200 emptiness padded">
-	<div class="lucida center">
-		<h2 class="fluid-text baffle-longer brickbuild mint-t rice-t-s" style="margin: 0; padding: 0;">Follow the
-			Bills</h2>
-	</div>
-</div>
+<app-title></app-title>
 
-<!-- jagged checkerboard divider -->
-<div class="clear-block jagged">
-	<p class="checkerboard padding"></p>
-</div>
+<app-divider></app-divider>
 
 <!-- flexbox layout -->
 <div class="wrap-1600">
@@ -24,29 +14,9 @@
 		<main class="main padded b-s-t black-b infinitile">
 			<h3 class="fluid-text">Off the Floor</h3>
 		</main>
-
 	</div>
 	<div class="flex flow-text lucida">
-		<div class="third padded black-b b-a-f neon-text shine">
-			<div class="ul">
-				<p class>Agriculture Workforce</p>
-				<br>
-				<p>Urban Waters</p>
-				<br>
-				<p>Fire Forecasts</p>
-				<br>
-				<p>Coal, Oil, and Gas Investments</p>
-				<br>
-				<p>Increase in Federal Minimum Wage</p>
-				<br>
-				<p>Virtual Currencies</p>
-				<br>
-				<p>DC Zoning</p>
-				<br>
-				<p>Medicare Provider Transparency</p>
-			</div>
-
-		</div>
+		<app-headlines></app-headlines>
 		<!-- two columns -->
 		<div class="third padded b-s-t black-b">
 			<p class="helvetica larger">Dairy Innovation</p>
@@ -148,35 +118,6 @@
 	</div>
 	<p class="spacer"></p>
 	<p class="spacer"></p>
-	<p class="center flow-text padded lucida"><a href="#vanilla" data-modal-open
-			class="btn rounded large-btn box-s pool-party hue-h">Vanilla MODAL</a></p>
-	<p class="spacer"></p>
-</div>
-
-<footer class="padded center courier disabled">
-	<p><a href="https://www.brutalistframework.com" target="_blank">Brutalist Framework</a> &copy; 2023</p>
-</footer>
-
-
-<!-- Vanilla Modal -->
-<div id="vanilla" style="display:none;">
-	<div class="wrap-960 info padded" style="max-width: 468px;">
-		<h4 class="flow-text lucida"><i class="bi bi-cone bi-4x"></i> <strong>Vanilla Modal</strong></h4>
-		<hr class="charlie" />
-		<p class="flow-text courier">I am a simple vanilla modal that requires <em>buix.js</em> to function.</p>
 	</div>
-</div>
-<!-- Initiate and display modal itself -->
-<div class="modal">
-	<div class="modal-inner draggable">
-		<!-- Remove "draggable" class to prevent modals from being moveable -->
-		<span data-modal-close>&times;</span>
-		<div class="modal-content"></div>
-	</div>
-</div>
 
-
-<!-- Core Scripts -->
-
-
-<!-- </html> -->
+<app-footer></app-footer>
