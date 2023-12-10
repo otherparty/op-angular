@@ -1,0 +1,31 @@
+
+<div class="flex flow-text lucida">
+  <div class="half padded black-b b-a-f neon-text shine">
+    @if (headLines) {
+    <div class="ul">
+      @for (bill of headLines; track bill.id) {
+        <p>{{ bill.headLine }}</p>
+        <p class="spacer"></p>
+      }
+    </div>
+    } @else {
+    <div class="ul">
+      <p class="neon-text">No Headlines</p>
+    </div>
+    }
+  </div>
+
+  @if (stories) { @for (story of stories; track $index) {
+    <div class="padded b-s-t black-b" [ngClass]="$index % 6 ? 'third' : 'half'">
+      <p class="helvetica larger">{{ story.headLine }}</p>
+      <p class="chop-16 smaller break-all">{{ story.story }}</p>
+      <p class="spacer"></p>
+      <p>X &#64;TEST</p>
+    </div>
+    } } @else {
+    <p class="helvetica larger">No Stories</p>
+    }
+
+</div>
+
+
