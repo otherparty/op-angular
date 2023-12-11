@@ -1,11 +1,10 @@
-
 <div class="flex flow-text lucida">
   <div class="half padded black-b b-a-f neon-text shine">
     @if (headLines) {
     <div class="ul">
       @for (bill of headLines; track bill.id) {
-        <p>{{ bill.headLine }}</p>
-        <p class="spacer"></p>
+      <p>{{ bill.headLine }}</p>
+      <p class="spacer"></p>
       }
     </div>
     } @else {
@@ -16,18 +15,16 @@
   </div>
 
   @if (stories) { @for (story of stories; track $index) {
-    <div class="padded b-s-t black-b" [ngClass]="$index % 6 ? 'third' : 'half'">
-      <p class="helvetica larger">{{ story.headLine }}</p>
-      <p class="chop-16 smaller break-all">{{ story.story }}</p>
-      <p class="spacer"></p>
-      @if (story?.account?.twitter_account) {
-        <p>X &#64;{{story?.account?.twitter_account}}</p>
-      }
-    </div>
-    } } @else {
-    <p class="helvetica larger">No Stories</p>
+  <div class="padded b-s-t black-b" [ngClass]="$index % 10 ? 'third' : 'half'">
+    <p class="helvetica larger">{{ story.headLine }}</p>
+    <p class="chop-16 smaller break-all">{{ story.story }}</p>
+    <p class="spacer"></p>
+    @if (story?.account?.twitter_account) {
+      <button class="infinitile btn-medium">X &#64;{{story?.account?.twitter_account}}</button>
     }
+  </div>
+  } } @else {
+  <p class="helvetica larger">No Stories</p>
+  }
 
 </div>
-
-

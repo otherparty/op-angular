@@ -14,7 +14,7 @@ export class StoriesComponent {
   public stories: any;
   public headLines: any;
 
-  constructor(private headLineService: BillService) { }
+  constructor(private headLineService: BillService) {}
 
   ngOnInit() {
 
@@ -27,6 +27,4 @@ export class StoriesComponent {
     })
   
   }
-
-
 }
