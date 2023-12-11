@@ -20,7 +20,9 @@
       <p class="helvetica larger">{{ story.headLine }}</p>
       <p class="chop-16 smaller break-all">{{ story.story }}</p>
       <p class="spacer"></p>
-      <p>X &#64;TEST</p>
+      @if (story?.account?.twitter_account) {
+        <p>X &#64;{{story?.account?.twitter_account}}</p>
+      }
     </div>
     } } @else {
     <p class="helvetica larger">No Stories</p>

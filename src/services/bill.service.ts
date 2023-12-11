@@ -16,7 +16,7 @@ export class BillService {
 
 
   /** POST: add a new hero to the server */
-  getHeadLines(nLimit: number, nOffset: number): Observable<any> {
+  getHeadLines(nLimit: number, nOffset: number, orderBy: string): Observable<any> {
     return this.http.post(this.billsURL, { nLimit, nOffset }).pipe(
       tap((headlines) => this.log(`Got 10 headlines`)),
       catchError(this.handleError<any>('getHeadLines'))
