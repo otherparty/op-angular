@@ -6,13 +6,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { provideClientHydration } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
-
   providers: [
-    provideRouter(routes, withInMemoryScrolling({
-      scrollPositionRestoration: 'enabled',
-      anchorScrolling: 'enabled',
-    })),
+    provideRouter(
+      routes,
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled',
+        anchorScrolling: 'enabled',
+      })
+    ),
     importProvidersFrom(HttpClientModule),
     provideClientHydration(),
-  ]
+  ],
 };

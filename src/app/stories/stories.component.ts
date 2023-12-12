@@ -17,14 +17,12 @@ export class StoriesComponent {
   constructor(private headLineService: BillService) {}
 
   ngOnInit() {
-
     this.headLineService.getHeadLines(10, 0, 'DESC').subscribe((response) => {
-      this.headLines = response?.data?.stories
-     })
+      this.headLines = response?.data?.stories;
+    });
 
     this.headLineService.getHeadLines(10, 1, 'DESC').subscribe((response) => {
-     this.stories = response?.data?.stories
-    })
-  
+      this.stories = response?.data?.stories;
+    });
   }
 }
