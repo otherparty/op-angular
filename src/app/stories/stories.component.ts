@@ -17,7 +17,7 @@ export class StoriesComponent {
   constructor(private headLineService: BillService) {}
 
   ngOnInit() {
-    this.headLineService.getHeadLines(10, 0, 'DESC').subscribe((response) => {
+    this.headLineService.getHeadLines(5, 0, 'DESC').subscribe((response) => {
       this.headLines = response?.data?.stories;
     });
 
