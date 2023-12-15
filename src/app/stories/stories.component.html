@@ -18,7 +18,7 @@
   @for (story of stories; track $index) {
   <div class="padded b-s-t black-b full" [ngClass]="$index %10 ? 'third' : 'half'">
     <p class="impact larger">{{ story.headLine }}</p>
-    <p class="helvetica keep-all fluid-text">{{ story.story }}</p>
+    <span class="helvetica keep-all fluid-text" [innerHTML]=" story.story "></span>
     <p class="spacer"></p>
     @if (story.latest_major_action && story.latest_major_action_date) {
     <p class="brutal-text smaller float-right">{{ story.latest_major_action_date }}</p>

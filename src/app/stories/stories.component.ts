@@ -19,7 +19,7 @@ export class StoriesComponent {
   ngOnInit() {
     this.headLineService.getHeadLines(15, 0, 'DESC').subscribe((response) => {
       this.headLines = response?.data?.stories.slice(0, 5);
-      this.stories = response?.data?.stories.slice(0, 5);
+      this.stories = response?.data?.stories.slice(5, 10);
     });
   }
 }
