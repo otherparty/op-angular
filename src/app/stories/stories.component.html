@@ -1,4 +1,4 @@
-<div class="flex flow-text lucida">
+<div class="flex flow-text lucida" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
   <div class="half padded black-b b-a-f neon-text shine">
     @if (headLines) {
     <div class="ul">
@@ -16,7 +16,6 @@
   </div>
 
   @if (stories) {
-  <div infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()" class="padded b-s-t black-b full">
     @for (story of stories; track $index) {
     <div class="padded b-s-t black-b full" [ngClass]="$index %10 ? 'third' : 'half'">
       <p class="impact larger">{{ story.headLine }}</p>
@@ -39,7 +38,6 @@
     }
 
     }
-  </div>
 
   } @else {
   <p class="helvetica larger">No Stories</p>
