@@ -35,6 +35,9 @@ export class StoriesComponent {
         if (type) this.headLines = response?.data?.stories.slice(0, 5);
         if (type) this.stories = response?.data?.stories.slice(5, 15);
         else this.stories = response?.data?.stories
+
+        const classes = ['half', 'third', 'full', 'fourth'];
+        this.stories =  this.assignClassesToStories(this.stories, classes);
       },
       error: err => console.log(err),
       complete: () => this.toggleLoading()
@@ -46,7 +49,11 @@ export class StoriesComponent {
   appendData = () => {
     this.toggleLoading();
     this.headLineService.getHeadLines(this.itemsPerPage, this.currentPage, 'DESC').subscribe({
-      next: response => this.stories = [...this.stories, ...response?.data?.stories],
+      next: response => {
+        this.stories = [...this.stories, ...response?.data?.stories];
+        const classes = ['half', 'third', 'full', 'fourth'];
+        this.stories =  this.assignClassesToStories(this.stories, classes);
+      },
       error: err => console.log(err),
       complete: () => this.toggleLoading()
     })
@@ -55,6 +62,36 @@ export class StoriesComponent {
   onScroll = () => {
     this.currentPage++;
     this.appendData();
+  }
+
+   assignClassesToStories(array: any, classes:any) {
+    let currentIndex = 0;
+  
+    for (let i = 1; i < array.length; ) {
+      const currentClass = classes[currentIndex];
+      let increment = 0;
+  
+      if (currentClass === 'third') {
+        increment = 3; // For 'third' class, assign to 3 consecutive elements
+      } else if (currentClass === 'half') {
+        increment = 2; // For other classes, assign to 1 element
+      } else if (currentClass === 'full') {
+        increment = 1;
+      } else if (currentClass === 'fourth') {
+        increment = 4;
+      }
+  
+      // Assign the current class to the next group of elements
+      for (let j = 0; j < increment && i < array.length; j++) {
+        array[i].className = currentClass;
+        i++;
+      }
+  
+      // Move to the next class index based on the rules
+      currentIndex = (currentIndex + 1) % classes.length;
+    }
+  
+    return array;
   }
 
 }
