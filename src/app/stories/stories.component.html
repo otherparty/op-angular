@@ -1,23 +1,40 @@
-<div class="flex flow-text lucida" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
-  <div class="half padded black-b b-a-f neon-text shine">
-    @if (headLines) {
-    <div class="ul">
-      @for (bill of headLines; track bill.id) {
-      <p class="spacer"></p>
-      <button class="neon-text">{{ bill.headLine }}</button>
-      <p class="spacer"></p>
+<app-navbar></app-navbar>
+
+<app-title></app-title>
+
+<app-divider></app-divider>
+
+<div class="wrap-1600">
+  <div class="flex flow-text lucida">
+    <aside class="sidebar padded b-s-t black-b heat">
+      <h3 class="courier fluid-text glitchtext">Hot</h3>
+    </aside>
+    <main class="main padded b-s-t black-b infinitile">
+      <h3 class="fluid-text">Off the Floor</h3>
+    </main>
+  </div>
+  <div class="flex flow-text lucida" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500"
+    (scrolled)="onScroll()">
+    <div class="half padded black-b b-a-f neon-text shine">
+      @if (headLines) {
+      <div class="ul">
+        @for (bill of headLines; track bill.id) {
+        <p class="spacer"></p>
+        <button class="neon-text">{{ bill.headLine }}</button>
+        <p class="spacer"></p>
+        }
+      </div>
+      } @else {
+      <div class="ul">
+        <p class="neon-text">No Headlines</p>
+      </div>
       }
     </div>
-    } @else {
-    <div class="ul">
-      <p class="neon-text">No Headlines</p>
-    </div>
-    }
-  </div>
 
-  @if (stories) {
+    @if (stories) {
     @for (story of stories; track $index) {
-    <div class="padded b-s-t black-b full" [ngClass]="$index === 0 ? 'half' : story.className">
+    <div class="padded b-s-t black-b full" [ngClass]="$index === 0 ? 'half' : story.className"
+      [routerLink]="['/story', story._id]">
       <p class="impact larger">{{ story.headLine }}</p>
       <p class="spacer"></p>
       <span class="helvetica keep-all flow-text justify" [innerHTML]="story.story "></span>
@@ -30,17 +47,22 @@
       }
       <p class="spacer"></p>
       @if (story?.account?.twitter_account) {
-      <button class="infinitile btn-medium">X &#64;{{story?.account?.twitter_account}}</button>
+      <button class="infinitile btn-medium" (click)="openTwitter(story?.account?.twitter_account)">X
+        &#64;{{story?.account?.twitter_account}}</button>
       }
     </div>
-    @if (isLoading) {
-    <div>Loading...</div>
+    }
+    } @else {
+    <p class="helvetica larger">No Stories</p>
     }
 
-    }
-
-  } @else {
-  <p class="helvetica larger">No Stories</p>
+  </div>
+  @if (isLoading) {
+  <div class="brickbuild"></div>
   }
-
+  <!-- two columns -->
+  <p class="spacer"></p>
+  <p class="spacer"></p>
 </div>
+
+<app-footer></app-footer>

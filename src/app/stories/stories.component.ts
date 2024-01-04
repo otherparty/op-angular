@@ -3,11 +3,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { BillService } from '../../services/bill.service';
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
+import { RouterModule } from '@angular/router';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { TitleComponent } from '../title/title.component';
+import { DividerComponent } from '../divider/divider.component';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-stories',
   standalone: true,
-  imports: [HttpClientModule, NgIf, NgFor, NgClass, InfiniteScrollModule],
+  imports: [HttpClientModule, NgIf, NgFor, NgClass, InfiniteScrollModule, RouterModule, NavbarComponent, TitleComponent, DividerComponent, FooterComponent],
   templateUrl: './stories.component.html',
   styleUrl: './stories.component.scss',
 })
@@ -92,6 +97,11 @@ export class StoriesComponent {
     }
   
     return array;
+  }
+
+  openTwitter(username: string) {
+    const url = `https://twitter.com/intent/tweet?screen_name=${username}&ref_src=twsrc%5Etfw`
+    window.open(url, '_blank');
   }
 
 }

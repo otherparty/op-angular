@@ -23,6 +23,13 @@ export class BillService {
     );
   }
 
+  /** POST: add a new hero to the server */
+  getFullStory(_id: string): Observable<any> {
+    return this.http.post(`${this.billsURL}/full-story`, { _id }).pipe(
+      catchError(this.handleError<any>('getFullStory'))
+    );
+  }
+
 
   /**
    * Handle Http operation that failed.
