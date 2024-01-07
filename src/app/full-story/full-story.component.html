@@ -15,103 +15,24 @@
       <!-- <p class="helvetica larger">Dairy Innovation</p> -->
       <div class="resize-both responsive"><img [src]="sanitize(billSummery.image)" style="max-height: 80%" sanitize>
       </div>
-
       <br>
-      <p class="brutal-text fittext-compress float-right">{{ bill.latest_major_action_date}}</p>
+      <p class="brutal-text fittext-compress float-right">{{ bill.latest_major_action_date | date}}</p>
       <ul class="tags">
         <li>{{ bill.latest_major_action }}</li>
       </ul>
-      <!-- <p class=" fittext-compress float-right">Congressman Derrick Van Orden (WI) has submitted a bill to the House
-              Committee on
-              Agriculture
-              that seeks to amend the Agriculture Improvement Act of 2018. If passed, the bill would reauthorize the dairy
-              business
-              innovation initiatives, which provide support to dairy businesses in order to help them remain competitive in
-              the marketplace. The bill is currently under consideration by the committee.</p>
-            <br>
-            <br>
-            <button class="btn-medium">X @RepVanOrden</button> -->
     </div>
     <div class="half padded">
       <p class="helvetica larger">{{billSummery?.headLine}}</p>
       <br>
-      <!-- <div class="resize-both responsive center"><img src="./assets/Dairy_Innovation.webp" style="max-width: 100%">
-            </div> -->
-      <br>
       <span class="helvetica keep-all flow-text justify" [innerHTML]="billSummery?.story "></span>
       <br>
+      <button class="infinitile btn-medium">{{bill?.account?.twitter_account}}</button>
+      <br>
+      <br>
+      <a class="neon-text" target="_blank" [href]="bill?.govtrack_url">{{bill?.govtrack_url}}</a>
+    </div>
 
-      <button class="infinitile btn-medium">{{bill?.twitter_account}}</button>
-      <br>
-      <br>
-      <!-- <p class="neon-text">See HR2323 on GovTrack</p> -->
-      <p class="neon-text">{{bill?.govtrack_url}}</p>
-    </div>
-    <!-- <div class="half padded b-s-t black-b">
-            <div class="resize-both"><img src="./assets/Dairy_Innovation.webp"></div>
-          </div> -->
-    <div class="shine third padded b-s-t black-b">
-      <div class="resize-both responsive"><img src="sanitize(billSummery.image)"></div>
-      <br>
-      <button class="btn-full helvetica larger center">Health Profession Opportunity Grant</button>
-    </div>
-    <!-- three columns -->
-    <div class="shine third padded b-s-t black-b">
-      <div class="resize-both responsive"><img src="./assets/Sustainable_Aviation.png"></div>
-      <br>
-      <button class="btn-full helvetica larger center">Sustainable Aviation</button>
-    </div>
-    <div class="shine third padded b-s-t black-b">
-      <div class="resize-both responsive"><img src="./assets/Veteran_Loan_Extensions.webp"></div>
-      <br>
-      <button class="btn-full helvetica larger center">Veteran Loan Extensions</button>
-    </div>
-    <button class="heat fourth padded b-s-t black-b">
-      <p class="helvetica larger">Environment</p>
-    </button>
-    <!-- four columns -->
-    <button class="gathering fourth padded b-s-t black-b">
-      <p class="helvetica larger">Healthcare</p>
-    </button>
-    <button class="flood fourth padded b-s-t black-b">
-      <p class="helvetica larger">Infrastructure</p>
-    </button>
-    <button class="psychedelic fourth padded b-s-t black-b">
-      <p class="helvetica larger">Technology</p>
-    </button>
-    <div class="half padded b-s-t black-b">
-      <p class="helvetica larger">Multi-Cloud Computing</p>
-      <p>Congressman William Timmons has recently introduced a bill to the House Committee on Oversight and
-        Accountability that would promote the use of multi-cloud computing software technology in the Federal
-        Government. The goal of the bill is to increase innovation and efficiency in the government. The bill is
-        currently under review by the House Committee on Oversight and Accountability.</p>
-      <br>
-      <p class=" brutal-text fittext-compress float-right">12/6/2023</p>
-      <ul class="tags">Referred to the House Committee on Ways and Means.</ul>
-      <br>
-      <button class="infinitile btn-medium">X RepTimmons</button>
-      <br>
-      <br>
-      <p class="neon-text">See HR2323 on GovTrack</p>
-    </div>
-    <div class="half padded b-s-t black-b">
-      <p class="helvetica larger">Incarcerating Parents</p>
-      <p>Sen. Ron Wyden (D-OR) recently introduced a bill to Congress that aims to reduce the incarceration of
-        parents
-        of minor children, expectant parents, and other caregivers. The bill would divert these individuals from
-        incarceration and into comprehensive programs providing resources, services, and training to those
-        individuals
-        and their families. The bill has been read twice and referred to the Committee on the Judiciary. If passed,
-        the bill could lead to a decrease in the number of parents and caregivers who are incarcerated.</p>
-      <br>
-      <p class=" brutal-text fittext-compress float-right">12/6/2023</p>
-      <ul class="tags">Referred to the House Committee on Ways and Means.</ul>
-      <br>
-      <button class="infinitile btn-medium">X your mind</button>
-      <br>
-      <br>
-      <p class="neon-text">See HR2323 on GovTrack</p>
-    </div>
+    <app-content ></app-content>
   </div>
   <p class="spacer"></p>
   <p class="spacer"></p>
