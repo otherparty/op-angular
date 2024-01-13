@@ -4,19 +4,23 @@ import { MessageService } from './message.service';
 import { Observable, catchError, of, tap } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BillService {
+  // billsURL = 'http://localhost:9000/api/v1/stories';  // URL to web api
+  billsURL = `http://54.224.168.60:9000/api/v1/stories`;
 
-  billsURL = 'http://localhost:9000/api/v1/stories';  // URL to web api
-  
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
-
+    private messageService: MessageService
+  ) {}
 
   /** POST: add a new hero to the server */
-  getHeadLines(nLimit: number, nOffset: number, orderBy: string): Observable<any> {
+  getHeadLines(
+    nLimit: number,
+    nOffset: number,
+    orderBy: string
+  ): Observable<any> {
     return this.http.post(this.billsURL, { nLimit, nOffset }).pipe(
       tap((headlines) => this.log(`Got 10 headlines`)),
       catchError(this.handleError<any>('getHeadLines'))
@@ -25,11 +29,10 @@ export class BillService {
 
   /** POST: add a new hero to the server */
   getFullStory(_id: string): Observable<any> {
-    return this.http.post(`${this.billsURL}/full-story`, { _id }).pipe(
-      catchError(this.handleError<any>('getFullStory'))
-    );
+    return this.http
+      .post(`${this.billsURL}/full-story`, { _id })
+      .pipe(catchError(this.handleError<any>('getFullStory')));
   }
-
 
   /**
    * Handle Http operation that failed.
@@ -40,7 +43,6 @@ export class BillService {
    */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
 
@@ -57,5 +59,3 @@ export class BillService {
     this.messageService.add(`HeroService: ${message}`);
   }
 }
-
-
