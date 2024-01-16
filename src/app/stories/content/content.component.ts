@@ -102,4 +102,8 @@ export class ContentComponent implements OnInit {
     const url = `https://twitter.com/intent/tweet?screen_name=${username}&ref_src=twsrc%5Etfw`
     window.open(url, '_blank');
   }
+
+  changeRoute(id: string) {
+    window.location.href = `/story/${id}`;
+  }
 }
