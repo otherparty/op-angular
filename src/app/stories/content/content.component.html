@@ -9,7 +9,6 @@
       @for (bill of headLines; track bill.id) {
       <p class="spacer"></p>
       <button class="neon-text" (click)="changeRoute(bill._id)">{{ bill.headLine }}</button>
-      <p class="spacer"></p>
       }
     </div>
     } @else {
