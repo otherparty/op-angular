@@ -26,7 +26,11 @@
       <br>
       <span class="helvetica keep-all flow-text justify" [innerHTML]="billSummery?.story "></span>
       <br>
-      <button class="infinitile btn-medium">{{bill?.account?.twitter_account}}</button>
+      @if (bill?.account?.twitter_account) {
+        <button class="infinitile btn-medium" (click)="openTwitter(bill?.account?.twitter_account)">X
+          &#64;{{bill?.account?.twitter_account}}</button>
+        }
+
       <br>
       <br>
       <a class="neon-text" target="_blank" [href]="bill?.govtrack_url">{{bill?.govtrack_url}}</a>

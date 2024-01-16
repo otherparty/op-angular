@@ -46,4 +46,9 @@ export class FullStoryComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
+  openTwitter(username: string) {
+    const url = `https://twitter.com/intent/tweet?screen_name=${username}&ref_src=twsrc%5Etfw`
+    window.open(url, '_blank');
+  }
+
 }
