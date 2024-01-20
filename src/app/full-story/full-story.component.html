@@ -27,17 +27,21 @@
       <span class="helvetica keep-all flow-text justify" [innerHTML]="billSummery?.story "></span>
       <br>
       @if (bill?.account?.twitter_account) {
-        <button class="infinitile btn-medium" (click)="openTwitter(bill?.account?.twitter_account)">X
-          &#64;{{bill?.account?.twitter_account}}</button>
-        }
+      <button class="infinitile btn-medium" (click)="openTwitter(bill?.account?.twitter_account)">X
+        &#64;{{bill?.account?.twitter_account}}</button>
+      }
 
       <br>
       <br>
-      <a class="neon-text" target="_blank" [href]="bill?.govtrack_url">{{bill?.govtrack_url}}</a>
+      @if (bill?.govtrack_url) {
+      <button class="river-b sepia-bg small-btn neon-text" (click)="openGovTrack(bill?.govtrack_url)">Track
+        &#64;{{bill?.bill_slug}}</button>
+      }
+      <!-- <a class="neon-text" target="_blank" [href]="bill?.govtrack_url">{{bill?.govtrack_url}}</a> -->
     </div>
 
   </div>
-  <app-content ></app-content>
+  <app-content></app-content>
   <p class="spacer"></p>
   <p class="spacer"></p>
   <p class="spacer"></p>
