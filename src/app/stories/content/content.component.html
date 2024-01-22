@@ -1,48 +1,46 @@
-
-
 <div class="wrap-1600">
   <div class="flex flow-text lucida" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500"
-  (scrolled)="onScroll()">
-  <div class="half padded black-b b-a-f neon-text shine">
-    @if (headLines) {
-    <div class="ul">
-      @for (bill of headLines; track bill.id) {
-      <p class="spacer"></p>
-      <button class="neon-text" (click)="changeRoute(bill._id)">{{ bill.headLine }}</button>
+    (scrolled)="onScroll()">
+    <div class="half padded black-b b-a-f neon-text shine">
+      @if (headLines) {
+      <div class="ul">
+        @for (bill of headLines; track bill.id) {
+        <p class="spacer"></p>
+        <button class="glitchtext" (click)="changeRoute(bill._id)">{{ bill.headLine }}</button>
+        }
+      </div>
+      } @else {
+      <div class="ul">
+        <p class="neon-text">No Headlines</p>
+      </div>
       }
     </div>
-    } @else {
-    <div class="ul">
-      <p class="neon-text">No Headlines</p>
+
+    @if (stories) {
+    @for (story of stories; track $index && story._id) {
+    <div class="padded b-s-t black-b full" (click)="changeRoute(story._id)"
+      [ngClass]="$index === 0 ? 'half' : story.className" [routerLink]="['/story', story._id]">
+      <p class="impact larger">{{ story.headLine }}</p>
+      <p class="spacer"></p>
+      <span class="helvetica keep-all flow-text justify" [innerHTML]="story.story"></span>
+      <p class="spacer"></p>
+      @if (story.latest_major_action && story.latest_major_action_date) {
+      <p class="brutal-text smaller float-right">{{ story.latest_major_action_date }}</p>
+      <ul class="tags">
+        <li class="helvetica smaller"> {{ story.latest_major_action }}</li>
+      </ul>
+      }
+      <p class="spacer"></p>
+      @if (story?.account?.twitter_account) {
+      <button class="infinitile btn-medium" (click)="openTwitter(story?.account?.twitter_account)">X
+        &#64;{{story?.account?.twitter_account}}</button>
+      }
     </div>
     }
-  </div>
-  
-  @if (stories) {
-  @for (story of stories; track $index) {
-  <div class="padded b-s-t black-b full" [ngClass]="$index === 0 ? 'half' : story.className"
-    [routerLink]="['/story', story._id]">
-    <p class="impact larger">{{ story.headLine }}</p>
-    <p class="spacer"></p>
-    <span class="helvetica keep-all flow-text justify" [innerHTML]="story.story "></span>
-    <p class="spacer"></p>
-    @if (story.latest_major_action && story.latest_major_action_date) {
-    <p class="brutal-text smaller float-right">{{ story.latest_major_action_date }}</p>
-    <ul class="tags">
-      <li class="helvetica smaller"> {{ story.latest_major_action }}</li>
-    </ul>
+    } @else {
+    <p class="helvetica larger">No Stories</p>
     }
-    <p class="spacer"></p>
-    @if (story?.account?.twitter_account) {
-    <button class="infinitile btn-medium" (click)="openTwitter(story?.account?.twitter_account)">X
-      &#64;{{story?.account?.twitter_account}}</button>
-    }
-  </div>
-  }
-  } @else {
-  <p class="helvetica larger">No Stories</p>
-  }
-  
+
   </div>
   @if (isLoading) {
   <div class="brickbuild"></div>
