@@ -33,3 +33,20 @@ jobs:
       - name: Deploy
         if: success()
         run: aws s3 sync ./dist/browser s3://stag.otherparty.ai
+
+  invalidate:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.KEY }}
+          aws-secret-access-key: ${{ secrets.SECRET }}
+          aws-region: sa-east-1
+
+      - name: Create CloudFront Invalidation
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id E35L6PX7JFC2TF \
+            --paths "/*"
