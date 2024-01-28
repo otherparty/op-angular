@@ -1,11 +1,6 @@
 <div class="wrap-1600">
-  <div
-    class="flow-text lucida flex"
-    infinite-scroll
-    [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="500"
-    (scrolled)="onScroll()"
-  >
+  <div class="flow-text lucida flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500"
+    (scrolled)="onScroll()">
     <div class="half padded black-b b-a-f neon-text shine">
       @if (headLines) {
       <div class="ul">
@@ -24,26 +19,18 @@
     </div>
 
     @if (stories) { @for (story of stories; track $index && story._id) {
-    <div
-      class="padded b-s-t black-b full"
-      (click)="changeRoute(story._id)"
-      [ngClass]="$index === 0 ? 'half' : story.className"
-      [routerLink]="['/story', story._id]"
-    >
+    <div class="padded b-s-t black-b full" (click)="changeRoute(story._id)"
+      [ngClass]="$index === 0 ? 'half' : story.className" [routerLink]="['/story', story._id]">
       <p class="impact larger">{{ story.headLine }}</p>
       <p class="spacer"></p>
 
       @if(story.isImage) {
-      <img
-        class="resize-both responsive"
-        src="{{ story.image }}"
-        alt="{{ story.headLine }}"
-      />
+      <img class="resize-both responsive" src="{{ story.image }}" alt="{{ story.headLine }}" />
+      <p class="spacer"></p>
+      <span class="helvetica keep-all flow-text justify guard" [innerHTML]="story.story"></span>
+      <p class="helvetica keep-all flow-text justify guard"> {{story.summary}} </p>
       } @if(!story.isImage) {
-      <span
-        class="helvetica keep-all flow-text justify guard"
-        [innerHTML]="story.story"
-      ></span>
+      <span class="helvetica keep-all flow-text justify guard" [innerHTML]="story.story"></span>
       }
       <p class="spacer"></p>
       @if (story.latest_major_action && story.latest_major_action_date) {
@@ -56,10 +43,7 @@
       }
       <p class="spacer"></p>
       @if (story?.account?.twitter_account) {
-      <button
-        class="infinitile btn-medium"
-        (click)="openTwitter(story?.account?.twitter_account)"
-      >
+      <button class="infinitile btn-medium" (click)="openTwitter(story?.account?.twitter_account)">
         X &#64;{{story?.account?.twitter_account}}
       </button>
       }
