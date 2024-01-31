@@ -32,7 +32,7 @@ jobs:
 
       - name: Deploy
         if: success()
-        run: aws s3 sync ./dist/browser s3://otherparty.ai
+        run: aws s3 sync ./dist/browser s3://stag.otherparty.ai
 
   invalidate:
     runs-on: ubuntu-latest
