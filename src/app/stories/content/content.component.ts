@@ -53,6 +53,12 @@ export class ContentComponent implements OnInit {
           if (type) this.stories = response?.data?.stories.slice(5, 15);
           else this.stories = response?.data?.stories;
 
+
+          for (let i = 0; i < this.stories.length; i++) {
+            const story = this.stories[i];
+            story.isImage = Math.round(Math.random());
+          }
+
           const classes = ["half", "third", "full", "fourth"];
           this.stories = this.assignClassesToStories(this.stories, classes);
         },
@@ -69,6 +75,10 @@ export class ContentComponent implements OnInit {
       .getHeadLines(this.itemsPerPage, this.currentPage, "DESC")
       .subscribe({
         next: (response) => {
+          for (let i = 0; i < response?.data?.stories.length; i++) {
+            const story = response?.data?.stories[i];
+            story.isImage = Math.round(Math.random());
+          }
           this.stories = [...this.stories, ...response?.data?.stories];
           const classes = ["half", "third", "full", "fourth"];
           this.stories = this.assignClassesToStories(this.stories, classes);
@@ -109,11 +119,6 @@ export class ContentComponent implements OnInit {
       // Move to the next class index based on the rules
       currentIndex = (currentIndex + 1) % classes.length;
     }
-
-    for (let i = 0; i < array.length; i++) {
-      array[i].isImage = Math.round(Math.random());
-    }
-    console.log(array);
     return array;
   }
 
