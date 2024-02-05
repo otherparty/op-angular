@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - stag
 
 jobs:
   deploy:
@@ -31,7 +32,11 @@ jobs:
         run: npm run build:prod
 
       - name: Deploy
-        if: success()
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: aws s3 sync ./dist/browser s3://otherparty.ai
+
+      - name: Deploy Staging
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/stag'
         run: aws s3 sync ./dist/browser s3://stag.otherparty.ai
 
   invalidate:
@@ -45,7 +50,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.SECRET }}
           aws-region: sa-east-1
 
-      - name: Create CloudFront Invalidation
+      - name: Create CloudFront Invalidation staging
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/stag'   
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id E1EA02UAUYUUZV \
+            --paths "/*"
+
+      - name: Create CloudFront Invalidation Production
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           aws cloudfront create-invalidation \
             --distribution-id E35L6PX7JFC2TF \
