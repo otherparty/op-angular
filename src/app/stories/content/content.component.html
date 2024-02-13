@@ -29,7 +29,7 @@
       <p class="spacer"></p>
       <span class="helvetica keep-all flow-text justify guard" [innerHTML]="story.summary"></span>
       } @if(!story.isImage) {
-      <span class="helvetica keep-all chop-16 flow-text justify guard" [innerHTML]="story.story"></span>
+      <span class="helvetica keep-all flow-text justify guard" [innerHTML]="story.story"></span>
       }
       <p class="spacer"></p>
       @if (story.latest_major_action && story.latest_major_action_date) {
@@ -37,7 +37,7 @@
         {{ story.latest_major_action_date }}
       </p>
       <ul class="tags">
-        <li class="helvetica smaller">{{ story.latest_major_action }}</li>
+        <li class="helvetica smaller chop-8">{{ story.latest_major_action }}</li>
       </ul>
       }
       <p class="spacer"></p>
