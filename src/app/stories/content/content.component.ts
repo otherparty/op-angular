@@ -8,6 +8,7 @@ import { DividerComponent } from "../../divider/divider.component";
 import { FooterComponent } from "../../footer/footer.component";
 import { NavbarComponent } from "../../navbar/navbar.component";
 import { TitleComponent } from "../../title/title.component";
+
 @Component({
   selector: "app-content",
   standalone: true,
@@ -25,6 +26,7 @@ import { TitleComponent } from "../../title/title.component";
   ],
   templateUrl: "./content.component.html",
   styleUrl: "./content.component.scss",
+
 })
 export class ContentComponent implements OnInit {
   public stories: any;
@@ -57,7 +59,9 @@ export class ContentComponent implements OnInit {
           for (let i = 0; i < this.stories.length; i++) {
             const story = this.stories[i];
             story.isImage = Math.round(Math.random());
-          }
+            story.cSummery = this.truncate(story.summary, story.isImage ? 10 :100);
+            story.cStory = this.truncate(story.story, story.isImage ? 10 : 100);
+          }          
 
           const classes = ["half", "third", "full", "fourth"];
           this.stories = this.assignClassesToStories(this.stories, classes);
@@ -78,6 +82,8 @@ export class ContentComponent implements OnInit {
           for (let i = 0; i < response?.data?.stories.length; i++) {
             const story = response?.data?.stories[i];
             story.isImage = Math.round(Math.random());
+            story.cSummery = this.truncate(story.summary, story.isImage ? 10 :100);
+            story.cStory = this.truncate(story.story, story.isImage ? 10 : 100);
           }
           this.stories = [...this.stories, ...response?.data?.stories];
           const classes = ["half", "third", "full", "fourth"];
@@ -88,6 +94,15 @@ export class ContentComponent implements OnInit {
       });
   };
 
+  truncate(value: string, limit: number): string {
+    const words = value?.split(' ');
+    if (words?.length > limit) {
+      return words?.slice(0, limit).join(' ') + '...';
+    } else {
+      return value;
+    }
+  }
+
   onScroll = () => {
     this.currentPage++;
     this.appendData();
@@ -96,7 +111,7 @@ export class ContentComponent implements OnInit {
   assignClassesToStories(array: any, classes: any) {
     let currentIndex = 0;
 
-    for (let i = 1; i < array.length; ) {
+    for (let i = 1; i < array.length;) {
       const currentClass = classes[currentIndex];
       let increment = 0;
 
