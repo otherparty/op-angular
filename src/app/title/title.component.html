@@ -13,9 +13,9 @@
 			class="bi bi-microscope bi-2x"></i></label>
 	<div class="toggle-content">
 		<div class="bitstream flex">
-			<form class="grey-t">
+			<form class="grey-t" [formGroup]="searchForm">
 				<div class="form-group">
-					<input type="text" name="search" placeholder="Search for...">
+					<input formControlName="search" type="text" name="search" placeholder="Search for...">
 				</div>
 			</form>
 		</div>

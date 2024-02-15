@@ -7,13 +7,13 @@ import { Observable, catchError, of, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class BillService {
-  // billsURL = 'http://localhost:9000/api/v1/stories';  // URL to web api
-  billsURL = `https://backend.otherparty.ai/api/v1/stories`;
+  billsURL = 'http://localhost:9000/api/v1/stories';  // URL to web api
+  // billsURL = `https://backend.otherparty.ai/api/v1/stories`;
 
   constructor(
     private http: HttpClient,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   /** POST: add a new hero to the server */
   getHeadLines(
@@ -32,6 +32,13 @@ export class BillService {
     return this.http
       .post(`${this.billsURL}/full-story`, { _id })
       .pipe(catchError(this.handleError<any>('getFullStory')));
+  }
+
+  /** POST: add a new hero to the server */
+  searchBill(search: string): Observable<any> {
+    return this.http
+      .get(`${this.billsURL}/${search}`)
+      .pipe(catchError(this.handleError<any>('searchBill')));
   }
 
   /**

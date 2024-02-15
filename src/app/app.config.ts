@@ -3,7 +3,9 @@ import { provideRouter, withInMemoryScrolling } from '@angular/router';
 
 import { routes } from './app.routes';
 import { HttpClientModule } from '@angular/common/http';
-import { provideClientHydration } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,7 +16,7 @@ export const appConfig: ApplicationConfig = {
         anchorScrolling: 'enabled',
       })
     ),
-    importProvidersFrom(HttpClientModule),
+    importProvidersFrom(HttpClientModule, FormBuilder,BrowserModule, FormGroup, FormsModule, ReactiveFormsModule, CommonModule),
     provideClientHydration(),
   ],
 };
