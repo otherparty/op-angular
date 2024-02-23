@@ -1,15 +1,16 @@
-import { NgClass, NgFor, NgIf } from "@angular/common";
-import { HttpClientModule } from "@angular/common/http";
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { InfiniteScrollModule } from "ngx-infinite-scroll";
-import { RouterModule } from "@angular/router";
-import { BillService } from "../../../services/bill.service";
-import { DividerComponent } from "../../divider/divider.component";
-import { FooterComponent } from "../../footer/footer.component";
-import { NavbarComponent } from "../../navbar/navbar.component";
-import { TitleComponent } from "../../title/title.component";
+import { NgClass, NgFor, NgIf } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { RouterModule } from '@angular/router';
+import { BillService } from '../../../services/bill.service';
+import { DividerComponent } from '../../divider/divider.component';
+import { FooterComponent } from '../../footer/footer.component';
+import { NavbarComponent } from '../../navbar/navbar.component';
+import { TitleComponent } from '../../title/title.component';
+
 @Component({
-  selector: "app-content",
+  selector: 'app-content',
   standalone: true,
   imports: [
     HttpClientModule,
@@ -23,8 +24,8 @@ import { TitleComponent } from "../../title/title.component";
     DividerComponent,
     FooterComponent,
   ],
-  templateUrl: "./content.component.html",
-  styleUrl: "./content.component.scss",
+  templateUrl: './content.component.html',
+  styleUrl: './content.component.scss',
 })
 export class ContentComponent implements OnInit {
   public stories: any;
@@ -40,26 +41,30 @@ export class ContentComponent implements OnInit {
   constructor(private headLineService: BillService) {}
 
   ngOnInit() {
-    this.loadData("init");
+    this.loadData('init');
   }
 
   public loadData = (type?: string) => {
     this.toggleLoading();
     this.headLineService
-      .getHeadLines(this.itemsPerPage, this.currentPage, "DESC")
+      .getHeadLines(this.itemsPerPage, this.currentPage, 'DESC')
       .subscribe({
         next: (response) => {
           if (type) this.headLines = response?.data?.stories.slice(0, 5);
           if (type) this.stories = response?.data?.stories.slice(5, 15);
           else this.stories = response?.data?.stories;
 
-
           for (let i = 0; i < this.stories.length; i++) {
             const story = this.stories[i];
             story.isImage = Math.round(Math.random());
+            story.cSummery = this.truncate(
+              story.summary,
+              story.isImage ? 10 : 100
+            );
+            story.cStory = this.truncate(story.story, story.isImage ? 10 : 100);
           }
 
-          const classes = ["half", "third", "full", "fourth"];
+          const classes = ['half', 'third', 'full', 'fourth'];
           this.stories = this.assignClassesToStories(this.stories, classes);
         },
         error: (err) => console.log(err),
@@ -72,21 +77,35 @@ export class ContentComponent implements OnInit {
   appendData = () => {
     this.toggleLoading();
     this.headLineService
-      .getHeadLines(this.itemsPerPage, this.currentPage, "DESC")
+      .getHeadLines(this.itemsPerPage, this.currentPage, 'DESC')
       .subscribe({
         next: (response) => {
           for (let i = 0; i < response?.data?.stories.length; i++) {
             const story = response?.data?.stories[i];
             story.isImage = Math.round(Math.random());
+            story.cSummery = this.truncate(
+              story.summary,
+              story.isImage ? 10 : 100
+            );
+            story.cStory = this.truncate(story.story, story.isImage ? 10 : 100);
           }
           this.stories = [...this.stories, ...response?.data?.stories];
-          const classes = ["half", "third", "full", "fourth"];
+          const classes = ['half', 'third', 'full', 'fourth'];
           this.stories = this.assignClassesToStories(this.stories, classes);
         },
         error: (err) => console.log(err),
         complete: () => this.toggleLoading(),
       });
   };
+
+  truncate(value: string, limit: number): string {
+    const words = value?.split(' ');
+    if (words?.length > limit) {
+      return words?.slice(0, limit).join(' ') + '...';
+    } else {
+      return value;
+    }
+  }
 
   onScroll = () => {
     this.currentPage++;
@@ -100,13 +119,13 @@ export class ContentComponent implements OnInit {
       const currentClass = classes[currentIndex];
       let increment = 0;
 
-      if (currentClass === "third") {
+      if (currentClass === 'third') {
         increment = 3; // For 'third' class, assign to 3 consecutive elements
-      } else if (currentClass === "half") {
+      } else if (currentClass === 'half') {
         increment = 2; // For other classes, assign to 1 element
-      } else if (currentClass === "full") {
+      } else if (currentClass === 'full') {
         increment = 1;
-      } else if (currentClass === "fourth") {
+      } else if (currentClass === 'fourth') {
         increment = 4;
       }
 
@@ -124,7 +143,7 @@ export class ContentComponent implements OnInit {
 
   openTwitter(username: string) {
     const url = `https://twitter.com/intent/tweet?screen_name=${username}&ref_src=twsrc%5Etfw`;
-    window.open(url, "_blank");
+    window.open(url, '_blank');
   }
 
   changeRoute(id: string) {

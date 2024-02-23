@@ -28,10 +28,17 @@ export class BillService {
   }
 
   /** POST: add a new hero to the server */
-  getFullStory(_id: string): Observable<any> {
+  getFullStory(bill_id: string): Observable<any> {
     return this.http
-      .post(`${this.billsURL}/full-story`, { _id })
+      .post(`${this.billsURL}/full-story`, { bill_id })
       .pipe(catchError(this.handleError<any>('getFullStory')));
+  }
+
+  /** POST: add a new hero to the server */
+  searchBill(search: string): Observable<any> {
+    return this.http
+      .get(`${this.billsURL}/${search}`)
+      .pipe(catchError(this.handleError<any>('searchBill')));
   }
 
   /**

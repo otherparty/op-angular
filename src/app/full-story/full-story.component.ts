@@ -44,6 +44,7 @@ export class FullStoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
+      console.log(params);
       this._id = params['id'];
     });
 
