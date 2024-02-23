@@ -7,7 +7,7 @@ import { Observable, catchError, of, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class BillService {
-  // billsURL = 'http://localhost:9000/api/v1/stories'; // URL to wes
+  // billsURL = 'http://localhost:9000/api/v1/stories';  // URL to web api
   billsURL = `https://backend.otherparty.ai/api/v1/stories`;
 
   constructor(

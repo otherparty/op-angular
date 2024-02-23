@@ -7,7 +7,11 @@
       <div class="ul">
         @for (bill of headLines; track bill.id) {
         <p class="spacer"></p>
+<<<<<<< HEAD
         <button class="glitchtext" (click)="changeRoute(bill.bill_id)">
+=======
+        <button class="glitchtext left-align" (click)="changeRoute(bill._id)">
+>>>>>>> a5f1dd9e60ed9ba86d8122b6455beb744e0723ab
           {{ bill.headLine }}
         </button>
         }
@@ -37,8 +41,12 @@
       <p class="brutal-text smaller float-right">
         {{ story.latest_major_action_date }}
       </p>
-      <ul class="tags">
-        <li class="helvetica smaller chop-8">{{ story.latest_major_action }}</li>
+      <ul class="tags ">
+        <li class="helvetica smaller">
+          <blockquote class="helvetica justify">
+            {{ story.latest_major_action }}
+          </blockquote>
+        </li>
       </ul>
       }
       <p class="spacer"></p>

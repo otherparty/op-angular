@@ -6,17 +6,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { provideStore } from '@ngrx/store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(
-      routes,
-      withInMemoryScrolling({
+    provideRouter(routes, withInMemoryScrolling({
         scrollPositionRestoration: 'enabled',
         anchorScrolling: 'enabled',
-      })
-    ),
-    importProvidersFrom(HttpClientModule, FormBuilder,BrowserModule, FormGroup, FormsModule, ReactiveFormsModule, CommonModule),
+    })),
+    importProvidersFrom(HttpClientModule, FormBuilder, BrowserModule, FormGroup, FormsModule, ReactiveFormsModule, CommonModule),
     provideClientHydration(),
-  ],
+    provideStore()
+],
 };
