@@ -135,7 +135,11 @@ ul.tree-list ul { padding: 0 0 0 1.2em; margin: 0; list-style-type: none; }
 
 /* REVEAL (toggle) */
 .reveal.toggle { margin-bottom: 1.2rem 0;}
+
+.reveal.toggle input[type='vectorsearch'].toggle { display: none; }
+
 .reveal.toggle input[type='checkbox'].toggle { display: none; }
+
 .label-toggle {
   display: block;
   padding: 0.75rem;
@@ -346,8 +350,24 @@ form .form-group { display: block; margin-top: 0.75em; margin-bottom: 0.75em; }
 form input[type="text"], form input[type="email"], form input[type="tel"], form input[type="url"], form input[type="number"], form input[type="password"] { 
 	padding: 0.4em; margin: 0.25em; display: block; width: 98.5%; 
 }
-form input[type="checkbox"] { width: 1.5em; height: 1.5em; margin: 0.25em; }
+form input[type="vectorsearch"] { width: 1.5em; height: 1.5em; margin: 0.25em; }
+
+/* form input[type="checkbox"] { width: 1.5em; height: 1.5em; margin: 0.25em; } */
+
+form input[type="checkbox"] {
+  width: 60%; /* Default to a wider width */
+  height: 1.5em;
+  margin: 0.25em;
+}
+
+@media (max-width: 768px) {
+  form input[type="checkbox"] {
+    width: 80%; /* Take up more width on smaller screens */
+  }
+}
+
 form input[type="radio"] { width: 1.5em; height: 1.5em; margin: 0.25em; }
+label.radio, label.vectorsearch { line-height: 1.5em; font-size: 1.1em; margin: 0.25em; }
 label.radio, label.checkbox { line-height: 1.5em; font-size: 1.1em; margin: 0.25em; }
 form select { width: 98.5%; padding: 0.4em; margin: 0.25em; }
 form select option { background: #ccc; color: #333; font-size: 1.35em;}
