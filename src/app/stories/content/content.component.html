@@ -2,16 +2,11 @@
   <div class="flow-text lucida flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500"
     (scrolled)="onScroll()">
     <div class="half padded black-b b-a-f neon-text shine">
-      <!-- <input formControlName="search" type="text" name="search" placeholder="Search for..." class="larger lucida b-b-f"> -->
       @if (headLines) {
       <div class="ul">
         @for (bill of headLines; track bill.id) {
         <p class="spacer"></p>
-<<<<<<< HEAD
-        <button class="glitchtext" (click)="changeRoute(bill.bill_id)">
-=======
-        <button class="glitchtext left-align" (click)="changeRoute(bill._id)">
->>>>>>> a5f1dd9e60ed9ba86d8122b6455beb744e0723ab
+        <button class="glitchtext left-align" (click)="changeRoute(bill.bill_id)">
           {{ bill.headLine }}
         </button>
         }
@@ -23,7 +18,7 @@
       }
     </div>
 
-    @if (stories) { @for (story of stories; track $index && story._id) {
+    @if (stories) { @for (story of stories; track $index && story.bill_id) {
     <div class="padded b-s-t black-b full" (click)="changeRoute(story.bill_id)"
       [ngClass]="$index === 0 ? 'half' : story.className" [routerLink]="['/story', story.bill_id]">
       <p class="impact larger">{{ story.headLine }}</p>
