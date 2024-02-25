@@ -147,6 +147,6 @@ export class ContentComponent implements OnInit {
   }
 
   changeRoute(id: string) {
-    window.location.href = `/story/${id}`;
+    window.open(`/story/${id}`, '_blank');
   }
 }
