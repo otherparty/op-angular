@@ -2,6 +2,20 @@
   <div class="flow-text lucida flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500"
     (scrolled)="onScroll()">
     <div class="half padded black-b b-a-f neon-text shine">
+
+      <div class="bitstream flex">
+        <form class="grey-t" [formGroup]="searchForm">
+          <div class="form-group">
+            <input formControlName="search" type="text" name="search" placeholder="Search for...">
+          </div>
+        </form>
+      </div>
+
+      @if (isSearching) {
+        <p class="shine bouncy">Searching...</p>
+        <p class="spacer"></p>
+      }
+
       @if (headLines) {
       <div class="ul">
         @for (bill of headLines; track bill.id) {

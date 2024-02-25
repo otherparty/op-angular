@@ -8,6 +8,9 @@ import { DividerComponent } from '../../divider/divider.component';
 import { FooterComponent } from '../../footer/footer.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { TitleComponent } from '../../title/title.component';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-content',
@@ -23,6 +26,7 @@ import { TitleComponent } from '../../title/title.component';
     TitleComponent,
     DividerComponent,
     FooterComponent,
+    ReactiveFormsModule,
   ],
   templateUrl: './content.component.html',
   styleUrl: './content.component.scss',
@@ -31,14 +35,36 @@ export class ContentComponent implements OnInit {
   public stories: any;
   public headLines: any;
   public isLoading: any;
+  public isSearching: any;
+  public oldHeadlines: any
   throttle = 300;
   scrollDistance = 1;
   scrollUpDistance = 2;
 
   currentPage: number = 0;
   itemsPerPage: number = 15;
+  searchForm: FormGroup;
 
-  constructor(private headLineService: BillService) {}
+  constructor(private headLineService: BillService, private formBuilder: FormBuilder) {
+
+    this.searchForm = this.formBuilder.group({
+      search: ['']
+    });
+
+    if (this.searchForm && this.searchForm.get('search')?.valueChanges) {
+      (this.searchForm.get('search') as FormControl)?.valueChanges
+        .pipe(
+          tap(() => {
+            this.isSearching = true;
+          }),
+          debounceTime(500),
+          distinctUntilChanged()
+        )
+        .subscribe((value: any) => {
+          this.search(value);
+        });
+    }
+  }
 
   ngOnInit() {
     this.loadData('init');
@@ -53,6 +79,8 @@ export class ContentComponent implements OnInit {
           if (type) this.headLines = response?.data?.stories.slice(0, 5);
           if (type) this.stories = response?.data?.stories.slice(5, 15);
           else this.stories = response?.data?.stories;
+
+          this.oldHeadlines = this.headLines;
 
           for (let i = 0; i < this.stories.length; i++) {
             const story = this.stories[i];
@@ -92,6 +120,8 @@ export class ContentComponent implements OnInit {
           this.stories = [...this.stories, ...response?.data?.stories];
           const classes = ['half', 'third', 'full', 'fourth'];
           this.stories = this.assignClassesToStories(this.stories, classes);
+
+          this.oldHeadlines = this.headLines;
         },
         error: (err) => console.log(err),
         complete: () => this.toggleLoading(),
@@ -115,7 +145,7 @@ export class ContentComponent implements OnInit {
   assignClassesToStories(array: any, classes: any) {
     let currentIndex = 0;
 
-    for (let i = 1; i < array.length; ) {
+    for (let i = 1; i < array.length;) {
       const currentClass = classes[currentIndex];
       let increment = 0;
 
@@ -148,5 +178,18 @@ export class ContentComponent implements OnInit {
 
   changeRoute(id: string) {
     window.open(`/story/${id}`, '_blank');
+  }
+
+  search(query: string) {
+    if (!query) {
+      this.isSearching = false;
+      this.headLines = this.oldHeadlines;
+    } else {
+      this.headLineService.searchBill(query).subscribe((response) => {
+        const searchResults = response?.data;
+        this.isSearching = false;
+        this.headLines = searchResults.slice(0, 7);
+      })
+    }
   }
 }
