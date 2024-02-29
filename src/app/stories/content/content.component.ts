@@ -177,7 +177,8 @@ export class ContentComponent implements OnInit {
   }
 
   changeRoute(id: string) {
-    window.open(`/story/${id}`, '_blank');
+    // window.open(`/story/${id}`);
+    window.location.href = `/story/${id}`;
   }
 
   search(query: string) {

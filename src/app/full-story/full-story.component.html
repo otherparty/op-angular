@@ -46,6 +46,39 @@
   <p class="spacer"></p>
   <p class="spacer"></p>
 </div>
+} @else {
+
+<div class="wrap-1600 table-responsive">
+
+  <div class="flex flow-text lucida">
+    <!-- two columns -->
+    <div class="half padded evenly infinitile">
+      <!-- <p class="helvetica larger">Dairy Innovation</p> -->
+      <div class="resize-both responsive"><img [src]="sanitize(fallbackImage)" style="max-height: 80%" sanitize>
+      </div>
+      <p class="spacer"></p>
+    </div>
+    <div class="half padded">
+      <p class="helvetica larger">Encountering a 404 Error: "Bill Not Found"</p>
+      <br>
+      <span class="helvetica keep-all flow-text justify">
+         we realize we've delved into uncharted legislative realms. Our robotic allies are diligently scouring for answers. In the interim, let's retreat to familiar ground. Home beckons, offering respite amidst uncertainty. As we await resolution, let's regroup, recharge, and strategize our next steps. Together, we'll navigate this unfamiliar terrain with caution and resolve. Our journey may be unpredictable, but with perseverance and collaboration, we'll overcome any obstacle that stands in our path.
+      </span>
+      <p class="spacer"></p>
+      <p class="spacer"></p>
+      <p class="spacer"></p>
+      <button class="flood btn-medium bitshadow" (click)="fallbackHome()">
+        Go Back Home</button>
+      <br>
+      <br>
+    </div>
+
+  </div>
+  <app-content></app-content>
+  <p class="spacer"></p>
+  <p class="spacer"></p>
+  <p class="spacer"></p>
+</div>
 }
 
 
