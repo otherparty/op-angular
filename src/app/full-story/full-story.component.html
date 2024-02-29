@@ -46,8 +46,9 @@
   <p class="spacer"></p>
   <p class="spacer"></p>
 </div>
-} @else {
+} 
 
+@if(isError) {
 <div class="wrap-1600 table-responsive">
 
   <div class="flex flow-text lucida">
@@ -79,6 +80,12 @@
   <p class="spacer"></p>
   <p class="spacer"></p>
 </div>
+}
+
+@if (isLoading) {
+  <p class="spacer"></p>
+  <p class="spacer"></p>
+  Loading....
 }
 
 

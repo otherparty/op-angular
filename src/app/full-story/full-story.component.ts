@@ -1,6 +1,6 @@
 import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { BillService } from '../../services/bill.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
@@ -36,26 +36,40 @@ export class FullStoryComponent implements OnInit {
   public bill: any;
   public billSummery: any;
   public fallbackImage = "https://other-party-images.s3.amazonaws.com/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png"
+  public isLoading: any;
+  public isError: any = false;
 
   constructor(
     private billService: BillService,
     private route: ActivatedRoute,
     public router: Router,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      console.log(params);
       this._id = params['id'];
-    });
 
-    if (this._id) {
-      this.billService.getFullStory(this._id).subscribe((data) => {
-        this.bill = data.data.bill;
-        this.billSummery = data.data.billSummery;
-      });
-    }
+      if (this._id) {
+        this.isLoading = true;
+        this.billService.getFullStory(this._id).subscribe((data) => {
+          if(!data) {
+            this.isLoading = false;
+            this.isError = true;
+            return;
+          } else {
+            this.bill = data.data.bill;
+            this.billSummery = data.data.billSummery;
+            this.isLoading = false;
+            this.isError = false;
+          }
+        }, error => {
+          this.isLoading = false;
+          this.isError = true;
+        });
+      }
+    });
   }
 
   sanitize(url: string) {

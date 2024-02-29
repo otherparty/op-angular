@@ -1,8 +1,8 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { BillService } from '../../../services/bill.service';
 import { DividerComponent } from '../../divider/divider.component';
 import { FooterComponent } from '../../footer/footer.component';
@@ -45,7 +45,9 @@ export class ContentComponent implements OnInit {
   itemsPerPage: number = 15;
   searchForm: FormGroup;
 
-  constructor(private headLineService: BillService, private formBuilder: FormBuilder) {
+  constructor(private headLineService: BillService, private formBuilder: FormBuilder, 
+    private router: Router,
+    private cdr: ChangeDetectorRef) {
 
     this.searchForm = this.formBuilder.group({
       search: ['']
@@ -94,6 +96,16 @@ export class ContentComponent implements OnInit {
 
           const classes = ['half', 'third', 'full', 'fourth'];
           this.stories = this.assignClassesToStories(this.stories, classes);
+
+
+          /**
+           * Restore search results
+           */
+          const searchString = sessionStorage.getItem('search');
+          if (searchString) {
+            this.search(searchString);
+          }
+
         },
         error: (err) => console.log(err),
         complete: () => this.toggleLoading(),
@@ -118,7 +130,7 @@ export class ContentComponent implements OnInit {
             story.cStory = this.truncate(story.story, story.isImage ? 10 : 100);
           }
           this.stories = [...this.stories, ...response?.data?.stories];
-          const classes = ['half', 'third', 'full', 'fourth'];
+          const classes = ['half', 'third', 'full'];
           this.stories = this.assignClassesToStories(this.stories, classes);
 
           this.oldHeadlines = this.headLines;
@@ -178,7 +190,9 @@ export class ContentComponent implements OnInit {
 
   changeRoute(id: string) {
     // window.open(`/story/${id}`);
-    window.location.href = `/story/${id}`;
+    this.router.navigate([`/story/${id}`]);
+    this.cdr.detectChanges();
+    // window.location.href = `/story/${id}`;
   }
 
   search(query: string) {
@@ -186,10 +200,12 @@ export class ContentComponent implements OnInit {
       this.isSearching = false;
       this.headLines = this.oldHeadlines;
     } else {
+      sessionStorage.setItem('search', query);
       this.headLineService.searchBill(query).subscribe((response) => {
         const searchResults = response?.data;
         this.isSearching = false;
         this.headLines = searchResults.slice(0, 7);
+        this.cdr.detectChanges();
       })
     }
   }
