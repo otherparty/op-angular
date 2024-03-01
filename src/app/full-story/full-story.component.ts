@@ -35,7 +35,7 @@ export class FullStoryComponent implements OnInit {
   public _id: any;
   public bill: any;
   public billSummery: any;
-  public fallbackImage = "https://other-party-images.s3.amazonaws.com/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png"
+  public fallbackImage = "https://d2646mjd05vkml.cloudfront.net/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png"
   public isLoading: any;
   public isError: any = false;
 
@@ -62,7 +62,12 @@ export class FullStoryComponent implements OnInit {
             this.bill = data.data.bill;
             this.billSummery = data.data.billSummery;
 
-            this.billSummery.image = this.billSummery.image || this.fallbackImage;
+            if(this.billSummery.image) {
+              this.billSummery.image = this.billSummery.image.replace('https://other-party-images.s3.amazonaws.com', 'https://d2646mjd05vkml.cloudfront.net');
+
+            } else { 
+              this.billSummery.image || this.fallbackImage 
+            }
 
             this.isLoading = false;
             this.isError = false;

@@ -44,7 +44,7 @@ export class ContentComponent implements OnInit {
   currentPage: number = 0;
   itemsPerPage: number = 15;
   searchForm: FormGroup;
-  public fallbackImage = "https://other-party-images.s3.amazonaws.com/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png"
+  public fallbackImage = "https://d2646mjd05vkml.cloudfront.net/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png"
 
 
   constructor(private headLineService: BillService, private formBuilder: FormBuilder, 
@@ -88,7 +88,12 @@ export class ContentComponent implements OnInit {
 
           for (let i = 0; i < this.stories.length; i++) {
             const story = this.stories[i];
-            story.image = story.image || this.fallbackImage;
+            if(story.image) {
+
+              story.image = story.image.replace('https://other-party-images.s3.amazonaws.com', 'https://d2646mjd05vkml.cloudfront.net');
+            } else {
+              story.image = this.fallbackImage;
+            }
             story.isImage = Math.round(Math.random());
             story.cSummery = this.truncate(
               story.summary,
