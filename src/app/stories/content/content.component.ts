@@ -44,6 +44,8 @@ export class ContentComponent implements OnInit {
   currentPage: number = 0;
   itemsPerPage: number = 15;
   searchForm: FormGroup;
+  public fallbackImage = "https://other-party-images.s3.amazonaws.com/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png"
+
 
   constructor(private headLineService: BillService, private formBuilder: FormBuilder, 
     private router: Router,
