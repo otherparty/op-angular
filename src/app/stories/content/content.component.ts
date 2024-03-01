@@ -89,7 +89,6 @@ export class ContentComponent implements OnInit {
           for (let i = 0; i < this.stories.length; i++) {
             const story = this.stories[i];
             if(story.image) {
-
               story.image = story.image.replace('https://other-party-images.s3.amazonaws.com', 'https://d2646mjd05vkml.cloudfront.net');
             } else {
               story.image = this.fallbackImage;
@@ -130,6 +129,13 @@ export class ContentComponent implements OnInit {
         next: (response) => {
           for (let i = 0; i < response?.data?.stories.length; i++) {
             const story = response?.data?.stories[i];
+
+            if(story.image) {
+              story.image = story.image.replace('https://other-party-images.s3.amazonaws.com', 'https://d2646mjd05vkml.cloudfront.net');
+            } else {
+              story.image = this.fallbackImage;
+            }
+            
             story.isImage = Math.round(Math.random());
             story.cSummery = this.truncate(
               story.summary,
