@@ -88,6 +88,7 @@ export class ContentComponent implements OnInit {
 
           for (let i = 0; i < this.stories.length; i++) {
             const story = this.stories[i];
+            story.image = story.image || this.fallbackImage;
             story.isImage = Math.round(Math.random());
             story.cSummery = this.truncate(
               story.summary,
@@ -191,10 +192,8 @@ export class ContentComponent implements OnInit {
   }
 
   changeRoute(id: string) {
-    // window.open(`/story/${id}`);
     this.router.navigate([`/story/${id}`]);
     this.cdr.detectChanges();
-    // window.location.href = `/story/${id}`;
   }
 
   search(query: string) {
@@ -210,5 +209,9 @@ export class ContentComponent implements OnInit {
         this.cdr.detectChanges();
       })
     }
+  }
+
+  onImgError(event: any) {
+    event.target.src = this.fallbackImage;
   }
 }

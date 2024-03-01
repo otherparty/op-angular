@@ -61,6 +61,9 @@ export class FullStoryComponent implements OnInit {
           } else {
             this.bill = data.data.bill;
             this.billSummery = data.data.billSummery;
+
+            this.billSummery.image = this.billSummery.image || this.fallbackImage;
+
             this.isLoading = false;
             this.isError = false;
           }

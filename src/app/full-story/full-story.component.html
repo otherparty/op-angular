@@ -13,7 +13,7 @@
     <!-- two columns -->
     <div class="half padded evenly infinitile">
       <!-- <p class="helvetica larger">Dairy Innovation</p> -->
-      <div class="resize-both responsive"><img [src]="sanitize(billSummery.image)" style="max-height: 80%" sanitize onerror="this.src=fallbackImage;">
+      <div class="resize-both responsive"><img [src]="sanitize(billSummery.image)" style="max-height: 80%" sanitize>
       </div>
       <br>
       <p class="brutal-text fittext-compress float-right">{{ bill.latest_major_action_date | date}}</p>

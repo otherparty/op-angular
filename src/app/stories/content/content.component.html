@@ -39,7 +39,7 @@
       <p class="spacer"></p>
 
       @if(story.isImage) {
-      <img class="resize-both responsive" src="{{ story.image }}" alt="{{ story.headLine }}" onerror="this.src=fallbackImage;" />
+      <img class="resize-both responsive" src="{{ story.image }}" alt="{{ story.headLine }}" />
       <p class="spacer"></p>
       <span class="helvetica keep-all flow-text justify guard" [innerHTML]="story.cSummery"></span>
       } @if(!story.isImage) {
