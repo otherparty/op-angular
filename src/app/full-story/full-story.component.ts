@@ -61,6 +61,9 @@ export class FullStoryComponent implements OnInit {
           } else {
             this.bill = data.data.bill;
             this.billSummery = data.data.billSummery;
+            this.bill.twitterText = `${this.billSummery.headLine} \n
+            \nRead more: https://www.otherparty.com/story/${this.bill.bill_id}
+            `;
 
             if(this.billSummery.image) {
               this.billSummery.image = this.billSummery.image.replace('https://other-party-images.s3.amazonaws.com', 'https://d2646mjd05vkml.cloudfront.net');

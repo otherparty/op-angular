@@ -20,6 +20,16 @@
       <ul class="tags">
         <li>{{ bill.latest_major_action }}</li>
       </ul>
+      <ul class="tags">
+        <li>
+          <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{bill.twitterText}}" target="_blank">
+            <i class="bi bi-apple"></i> </a>
+          &nbsp;
+          <a href="">
+            <i class="bi bi-avocado"></i>
+          </a>
+        </li>
+      </ul>
     </div>
     <div class="half padded">
       <p class="helvetica larger">{{billSummery?.headLine}}</p>
@@ -46,7 +56,7 @@
   <p class="spacer"></p>
   <p class="spacer"></p>
 </div>
-} 
+}
 
 @if(isError) {
 <div class="wrap-1600 table-responsive">
@@ -55,7 +65,7 @@
     <!-- two columns -->
     <div class="half padded evenly infinitile">
       <!-- <p class="helvetica larger">Dairy Innovation</p> -->
-      <div class="resize-both responsive"><img [src]="sanitize(fallbackImage)" style="max-height: 80%" sanitize> 
+      <div class="resize-both responsive"><img [src]="sanitize(fallbackImage)" style="max-height: 80%" sanitize>
       </div>
       <p class="spacer"></p>
     </div>
@@ -63,7 +73,11 @@
       <p class="helvetica larger">Encountering a 404 Error: "Bill Not Found"</p>
       <br>
       <span class="helvetica keep-all flow-text justify">
-         we realize we've delved into uncharted legislative realms. Our robotic allies are diligently scouring for answers. In the interim, let's retreat to familiar ground. Home beckons, offering respite amidst uncertainty. As we await resolution, let's regroup, recharge, and strategize our next steps. Together, we'll navigate this unfamiliar terrain with caution and resolve. Our journey may be unpredictable, but with perseverance and collaboration, we'll overcome any obstacle that stands in our path.
+        we realize we've delved into uncharted legislative realms. Our robotic allies are diligently scouring for
+        answers. In the interim, let's retreat to familiar ground. Home beckons, offering respite amidst uncertainty. As
+        we await resolution, let's regroup, recharge, and strategize our next steps. Together, we'll navigate this
+        unfamiliar terrain with caution and resolve. Our journey may be unpredictable, but with perseverance and
+        collaboration, we'll overcome any obstacle that stands in our path.
       </span>
       <p class="spacer"></p>
       <p class="spacer"></p>
@@ -83,9 +97,9 @@
 }
 
 @if (isLoading) {
-  <p class="spacer"></p>
-  <p class="spacer"></p>
-  Loading....
+<p class="spacer"></p>
+<p class="spacer"></p>
+Loading....
 }
 
 
