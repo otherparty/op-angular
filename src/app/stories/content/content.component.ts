@@ -40,6 +40,7 @@ export class ContentComponent implements OnInit {
   throttle = 300;
   scrollDistance = 1;
   scrollUpDistance = 2;
+  test:any = [];
 
   currentPage: number = 0;
   itemsPerPage: number = 15;
@@ -96,14 +97,14 @@ export class ContentComponent implements OnInit {
             story.isImage = Math.round(Math.random());
             story.cSummery = this.truncate(
               story.summary,
-              story.isImage ? 10 : 100
+              story.isImage ? 30 : 100
             );
+            story.latest_major_action = this.truncate(story.latest_major_action, 20);
             story.cStory = this.truncate(story.story, story.isImage ? 10 : 100);
           }
 
           const classes = ['half', 'third', 'full', 'fourth'];
           this.stories = this.assignClassesToStories(this.stories, classes);
-
 
           /**
            * Restore search results
@@ -141,6 +142,7 @@ export class ContentComponent implements OnInit {
               story.summary,
               story.isImage ? 10 : 100
             );
+            story.latest_major_action = this.truncate(story.latest_major_action, 20);
             story.cStory = this.truncate(story.story, story.isImage ? 10 : 100);
           }
           this.stories = [...this.stories, ...response?.data?.stories];

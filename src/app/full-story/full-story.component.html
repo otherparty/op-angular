@@ -16,7 +16,7 @@
       <div class="resize-both responsive"><img [src]="sanitize(billSummery.image)" style="max-height: 80%" sanitize>
       </div>
       <br>
-      <p class="brutal-text fittext-compress float-right">{{ bill.latest_major_action_date | date}}</p>
+      <p class="brutal-text fittext float-right">{{ bill.latest_major_action_date | date}}</p>
       <ul class="tags">
         <li>{{ bill.latest_major_action }}</li>
       </ul>
@@ -40,7 +40,6 @@
       <button class="flood btn-medium bitshadow" (click)="openTwitter(bill?.account?.twitter_account)">
         &#64;{{bill?.account?.twitter_account}}</button>
       }
-
       <br>
       <br>
       @if (bill?.govtrack_url) {
