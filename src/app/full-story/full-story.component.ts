@@ -62,6 +62,7 @@ export class FullStoryComponent implements OnInit {
             this.bill = data.data.bill;
             this.billSummery = data.data.billSummery;
             this.bill.twitterText = `${this.billSummery.headLine} \n\nRead more: https://otherparty.ai/story/${this.bill.bill_id}`;
+            this.bill.faceBookText = `https://otherparty.ai/story/${this.bill.bill_id}`
 
 
             if(this.billSummery.image) {
