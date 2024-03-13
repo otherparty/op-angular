@@ -20,7 +20,14 @@
       <ul class="tags">
         <li>{{ bill.latest_major_action }}</li>
       </ul>
+
       <ul class="tags">
+				<li><a href="https://twitter.com/intent/tweet?text={{bill.twitterText}}" target="_blank" class="btn white-t azure hue-h box-s"><strong>Twitter</strong></a></li>
+				<!-- <li><a href="https://github.com/pinecreativelabs/Brutalist-Framework" target="_blank" class="btn black white-t invert-h"><strong>GitHub</strong></a></li> -->
+			</ul>
+
+
+      <!-- <ul class="tags">
         <li>
           <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{bill.twitterText}}" target="_blank">
             <i class="bi bi-apple"></i> </a>
@@ -29,7 +36,7 @@
             <i class="bi bi-avocado"></i>
           </a>
         </li>
-      </ul>
+      </ul> -->
     </div>
     <div class="half padded">
       <p class="helvetica larger">{{billSummery?.headLine}}</p>
