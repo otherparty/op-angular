@@ -47,7 +47,7 @@
     <div class="half padded">
       <p class="helvetica larger">{{billSummery?.headLine}}</p>
       <br>
-      <span class="helvetica keep-all flow-text justify">{{billSummery?.summary}}</span>
+      <span class="helvetica keep-all flow-text justify">{{billSummery?.summary || billSummery?.story}}</span>
       <br>
       <br>
       <span class="helvetica keep-all flow-text justify" [innerHTML]="billSummery?.bill_text_summary "></span>
