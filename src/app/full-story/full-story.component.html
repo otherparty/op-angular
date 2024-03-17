@@ -47,13 +47,15 @@
     <div class="half padded">
       <p class="helvetica larger">{{billSummery?.headLine}}</p>
       <br>
-      <span class="helvetica keep-all flow-text justify" [innerHTML]="billSummery?.story "></span>
+      <span class="helvetica keep-all flow-text justify">{{billSummery?.summary}}</span>
       <br>
+      <br>
+      <span class="helvetica keep-all flow-text justify" [innerHTML]="billSummery?.bill_text_summary "></span>
       @if (bill?.account?.twitter_account) {
       <button class="flood btn-medium bitshadow" (click)="openTwitter(bill?.account?.twitter_account)">
         &#64;{{bill?.account?.twitter_account}}</button>
       }
-      <br>
+      <!-- <br> -->
       <br>
       @if (bill?.govtrack_url) {
       <button class="river-b sepia small-btn bitshadow zoom-in" (click)="openGovTrack(bill?.govtrack_url)">Track
