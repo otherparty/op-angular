@@ -1,8 +1,8 @@
 <div class="wrap-1600">
   <div class="flow-text lucida flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500"
     (scrolled)="onScroll()">
-    <div class="half padded black-b b-a-f neon-text shine">
-
+    
+    <div class="full-height-scrollable-container half padded black-b b-a-f neon-text shine">
       <div class="bitstream flex">
         <form class="grey-t" [formGroup]="searchForm">
           <div class="form-group">
@@ -17,7 +17,7 @@
       }
 
       @if (headLines) {
-      <div class="ul ">
+      <div class="ul">
         @for (bill of headLines; track bill.id) {
         <p class="spacer"></p>
         <button class="glitchtext left-align" (click)="changeRoute(bill.bill_id)">

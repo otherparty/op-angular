@@ -218,7 +218,7 @@ export class ContentComponent implements OnInit {
       this.headLineService.searchBill(query).subscribe((response) => {
         const searchResults = response?.data;
         this.isSearching = false;
-        this.headLines = searchResults.slice(0, 7);
+        this.headLines = searchResults;
         this.cdr.detectChanges();
       })
     }
