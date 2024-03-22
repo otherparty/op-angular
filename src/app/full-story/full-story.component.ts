@@ -65,11 +65,11 @@ export class FullStoryComponent implements OnInit {
             this.bill.faceBookText = `https://otherparty.ai/story/${this.bill.bill_id}`
 
 
-            if(this.billSummery.image) {
+            if(this.billSummery.image) {              
               this.billSummery.image = this.billSummery.image.replace('https://other-party-images.s3.amazonaws.com', 'https://d2646mjd05vkml.cloudfront.net');
 
             } else { 
-              this.billSummery.image || this.fallbackImage 
+              this.billSummery.image = this.billSummery.image || this.fallbackImage 
             }
 
             this.isLoading = false;
