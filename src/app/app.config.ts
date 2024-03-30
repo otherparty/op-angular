@@ -16,6 +16,6 @@ export const appConfig: ApplicationConfig = {
     })),
     importProvidersFrom(HttpClientModule, FormBuilder, BrowserModule, FormGroup, FormsModule, ReactiveFormsModule, CommonModule),
     provideClientHydration(),
-    provideStore()
+    provideStore(), provideClientHydration()
 ],
 };
