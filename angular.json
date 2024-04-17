@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "other-party-ui-brut": {
+    "other-party-ui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -67,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "other-party-ui-brut:build:production"
+              "buildTarget": "other-party-ui:build:production"
             },
             "development": {
-              "buildTarget": "other-party-ui-brut:build:development"
+              "buildTarget": "other-party-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -78,7 +78,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "other-party-ui-brut:build"
+            "buildTarget": "other-party-ui:build"
           }
         },
         "test": {
@@ -99,6 +99,74 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/other-party-ui/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "buildOptimizer": false,
+            "optimization": false,
+            "sourceMap": true,
+            "extractLicenses": false,
+            "vendorChunk": true
+          },
+          "configurations": {
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
+            },
+            "production": {
+              "buildOptimizer": true,
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true,
+              "vendorChunk": false
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@angular-devkit/build-angular:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "other-party-ui:build:development",
+              "serverTarget": "other-party-ui:server:development"
+            },
+            "production": {
+              "browserTarget": "other-party-ui:build:production",
+              "serverTarget": "other-party-ui:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@angular-devkit/build-angular:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "other-party-ui:build:production",
+              "serverTarget": "other-party-ui:server:production"
+            },
+            "development": {
+              "browserTarget": "other-party-ui:build:development",
+              "serverTarget": "other-party-ui:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

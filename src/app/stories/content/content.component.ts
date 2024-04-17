@@ -1,6 +1,6 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Router, RouterModule } from '@angular/router';
 import { BillService } from '../../../services/bill.service';
@@ -11,6 +11,8 @@ import { TitleComponent } from '../../title/title.component';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 
 @Component({
   selector: 'app-content',
@@ -40,7 +42,7 @@ export class ContentComponent implements OnInit {
   throttle = 300;
   scrollDistance = 1;
   scrollUpDistance = 2;
-  test:any = [];
+  test: any = [];
 
   currentPage: number = 0;
   itemsPerPage: number = 15;
@@ -48,7 +50,8 @@ export class ContentComponent implements OnInit {
   public fallbackImage = "https://d2646mjd05vkml.cloudfront.net/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png"
 
 
-  constructor(private headLineService: BillService, private formBuilder: FormBuilder, 
+  constructor(private headLineService: BillService,
+    private formBuilder: FormBuilder, @Inject(PLATFORM_ID) private _platformId: Object,
     private router: Router,
     private cdr: ChangeDetectorRef) {
 
@@ -89,7 +92,7 @@ export class ContentComponent implements OnInit {
 
           for (let i = 0; i < this.stories.length; i++) {
             const story = this.stories[i];
-            if(story.image) {
+            if (story.image) {
               story.image = story.image.replace('https://other-party-images.s3.amazonaws.com', 'https://d2646mjd05vkml.cloudfront.net');
             } else {
               story.image = this.fallbackImage;
@@ -106,13 +109,19 @@ export class ContentComponent implements OnInit {
           const classes = ['half', 'third', 'full', 'fourth'];
           this.stories = this.assignClassesToStories(this.stories, classes);
 
-          /**
-           * Restore search results
-           */
-          const searchString = sessionStorage.getItem('search');
-          if (searchString) {
-            this.search(searchString);
+
+          if (isPlatformServer(this._platformId)) {
+            return
+          } else {
+            /**
+            * Restore search results
+            */
+            const searchString = sessionStorage.getItem('search');
+            if (searchString) {
+              this.search(searchString);
+            }
           }
+
 
         },
         error: (err) => console.log(err),
@@ -131,12 +140,12 @@ export class ContentComponent implements OnInit {
           for (let i = 0; i < response?.data?.stories.length; i++) {
             const story = response?.data?.stories[i];
 
-            if(story.image) {
+            if (story.image) {
               story.image = story.image.replace('https://other-party-images.s3.amazonaws.com', 'https://d2646mjd05vkml.cloudfront.net');
             } else {
               story.image = this.fallbackImage;
             }
-            
+
             story.isImage = Math.round(Math.random());
             story.cSummery = this.truncate(
               story.summary,
@@ -214,7 +223,17 @@ export class ContentComponent implements OnInit {
       this.isSearching = false;
       this.headLines = this.oldHeadlines;
     } else {
-      sessionStorage.setItem('search', query);
+
+      if (isPlatformServer(this._platformId)) {
+
+        console.log("Server only code.")
+        // https://github.com/angular/universal#universal-gotchas
+      } else {
+        sessionStorage.setItem('search', query);
+      }
+
+
+
       this.headLineService.searchBill(query).subscribe((response) => {
         const searchResults = response?.data;
         this.isSearching = false;
