@@ -22,5 +22,7 @@ export class StoriesComponent {
   constructor(private headLineService: BillService) { }
 
   ngOnInit() {
+
+    
   }
 }

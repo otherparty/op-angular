@@ -8,7 +8,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { TitleComponent } from '../title/title.component';
 import { DividerComponent } from '../divider/divider.component';
 import { FooterComponent } from '../footer/footer.component';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ContentComponent } from '../stories/content/content.component';
 
 @Component({
@@ -42,10 +42,14 @@ export class FullStoryComponent implements OnInit {
   constructor(
     private billService: BillService,
     private route: ActivatedRoute,
-    public router: Router,
+    private router: Router,
     private sanitizer: DomSanitizer,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private title: Title,
+    private meta: Meta,
+  ) {
+    console.log(this.router.url);
+    
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -54,7 +58,7 @@ export class FullStoryComponent implements OnInit {
       if (this._id) {
         this.isLoading = true;
         this.billService.getFullStory(this._id).subscribe((data) => {
-          if(!data) {
+          if (!data) {
             this.isLoading = false;
             this.isError = true;
             return;
@@ -64,13 +68,48 @@ export class FullStoryComponent implements OnInit {
             this.bill.twitterText = `${this.billSummery.headLine} \n\nRead more: https://otherparty.ai/story/${this.bill.bill_id}`;
             this.bill.faceBookText = `https://otherparty.ai/story/${this.bill.bill_id}`
 
-
-            if(this.billSummery.image) {              
+            if (this.billSummery.image) {
               this.billSummery.image = this.billSummery.image.replace('https://other-party-images.s3.amazonaws.com', 'https://d2646mjd05vkml.cloudfront.net');
 
-            } else { 
-              this.billSummery.image = this.billSummery.image || this.fallbackImage 
+            } else {
+              this.billSummery.image = this.billSummery.image || this.fallbackImage
             }
+
+            /**
+             * TODO: Add meta tags
+             */
+            this.title.setTitle(`Other Party | ${this.billSummery.headLine}`);
+
+            this.meta.updateTag({ name: "description", content: this.billSummery?.summary || this.billSummery?.story });
+            this.meta.updateTag({ name: "title", content: `Other Party | ${this.billSummery.headLine}` });
+
+            this.meta.addTags([
+              { name: 'twitter:site', content: '@otherpartyai' },
+              { name: 'twitter:title', content: `Other Party | ${this.billSummery.headLine}` },
+              { name: 'twitter:description', content: this.billSummery?.summary || this.billSummery?.story },
+              { name: 'twitter:text:description', content: this.billSummery?.summary || this.billSummery?.story },
+              { name: 'twitter:image', content: 'https://otherparty.ai/assets/img/logo.png' },
+
+              { name: 'og:type', content: 'website' },
+              { name: 'og:url', content: `https://otherparty.ai${this.router.url}` },
+              { name: 'og:title', content: `Other Party | ${this.billSummery.headLine}` },
+              { name: 'og:description', content: this.billSummery?.summary || this.billSummery?.story },
+              { name: 'og:image', content: this.billSummery.image },
+
+            ], true);
+          
+
+            // this.meta.updateTag({ name: 'twitter:site', content: '@otherpartyai' });
+            // this.meta.updateTag({ name: 'twitter:title', content: `Other Party | ${this.billSummery.headLine}` });
+            // this.meta.updateTag({ name: 'twitter:description', content: "story" });
+            // this.meta.updateTag({ name: 'twitter:text:description', content: "story" });
+            // this.meta.updateTag({ name: 'twitter:image', content: 'https://otherparty.ai/assets/img/logo.png' });
+
+            // this.meta.updateTag({ name: 'og:type', content: 'website' });
+            // this.meta.updateTag({ name: 'og:url', content: `${window.location.href}` });
+            // this.meta.updateTag({ name: 'og:title', content: `Other Party | ${this.billSummery.headLine}` });
+            // this.meta.updateTag({ name: 'og:description', content: "story" });
+            // this.meta.updateTag({ name: 'og:image', content: 'https://otherparty.ai/assets/img/logo.png' });
 
             this.isLoading = false;
             this.isError = false;

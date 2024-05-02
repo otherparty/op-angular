@@ -5,17 +5,15 @@ import { StoriesComponent } from './stories/stories.component';
 
 export const routes: Routes = [
   {
+    path : '',
+    component: StoriesComponent
+  },
+  {
     path : 'story/:id',
     component: FullStoryComponent
   },
   {
-    path : 'stories',
-    component: StoriesComponent
-  },
-  {
-    path : '',
-    redirectTo: '/stories',
-    pathMatch: 'full'
+    path: "**",
+    redirectTo: '/'
   }
-
 ];

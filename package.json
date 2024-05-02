@@ -3,13 +3,17 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "build": "ng build",
     "dev:ssr": "ng run other-party-ui:serve-ssr",
     "prerender": "ng run other-party-ui:prerender",
-    "serve:prerender": "http-server -c-1 dist/browser"
+    "serve:prerender": "http-server -c-1 dist/browser",
+    "serve:ssr": "node dist/server/main.js",
+    
+    "build:ssr": "ng build --prod && ng run other-party-ui:server:production",
+    "prepare": "npm run build:ssr",
+    "start": "npm run serve:ssr"
   },
   "private": true,
   "dependencies": {

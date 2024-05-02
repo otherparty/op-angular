@@ -13,6 +13,7 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-content',
@@ -53,7 +54,10 @@ export class ContentComponent implements OnInit {
   constructor(private headLineService: BillService,
     private formBuilder: FormBuilder, @Inject(PLATFORM_ID) private _platformId: Object,
     private router: Router,
-    private cdr: ChangeDetectorRef) {
+    private cdr: ChangeDetectorRef,
+    private title: Title,
+    private meta: Meta
+  ) {
 
     this.searchForm = this.formBuilder.group({
       search: ['']
@@ -72,6 +76,22 @@ export class ContentComponent implements OnInit {
           this.search(value);
         });
     }
+
+
+    /**
+     * TODO: Add meta tags
+     */
+    // this.title.setTitle(this.title);
+
+    // this.meta.updateTag({name: "description", content: this.longDescription});
+
+    // this.meta.addTag({name: 'twitter:card', content: 'summary'});
+    // this.meta.addTag({name: 'twitter:site', content: '@otherparty'});
+    // this.meta.addTag({name: 'twitter:title', content: this.title});
+    // this.meta.addTag({name: 'twitter:description', content: this.description});
+    // this.meta.addTag({name: 'twitter:text:description', content: this.description});
+    // this.meta.addTag({name: 'twitter:image', content: 'https://avatars3.githubusercontent.com/u/16628445?v=3&s=200'});
+
   }
 
   ngOnInit() {
