@@ -9,9 +9,9 @@
     "dev:ssr": "ng run other-party-ui:serve-ssr",
     "prerender": "ng run other-party-ui:prerender",
     "serve:prerender": "http-server -c-1 dist/browser",
-    "serve:ssr": "node dist/server/main.js",
+    "serve:ssr": "node dist/other-party-ui/server/main.js",
     
-    "build:ssr": "ng build --prod && ng run other-party-ui:server:production",
+    "build:ssr": "ng build && ng run other-party-ui:server",
     "prepare": "npm run build:ssr",
     "start": "npm run serve:ssr"
   },
