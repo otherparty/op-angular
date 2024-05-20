@@ -46,7 +46,7 @@ export class ContentComponent implements OnInit {
   test: any = [];
 
   currentPage: number = 0;
-  itemsPerPage: number = 15;
+  itemsPerPage: number = 8;
   searchForm: FormGroup;
   public fallbackImage = "https://d2646mjd05vkml.cloudfront.net/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png"
 

@@ -15,6 +15,7 @@ export const appConfig: ApplicationConfig = {
       anchorScrolling: 'enabled',
     })),
     importProvidersFrom(HttpClientModule, FormBuilder, BrowserModule, FormGroup, FormsModule, ReactiveFormsModule, CommonModule),
-    provideClientHydration(),
-    provideHttpClient(withInterceptorsFromDi(), withFetch()),],
+    // provideClientHydration(),
+    provideHttpClient(withInterceptorsFromDi(), withFetch()),
+  ],
 };
