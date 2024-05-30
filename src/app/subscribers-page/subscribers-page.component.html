@@ -3,260 +3,201 @@
 <app-title></app-title>
 
 <app-divider></app-divider>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-  <title>HTML Boilerplate</title>
-  <meta name="description" content="" />
-
-  <!-- CORE CSS  -->
-  <link href="core/css/construct.css" type="text/css" rel="stylesheet" media="all" />
-
-</head>
-
-<body>
-
-
-  <!-- PAGE -->
-  <header class="padded flex middle" id="uptop" style="min-height: 25vh; margin-bottom: 0;">
-    <h1 class="fluid-text courier center fittext"><i class="bi bi-heat"></i><br />Other Party</h1>
-  </header>
-  <div class="wrap-1200 emptiness padded">
-    <div class="lucida center">
-      <h2 class="fluid-text baffle-longer brickbuild mint-t rice-t-s" style="margin: 0; padding: 0;">Follow the
-        Bills</h2>
+<!-- flexbox layout -->
+<div class="wrap-1600">
+</div>
+<div class="flex flow-text arial">
+  <!-- two columns -->
+  <div class="third padded b-s-t black-b">
+    <div class="flood fourth padded b-s-t black-b">
+      <p class="impact larger">Michael Bennet</p>
     </div>
-  </div>
-
-  <!-- jagged checkerboard divider -->
-  <div class="clear-block jagged">
-    <p class="checkerboard padding"></p>
-  </div>
-
-  <!-- flexbox layout -->
-  <div class="wrap-1600">
-  </div>
-  <div class="flex flow-text arial">
-    <!-- two columns -->
-    <div class="third padded b-s-t black-b">
-      <div class="flood fourth padded b-s-t black-b">
-        <p class="impact larger">Michael Bennet</p>
-      </div>
+    <br>
+    <p class="helvetica larger">Summary</p>
+    <div class="third padded black-b b-b-t">
       <br>
-      <p class="helvetica larger">Summary</p>
-      <div class="third padded black-b b-b-t">
+      <div class="ul">
+        <p><span class="bold">Votes cast</span>: Sum of votes cast</p>
         <br>
-        <div class="ul">
-          <p><span class="bold">Votes cast</span>: Sum of votes cast</p>
-          <br>
-          <p><span class="bold">Bills sponsored</span>: Sum of bills sponsored in current Congress</p>
-          <br>
-          <p><span class="bold">Bills cosponsored</span>: Sum of bills cosponsored in current Congress</p>
-          <br>
-          <p><span class="bold">Bills influenced</span>: Sum of amendments proposed to other bills</p>
-          <br>
-        </div>
-      </div>
-      <br>
-      <p class="helvetica larger">Votes</p>
-      <div class="third padded black-b b-b-t">
+        <p><span class="bold">Bills sponsored</span>: Sum of bills sponsored in current Congress; this will be the
+          length of the sponsored array in the representatives DB</p>
         <br>
-        <div class="ul">
-          <p>Bill voted on: Vote</p>
-          <br>
-          <p>Bill voted on: Vote</p>
-          <br>
-          <p>Bill voted on: Vote</p>
-          <br>
-        </div>
-      </div>
-      <br>
-      <p class="helvetica larger">Updates</p>
-      <div class="third padded black-b b-b-t">
+        <p><span class="bold">Bills cosponsored</span>: Sum of bills cosponsored in current Congress; this will be the
+          length of the cosponsored array in the representatives DB</p>
         <br>
-        <div class="ul">
-          <p>Proposed amendment</p>
-          <br>
-          <p>Bill sponsored</p>
-          <br>
-          <p>Bill cosponsored</p>
-          <br>
-        </div>
-      </div>
-      <br>
-      <p class="helvetica larger">Bills</p>
-      <div class="third padded black-b b-b-t">
+        <p><span class="bold">Bills influenced</span>: Sum of amendments proposed to other bills; this will be the
+          length of the amendments array in the representatives DB</p>
         <br>
-        <div class="ul">
-          <p>Education Innovation</p>
-          <br>
-          <p>Agricultural Improvements</p>
-          <br>
-          <p>Job Growth Bill</p>
-          <br>
-        </div>
       </div>
     </div>
-    <div class="third padded b-s-t black-b">
-      <div class="flood fourth padded b-s-t black-b">
-        <p class="impact larger">John Hickenlooper</p>
-      </div>
+    <br>
+    <p class="helvetica larger">Votes</p>
+    <div class="third padded black-b b-b-t">
       <br>
-      <p class="helvetica larger">Summary</p>
-      <div class="third padded black-b b-b-t">
+      <div class="ul">
+        <p>Bill voted on: Vote; ideally a descending list based on all of the arrays in the representatives DB
+          (excepting sponsored, cosponsored, and amendments</p>
         <br>
-        <div class="ul">
-          <p><span class="bold">Votes cast</span>: Sum of votes cast</p>
-          <br>
-          <p><span class="bold">Bills sponsored</span>: Sum of bills sponsored in current Congress</p>
-          <br>
-          <p><span class="bold">Bills cosponsored</span>: Sum of bills cosponsored in current Congress</p>
-          <br>
-          <p><span class="bold">Bills influenced</span>: Sum of amendments proposed to other bills</p>
-          <br>
-        </div>
-      </div>
-      <br>
-      <p class="helvetica larger">Votes</p>
-      <div class="third padded black-b b-b-t">
+        <p>Bill voted on: Vote; ideally a descending list based on all of the arrays in the representatives DB
+          (excepting sponsored, cosponsored, and amendments</p>
         <br>
-        <div class="ul">
-          <p>Bill voted on: Vote</p>
-          <br>
-          <p>Bill voted on: Vote</p>
-          <br>
-          <p>Bill voted on: Vote</p>
-          <br>
-        </div>
-      </div>
-      <br>
-      <p class="helvetica larger">Updates</p>
-      <div class="third padded black-b b-b-t">
+        <p>Bill voted on: Vote; ideally a descending list based on all of the arrays in the representatives DB
+          (excepting sponsored, cosponsored, and amendments</p>
         <br>
-        <div class="ul">
-          <p>Proposed amendment</p>
-          <br>
-          <p>Bill sponsored</p>
-          <br>
-          <p>Bill cosponsored</p>
-          <br>
-        </div>
-      </div>
-      <br>
-      <p class="helvetica larger">Bills</p>
-      <div class="third padded black-b b-b-t">
-        <br>
-        <div class="ul">
-          <p>Energy Permits</p>
-          <br>
-          <p>Down Syndrome Research Bill</p>
-          <br>
-        </div>
       </div>
     </div>
-    <!-- three columns -->
-    <div class="third padded b-s-t black-b">
-      <div class="heat fourth padded b-s-t black-b">
-        <p class="impact larger">Lauren Boebert</p>
-      </div>
+    <br>
+    <p class="helvetica larger">Amendments</p>
+    <div class="third padded black-b b-b-t">
       <br>
-      <p class="helvetica larger">Summary</p>
-      <div class="third padded black-b b-b-t">
+      <div class="ul">
+        <p>Proposed amendment - ideally, descending list based on latest date in the amendments array of the
+          representatives database</p>
         <br>
-        <div class="ul">
-          <p><span class="bold">Votes cast</span>: Sum of votes cast</p>
-          <br>
-          <p><span class="bold">Bills sponsored</span>: Sum of bills sponsored in current Congress</p>
-          <br>
-          <p><span class="bold">Bills cosponsored</span>: Sum of bills cosponsored in current Congress</p>
-          <br>
-          <p><span class="bold">Bills influenced</span>: Sum of amendments proposed to other bills</p>
-          <br>
-        </div>
+        <p>Proposed amendment - ideally, descending list based on latest date in the amendments array of the
+          representatives database</p>
+        <br>
+        <p>Proposed amendement - ideally, descending list based on latest date in the amendments array of the
+          representatives database</p>
+        <br>
       </div>
+    </div>
+    <br>
+    <p class="helvetica larger">Bills</p>
+    <div class="third padded black-b b-b-t">
       <br>
-      <p class="helvetica larger">Votes</p>
-      <div class="third padded black-b b-b-t">
+      <div class="ul">
+        <p>Education Innovation - ideally, a descending list based on date between bills sponsored and cosponsored</p>
         <br>
-        <div class="ul">
-          <p>Bill voted on: Vote</p>
-          <br>
-          <p>Bill voted on: Vote</p>
-          <br>
-          <p>Bill voted on: Vote</p>
-          <br>
-        </div>
-      </div>
-      <br>
-      <p class="helvetica larger">Updates</p>
-      <div class="third padded black-b b-b-t">
+        <p>Agricultural Improvements - ideally, a descending list based on date between bills sponsored and cosponsored
+        </p>
         <br>
-        <div class="ul">
-          <p>Proposed amendment</p>
-          <br>
-          <p>Bill sponsored</p>
-          <br>
-          <p>Bill cosponsored</p>
-          <br>
-        </div>
-      </div>
-      <br>
-      <p class="helvetica larger">Bills</p>
-      <div class="third padded black-b b-b-t">
+        <p>Job Growth Bill - ideally, a descending list based on date between bills sponsored and cosponsored</p>
         <br>
-        <div class="ul">
-          <p>Executive Order Borders</p>
-          <br>
-          <p>BLM Leasing Rule Withdrawn</p>
-          <br>
-          <p>Mesa County Land Conveyance</p>
-          <br>
-          <p>Prohibited Resource Plans</p>
-          <br>
-        </div>
       </div>
     </div>
   </div>
-  <p class="spacer"></p>
-  <p class="spacer"></p>
-  <p class="center flow-text padded lucida"><a href="#vanilla" data-modal-open
-      class="btn rounded large-btn box-s pool-party hue-h">Vanilla MODAL</a></p>
-  <p class="spacer"></p>
-  </div>
-
-  <footer class="padded center courier disabled">
-    <p><a href="https://www.brutalistframework.com" target="_blank">Brutalist Framework</a> &copy; 2023</p>
-  </footer>
-
-
-  <!-- Vanilla Modal -->
-  <div id="vanilla" style="display:none;">
-    <div class="wrap-960 info padded" style="max-width: 468px;">
-      <h4 class="flow-text lucida"><i class="bi bi-cone bi-4x"></i> <strong>Vanilla Modal</strong></h4>
-      <hr class="charlie" />
-      <p class="flow-text courier">I am a simple vanilla modal that requires <em>buix.js</em> to function.</p>
+  <div class="third padded b-s-t black-b">
+    <div class="flood fourth padded b-s-t black-b">
+      <p class="impact larger">John Hickenlooper</p>
+    </div>
+    <br>
+    <p class="helvetica larger">Summary</p>
+    <div class="third padded black-b b-b-t">
+      <br>
+      <div class="ul">
+        <p><span class="bold">Votes cast</span>: Sum of votes cast</p>
+        <br>
+        <p><span class="bold">Bills sponsored</span>: Sum of bills sponsored in current Congress</p>
+        <br>
+        <p><span class="bold">Bills cosponsored</span>: Sum of bills cosponsored in current Congress</p>
+        <br>
+        <p><span class="bold">Bills influenced</span>: Sum of amendments proposed to other bills</p>
+        <br>
+      </div>
+    </div>
+    <br>
+    <p class="helvetica larger">Votes</p>
+    <div class="third padded black-b b-b-t">
+      <br>
+      <div class="ul">
+        <p>Bill voted on: Vote</p>
+        <br>
+        <p>Bill voted on: Vote</p>
+        <br>
+        <p>Bill voted on: Vote</p>
+        <br>
+      </div>
+    </div>
+    <br>
+    <p class="helvetica larger">Updates</p>
+    <div class="third padded black-b b-b-t">
+      <br>
+      <div class="ul">
+        <p>Proposed amendment</p>
+        <br>
+        <p>Bill sponsored</p>
+        <br>
+        <p>Bill cosponsored</p>
+        <br>
+      </div>
+    </div>
+    <br>
+    <p class="helvetica larger">Bills</p>
+    <div class="third padded black-b b-b-t">
+      <br>
+      <div class="ul">
+        <p>Energy Permits</p>
+        <br>
+        <p>Down Syndrome Research Bill</p>
+        <br>
+      </div>
     </div>
   </div>
-  <!-- Initiate and display modal itself -->
-  <div class="modal">
-    <div class="modal-inner draggable">
-      <!-- Remove "draggable" class to prevent modals from being moveable -->
-      <span data-modal-close>&times;</span>
-      <div class="modal-content"></div>
+  <!-- three columns -->
+  <div class="third padded b-s-t black-b">
+    <div class="heat fourth padded b-s-t black-b">
+      <p class="impact larger">Lauren Boebert</p>
+    </div>
+    <br>
+    <p class="helvetica larger">Summary</p>
+    <div class="third padded black-b b-b-t">
+      <br>
+      <div class="ul">
+        <p><span class="bold">Votes cast</span>: Sum of votes cast</p>
+        <br>
+        <p><span class="bold">Bills sponsored</span>: Sum of bills sponsored in current Congress</p>
+        <br>
+        <p><span class="bold">Bills cosponsored</span>: Sum of bills cosponsored in current Congress</p>
+        <br>
+        <p><span class="bold">Bills influenced</span>: Sum of amendments proposed to other bills</p>
+        <br>
+      </div>
+    </div>
+    <br>
+    <p class="helvetica larger">Votes</p>
+    <div class="third padded black-b b-b-t">
+      <br>
+      <div class="ul">
+        <p>Bill voted on: Vote</p>
+        <br>
+        <p>Bill voted on: Vote</p>
+        <br>
+        <p>Bill voted on: Vote</p>
+        <br>
+      </div>
+    </div>
+    <br>
+    <p class="helvetica larger">Updates</p>
+    <div class="third padded black-b b-b-t">
+      <br>
+      <div class="ul">
+        <p>Proposed amendment</p>
+        <br>
+        <p>Bill sponsored</p>
+        <br>
+        <p>Bill cosponsored</p>
+        <br>
+      </div>
+    </div>
+    <br>
+    <p class="helvetica larger">Bills</p>
+    <div class="third padded black-b b-b-t">
+      <br>
+      <div class="ul">
+        <p>Executive Order Borders</p>
+        <br>
+        <p>BLM Leasing Rule Withdrawn</p>
+        <br>
+        <p>Mesa County Land Conveyance</p>
+        <br>
+        <p>Prohibited Resource Plans</p>
+        <br>
+      </div>
     </div>
   </div>
+</div>
+<p class="spacer"></p>
 
-
-  <!-- Core Scripts -->
-  <script src="core/jab/buix.js"></script>
-  <script src="core/jab/bfx.js"></script>
-
-  <!-- Plugins -->
-  <script src="core/jab/jquery.3.js"></script>
-
-</body>
-
-</html>
+<app-footer></app-footer>
