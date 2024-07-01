@@ -1,6 +1,12 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { ChangeDetectorRef, Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Router, RouterModule } from '@angular/router';
 import { BillService } from '../../../services/bill.service';
@@ -39,28 +45,29 @@ export class ContentComponent implements OnInit {
   public headLines: any;
   public isLoading: any;
   public isSearching: any;
-  public oldHeadlines: any
+  public oldHeadlines: any;
   throttle = 300;
   scrollDistance = 1;
   scrollUpDistance = 2;
   test: any = [];
 
   currentPage: number = 0;
-  itemsPerPage: number = 8;
+  itemsPerPage: number = 20;
   searchForm: FormGroup;
-  public fallbackImage = "https://d2646mjd05vkml.cloudfront.net/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png"
+  public fallbackImage =
+    'https://d2646mjd05vkml.cloudfront.net/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png';
 
-
-  constructor(private headLineService: BillService,
-    private formBuilder: FormBuilder, @Inject(PLATFORM_ID) private _platformId: Object,
+  constructor(
+    private headLineService: BillService,
+    private formBuilder: FormBuilder,
+    @Inject(PLATFORM_ID) private _platformId: Object,
     private router: Router,
     private cdr: ChangeDetectorRef,
     private title: Title,
     private meta: Meta
   ) {
-
     this.searchForm = this.formBuilder.group({
-      search: ['']
+      search: [''],
     });
 
     if (this.searchForm && this.searchForm.get('search')?.valueChanges) {
@@ -77,7 +84,6 @@ export class ContentComponent implements OnInit {
         });
     }
 
-
     /**
      * TODO: Add meta tags
      */
@@ -91,7 +97,6 @@ export class ContentComponent implements OnInit {
     // this.meta.addTag({name: 'twitter:description', content: this.description});
     // this.meta.addTag({name: 'twitter:text:description', content: this.description});
     // this.meta.addTag({name: 'twitter:image', content: 'https://avatars3.githubusercontent.com/u/16628445?v=3&s=200'});
-
   }
 
   ngOnInit() {
@@ -113,7 +118,10 @@ export class ContentComponent implements OnInit {
           for (let i = 0; i < this.stories.length; i++) {
             const story = this.stories[i];
             if (story.image) {
-              story.image = story.image.replace('https://other-party-images.s3.amazonaws.com', 'https://d2646mjd05vkml.cloudfront.net');
+              story.image = story.image.replace(
+                'https://other-party-images.s3.amazonaws.com',
+                'https://d2646mjd05vkml.cloudfront.net'
+              );
             } else {
               story.image = this.fallbackImage;
             }
@@ -122,27 +130,27 @@ export class ContentComponent implements OnInit {
               story.summary,
               story.isImage ? 30 : 100
             );
-            story.latest_major_action = this.truncate(story.latest_major_action, 20);
+            story.latest_major_action = this.truncate(
+              story.latest_major_action,
+              20
+            );
             story.cStory = this.truncate(story.story, story.isImage ? 10 : 100);
           }
 
           const classes = ['half', 'third', 'full', 'fourth'];
           this.stories = this.assignClassesToStories(this.stories, classes);
 
-
           if (isPlatformServer(this._platformId)) {
-            return
+            return;
           } else {
             /**
-            * Restore search results
-            */
+             * Restore search results
+             */
             const searchString = sessionStorage.getItem('search');
             if (searchString) {
               this.search(searchString);
             }
           }
-
-
         },
         error: (err) => console.log(err),
         complete: () => this.toggleLoading(),
@@ -161,7 +169,10 @@ export class ContentComponent implements OnInit {
             const story = response?.data?.stories[i];
 
             if (story.image) {
-              story.image = story.image.replace('https://other-party-images.s3.amazonaws.com', 'https://d2646mjd05vkml.cloudfront.net');
+              story.image = story.image.replace(
+                'https://other-party-images.s3.amazonaws.com',
+                'https://d2646mjd05vkml.cloudfront.net'
+              );
             } else {
               story.image = this.fallbackImage;
             }
@@ -171,7 +182,10 @@ export class ContentComponent implements OnInit {
               story.summary,
               story.isImage ? 10 : 100
             );
-            story.latest_major_action = this.truncate(story.latest_major_action, 20);
+            story.latest_major_action = this.truncate(
+              story.latest_major_action,
+              20
+            );
             story.cStory = this.truncate(story.story, story.isImage ? 10 : 100);
           }
           this.stories = [...this.stories, ...response?.data?.stories];
@@ -202,7 +216,7 @@ export class ContentComponent implements OnInit {
   assignClassesToStories(array: any, classes: any) {
     let currentIndex = 0;
 
-    for (let i = 1; i < array.length;) {
+    for (let i = 1; i < array.length; ) {
       const currentClass = classes[currentIndex];
       let increment = 0;
 
@@ -243,23 +257,19 @@ export class ContentComponent implements OnInit {
       this.isSearching = false;
       this.headLines = this.oldHeadlines;
     } else {
-
       if (isPlatformServer(this._platformId)) {
-
-        console.log("Server only code.")
+        console.log('Server only code.');
         // https://github.com/angular/universal#universal-gotchas
       } else {
         sessionStorage.setItem('search', query);
       }
-
-
 
       this.headLineService.searchBill(query).subscribe((response) => {
         const searchResults = response?.data;
         this.isSearching = false;
         this.headLines = searchResults;
         this.cdr.detectChanges();
-      })
+      });
     }
   }
 
