@@ -14,7 +14,7 @@ export const routes: Routes = [
     component: FullStoryComponent
   },
   {
-    path : 'subscriber-view',
+    path : 'subscriber-view/:id',
     component: SubscribersPageComponent
   },
   {

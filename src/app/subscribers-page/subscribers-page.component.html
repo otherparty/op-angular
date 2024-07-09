@@ -7,197 +7,84 @@
 <!-- flexbox layout -->
 <div class="wrap-1600">
 </div>
-<div class="flex flow-text arial">
-  <!-- two columns -->
-  <div class="third padded b-s-t black-b">
-    <div class="flood fourth padded b-s-t black-b">
-      <p class="impact larger">Michael Bennet</p>
-    </div>
-    <br>
-    <p class="helvetica larger">Summary</p>
-    <div class="third padded black-b b-b-t">
-      <br>
-      <div class="ul">
-        <p><span class="bold">Votes cast</span>: Sum of votes cast</p>
+
+
+@if (this.repResponse.length) {
+  <div class="flex flow-text arial">
+    <!-- two columns -->
+    @for (item of this.repResponse; track $index) {
+      <div class="third padded b-s-t black-b">
+        <div class="heat fourth padded b-s-t black-b">
+          <p class="impact larger">{{item.account.first_name + ' ' + item.account.last_name }}</p>
+        </div>
         <br>
-        <p><span class="bold">Bills sponsored</span>: Sum of bills sponsored in current Congress; this will be the
-          length of the sponsored array in the representatives DB</p>
+        <p class="helvetica larger">Summary</p>
+        <div class="third padded black-b b-b-t">
+          <br>
+          <div class="ul">
+            <p><span class="bold">Votes cast</span>: {{item.votes || 0}}</p>
+            <br>
+            <p><span class="bold">Bills sponsored</span>: {{item.sponsoredBills || 0}}</p>
+            <br>
+            <p><span class="bold">Bills cosponsored</span>:{{item.cosponsoredBills || 0}}</p>
+            <br>
+            <p><span class="bold">Bills influenced</span>: {{item.amendments || 0}}</p>
+            <br>
+          </div>
+        </div>
         <br>
-        <p><span class="bold">Bills cosponsored</span>: Sum of bills cosponsored in current Congress; this will be the
-          length of the cosponsored array in the representatives DB</p>
+        <p class="helvetica larger">Votes</p>
+        <div class="third padded black-b b-b-t">
+          <br>
+          <div class="ul">
+            <p>Bill voted on: Vote; ideally a descending list based on all of the arrays in the representatives DB
+              (excepting sponsored, cosponsored, and amendments</p>
+            <br>
+            <p>Bill voted on: Vote; ideally a descending list based on all of the arrays in the representatives DB
+              (excepting sponsored, cosponsored, and amendments</p>
+            <br>
+            <p>Bill voted on: Vote; ideally a descending list based on all of the arrays in the representatives DB
+              (excepting sponsored, cosponsored, and amendments</p>
+            <br>
+          </div>
+        </div>
         <br>
-        <p><span class="bold">Bills influenced</span>: Sum of amendments proposed to other bills; this will be the
-          length of the amendments array in the representatives DB</p>
+        <p class="helvetica larger">Amendments</p>
+        <div class="third padded black-b b-b-t">
+          <br>
+          <div class="ul">
+            <p>Proposed amendment - ideally, descending list based on latest date in the amendments array of the
+              representatives database</p>
+            <br>
+            <p>Proposed amendment - ideally, descending list based on latest date in the amendments array of the
+              representatives database</p>
+            <br>
+            <p>Proposed amendement - ideally, descending list based on latest date in the amendments array of the
+              representatives database</p>
+            <br>
+          </div>
+        </div>
         <br>
+        <p class="helvetica larger">Bills</p>
+        <div class="third padded black-b b-b-t">
+          <br>
+          <div class="ul">
+            <p>Education Innovation - ideally, a descending list based on date between bills sponsored and cosponsored</p>
+            <br>
+            <p>Agricultural Improvements - ideally, a descending list based on date between bills sponsored and cosponsored
+            </p>
+            <br>
+            <p>Job Growth Bill - ideally, a descending list based on date between bills sponsored and cosponsored</p>
+            <br>
+          </div>
+        </div>
       </div>
-    </div>
-    <br>
-    <p class="helvetica larger">Votes</p>
-    <div class="third padded black-b b-b-t">
-      <br>
-      <div class="ul">
-        <p>Bill voted on: Vote; ideally a descending list based on all of the arrays in the representatives DB
-          (excepting sponsored, cosponsored, and amendments</p>
-        <br>
-        <p>Bill voted on: Vote; ideally a descending list based on all of the arrays in the representatives DB
-          (excepting sponsored, cosponsored, and amendments</p>
-        <br>
-        <p>Bill voted on: Vote; ideally a descending list based on all of the arrays in the representatives DB
-          (excepting sponsored, cosponsored, and amendments</p>
-        <br>
-      </div>
-    </div>
-    <br>
-    <p class="helvetica larger">Amendments</p>
-    <div class="third padded black-b b-b-t">
-      <br>
-      <div class="ul">
-        <p>Proposed amendment - ideally, descending list based on latest date in the amendments array of the
-          representatives database</p>
-        <br>
-        <p>Proposed amendment - ideally, descending list based on latest date in the amendments array of the
-          representatives database</p>
-        <br>
-        <p>Proposed amendement - ideally, descending list based on latest date in the amendments array of the
-          representatives database</p>
-        <br>
-      </div>
-    </div>
-    <br>
-    <p class="helvetica larger">Bills</p>
-    <div class="third padded black-b b-b-t">
-      <br>
-      <div class="ul">
-        <p>Education Innovation - ideally, a descending list based on date between bills sponsored and cosponsored</p>
-        <br>
-        <p>Agricultural Improvements - ideally, a descending list based on date between bills sponsored and cosponsored
-        </p>
-        <br>
-        <p>Job Growth Bill - ideally, a descending list based on date between bills sponsored and cosponsored</p>
-        <br>
-      </div>
-    </div>
+    }
+  
+   
   </div>
-  <div class="third padded b-s-t black-b">
-    <div class="flood fourth padded b-s-t black-b">
-      <p class="impact larger">John Hickenlooper</p>
-    </div>
-    <br>
-    <p class="helvetica larger">Summary</p>
-    <div class="third padded black-b b-b-t">
-      <br>
-      <div class="ul">
-        <p><span class="bold">Votes cast</span>: Sum of votes cast</p>
-        <br>
-        <p><span class="bold">Bills sponsored</span>: Sum of bills sponsored in current Congress</p>
-        <br>
-        <p><span class="bold">Bills cosponsored</span>: Sum of bills cosponsored in current Congress</p>
-        <br>
-        <p><span class="bold">Bills influenced</span>: Sum of amendments proposed to other bills</p>
-        <br>
-      </div>
-    </div>
-    <br>
-    <p class="helvetica larger">Votes</p>
-    <div class="third padded black-b b-b-t">
-      <br>
-      <div class="ul">
-        <p>Bill voted on: Vote</p>
-        <br>
-        <p>Bill voted on: Vote</p>
-        <br>
-        <p>Bill voted on: Vote</p>
-        <br>
-      </div>
-    </div>
-    <br>
-    <p class="helvetica larger">Updates</p>
-    <div class="third padded black-b b-b-t">
-      <br>
-      <div class="ul">
-        <p>Proposed amendment</p>
-        <br>
-        <p>Bill sponsored</p>
-        <br>
-        <p>Bill cosponsored</p>
-        <br>
-      </div>
-    </div>
-    <br>
-    <p class="helvetica larger">Bills</p>
-    <div class="third padded black-b b-b-t">
-      <br>
-      <div class="ul">
-        <p>Energy Permits</p>
-        <br>
-        <p>Down Syndrome Research Bill</p>
-        <br>
-      </div>
-    </div>
-  </div>
-  <!-- three columns -->
-  <div class="third padded b-s-t black-b">
-    <div class="heat fourth padded b-s-t black-b">
-      <p class="impact larger">Lauren Boebert</p>
-    </div>
-    <br>
-    <p class="helvetica larger">Summary</p>
-    <div class="third padded black-b b-b-t">
-      <br>
-      <div class="ul">
-        <p><span class="bold">Votes cast</span>: Sum of votes cast</p>
-        <br>
-        <p><span class="bold">Bills sponsored</span>: Sum of bills sponsored in current Congress</p>
-        <br>
-        <p><span class="bold">Bills cosponsored</span>: Sum of bills cosponsored in current Congress</p>
-        <br>
-        <p><span class="bold">Bills influenced</span>: Sum of amendments proposed to other bills</p>
-        <br>
-      </div>
-    </div>
-    <br>
-    <p class="helvetica larger">Votes</p>
-    <div class="third padded black-b b-b-t">
-      <br>
-      <div class="ul">
-        <p>Bill voted on: Vote</p>
-        <br>
-        <p>Bill voted on: Vote</p>
-        <br>
-        <p>Bill voted on: Vote</p>
-        <br>
-      </div>
-    </div>
-    <br>
-    <p class="helvetica larger">Updates</p>
-    <div class="third padded black-b b-b-t">
-      <br>
-      <div class="ul">
-        <p>Proposed amendment</p>
-        <br>
-        <p>Bill sponsored</p>
-        <br>
-        <p>Bill cosponsored</p>
-        <br>
-      </div>
-    </div>
-    <br>
-    <p class="helvetica larger">Bills</p>
-    <div class="third padded black-b b-b-t">
-      <br>
-      <div class="ul">
-        <p>Executive Order Borders</p>
-        <br>
-        <p>BLM Leasing Rule Withdrawn</p>
-        <br>
-        <p>Mesa County Land Conveyance</p>
-        <br>
-        <p>Prohibited Resource Plans</p>
-        <br>
-      </div>
-    </div>
-  </div>
-</div>
+}
+
 <p class="spacer"></p>
 
 <app-footer></app-footer>

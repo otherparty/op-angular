@@ -7,13 +7,13 @@ import { Observable, catchError, of, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class BillService {
-  // billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
-  billsURL = `https://backend.otherparty.ai/api/v1/stories`;
+  billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
+  // billsURL = `https://backend.otherparty.ai/api/v1/stories`;
 
   constructor(
     private http: HttpClient,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   /** POST: add a new hero to the server */
   getHeadLines(
@@ -41,6 +41,12 @@ export class BillService {
       .pipe(catchError(this.handleError<any>('searchBill')));
   }
 
+  getSubscriberDetails(accountId: string): Observable<any> {
+    return this.http
+      .post(`${this.billsURL}/emailVotes`, { accountId })
+      .pipe(catchError(this.handleError<any>('getSubscriberDetails')));
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
@@ -65,4 +71,5 @@ export class BillService {
   private log(message: string) {
     this.messageService.add(`HeroService: ${message}`);
   }
+
 }
