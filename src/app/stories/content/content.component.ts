@@ -57,6 +57,16 @@ export class ContentComponent implements OnInit {
   public fallbackImage =
     'https://d2646mjd05vkml.cloudfront.net/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png';
 
+  public tabs = [
+    "Recent Votes",
+    "New Laws",
+    "Military",
+    "Education",
+    "Environment",
+    "Business",
+    "Technology",
+    "Healthcare",
+  ]
   constructor(
     private headLineService: BillService,
     private formBuilder: FormBuilder,
@@ -103,54 +113,59 @@ export class ContentComponent implements OnInit {
     this.loadData('init');
   }
 
+  public filterStories = (stories: any, type?: string) => {
+    console.log("🚀 ~ ContentComponent ~ stories:", stories)
+    if (type) this.headLines = stories.slice(0, 5);
+    if (type) this.stories = stories.slice(5, 15);
+    else this.stories = stories;
+
+    this.oldHeadlines = this.headLines;
+
+    for (let i = 0; i < this.stories?.length; i++) {
+      const story = this.stories[i];
+      if (story.image) {
+        story.image = story.image.replace(
+          'https://other-party-images.s3.amazonaws.com',
+          'https://d2646mjd05vkml.cloudfront.net'
+        );
+      } else {
+        story.image = this.fallbackImage;
+      }
+      story.isImage = Math.round(Math.random());
+      story.cSummery = this.truncate(
+        story.summary,
+        story.isImage ? 30 : 100
+      );
+      story.latest_major_action = this.truncate(
+        story.latest_major_action,
+        20
+      );
+      story.cStory = this.truncate(story.story, story.isImage ? 10 : 100);
+    }
+
+    const classes = ['half', 'third', 'full', 'fourth'];
+    this.stories = this.assignClassesToStories(this.stories, classes);
+
+    if (isPlatformServer(this._platformId)) {
+      return;
+    } else {
+      /**
+       * Restore search results
+       */
+      const searchString = sessionStorage.getItem('search');
+      if (searchString) {
+        this.search(searchString);
+      }
+    }
+  }
+
   public loadData = (type?: string) => {
     this.toggleLoading();
     this.headLineService
       .getHeadLines(this.itemsPerPage, this.currentPage, 'DESC')
       .subscribe({
         next: (response) => {
-          if (type) this.headLines = response?.data?.stories.slice(0, 5);
-          if (type) this.stories = response?.data?.stories.slice(5, 15);
-          else this.stories = response?.data?.stories;
-
-          this.oldHeadlines = this.headLines;
-
-          for (let i = 0; i < this.stories.length; i++) {
-            const story = this.stories[i];
-            if (story.image) {
-              story.image = story.image.replace(
-                'https://other-party-images.s3.amazonaws.com',
-                'https://d2646mjd05vkml.cloudfront.net'
-              );
-            } else {
-              story.image = this.fallbackImage;
-            }
-            story.isImage = Math.round(Math.random());
-            story.cSummery = this.truncate(
-              story.summary,
-              story.isImage ? 30 : 100
-            );
-            story.latest_major_action = this.truncate(
-              story.latest_major_action,
-              20
-            );
-            story.cStory = this.truncate(story.story, story.isImage ? 10 : 100);
-          }
-
-          const classes = ['half', 'third', 'full', 'fourth'];
-          this.stories = this.assignClassesToStories(this.stories, classes);
-
-          if (isPlatformServer(this._platformId)) {
-            return;
-          } else {
-            /**
-             * Restore search results
-             */
-            const searchString = sessionStorage.getItem('search');
-            if (searchString) {
-              this.search(searchString);
-            }
-          }
+          this.filterStories(response?.data?.stories, type);
         },
         error: (err) => console.log(err),
         complete: () => this.toggleLoading(),
@@ -216,7 +231,7 @@ export class ContentComponent implements OnInit {
   assignClassesToStories(array: any, classes: any) {
     let currentIndex = 0;
 
-    for (let i = 1; i < array.length; ) {
+    for (let i = 1; i < array?.length;) {
       const currentClass = classes[currentIndex];
       let increment = 0;
 
@@ -253,6 +268,7 @@ export class ContentComponent implements OnInit {
   }
 
   search(query: string) {
+    console.trace("🚀 ~ ContentComponent ~ search ~ query:", query)
     if (!query) {
       this.isSearching = false;
       this.headLines = this.oldHeadlines;
@@ -266,6 +282,24 @@ export class ContentComponent implements OnInit {
 
       this.headLineService.searchBill(query).subscribe((response) => {
         const searchResults = response?.data;
+        this.isSearching = false;
+        this.headLines = searchResults;
+        this.cdr.detectChanges();
+      });
+    }
+  }
+
+  getDataBasedOnTags(query: string) {
+    console.trace("🚀 ~ ContentComponent ~ search ~ query:", query)
+    if (!query) {
+      this.isSearching = false;
+      this.headLines = this.oldHeadlines;
+    } else {
+      this.isSearching = true
+      this.headLineService.searchBill(query).subscribe((response) => {
+        const searchResults = response?.data;
+        this.filterStories(searchResults, '');
+
         this.isSearching = false;
         this.headLines = searchResults;
         this.cdr.detectChanges();

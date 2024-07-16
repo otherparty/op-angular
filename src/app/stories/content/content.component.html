@@ -1,3 +1,18 @@
+<div class="tabs">
+  @for (tab of tabs; track $index) {
+    <!-- <input type="radio" [name]="tab" id="tab1" checked="checked" (click)="search(tab)">
+    <label for="tab1" class="">{{tab}}</label> -->
+
+    <nav class="sandbar sand monolisk flow-text">
+			<ul>
+				<li><a (click)="getDataBasedOnTags(tab)">{{tab}}</a></li>
+
+			</ul>
+		</nav>
+  }
+
+</div>
+
 <div class="wrap-1600">
   <div class="flow-text lucida flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500"
     (scrolled)="onScroll()">
