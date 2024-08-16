@@ -8,7 +8,6 @@
 <div class="wrap-1600">
 </div>
 
-
 @if (this.repResponse.length) {
 <div class="flex flow-text arial">
   <div class="third padded">
@@ -56,6 +55,24 @@
       </div>
     </div>
     <br>
+    <p class="helvetica larger">{{item.account.first_name}} brought these bills to Congress</p>
+    <div class="third padded black-b b-b-t">
+      <br>
+      <div class="ul">
+        <p>Education Innovation - ideally, a descending list based on date between bills sponsored and cosponsored
+        </p>
+        <br>
+        <p>Agricultural Improvements - ideally, a descending list based on date between bills sponsored and
+          cosponsored
+        </p>
+        <br>
+        <p>Job Growth Bill - ideally, a descending list based on date between bills sponsored and cosponsored</p>
+        <br>
+      </div>
+    </div>
+  </div>
+  <div class="third padded">
+    <br>
     <p class="helvetica larger">{{item.account.first_name}} voted for...</p>
     <div class="third padded black-b b-b-t">
       <br>
@@ -69,52 +86,22 @@
       </div>
     </div>
     <br>
-    <p class="helvetica larger"> {{item.account.first_name}} voted against...</p>
-    <div class="third padded black-b b-b-t">
-      <br>
-      <div class="ul">
-        <p>Bill from Nay and No arrays, sorted by date</p>
+    <div class="third padded b-s-t black-b">
+      <p class="helvetica larger"> {{item.account.first_name}} voted against...</p>
+      <div class="third padded black-b b-b-t">
         <br>
-        <p>Bill from Nay and No arrays, sorted by date</p>
-        <br>
-        <p>Bill from Nay and No arrays, sorted by date</p>
-        <br>
-      </div>
-    </div>
-    <p class="helvetica larger">Amendments - maybe we just toggle this from the summary if the values are consistently
-      low</p>
-    <div class="third padded black-b b-b-t">
-      <br>
-      <div class="ul">
-        <p>Proposed amendment - ideally, descending list based on latest date in the amendments array of the
-          representatives database</p>
-        <br>
-        <p>Proposed amendment - ideally, descending list based on latest date in the amendments array of the
-          representatives database</p>
-        <br>
-        <p>Proposed amendement - ideally, descending list based on latest date in the amendments array of the
-          representatives database</p>
-        <br>
-      </div>
-    </div>
-    <br>
-    <p class="helvetica larger">{{item.account.first_name}} brought these bills to Congress</p>
-    <div class="third padded black-b b-b-t">
-      <br>
-      <div class="ul">
-        <p>Education Innovation - ideally, a descending list based on date between bills sponsored and cosponsored</p>
-        <br>
-        <p>Agricultural Improvements - ideally, a descending list based on date between bills sponsored and cosponsored
-        </p>
-        <br>
-        <p>Job Growth Bill - ideally, a descending list based on date between bills sponsored and cosponsored</p>
-        <br>
+        <div class="ul">
+          <p>Bill from Nay and No arrays, sorted by date</p>
+          <br>
+          <p>Bill from Nay and No arrays, sorted by date</p>
+          <br>
+          <p>Bill from Nay and No arrays, sorted by date</p>
+          <br>
+        </div>
       </div>
     </div>
   </div>
   }
-
-
 </div>
 }
 
