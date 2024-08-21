@@ -41,11 +41,30 @@ export class BillService {
       .pipe(catchError(this.handleError<any>('searchBill')));
   }
 
-  getSubscriberDetails(accountId: string): Observable<any> {
+  getSubscriberDetails(sponsorId: string): Observable<any> {
     return this.http
-      .post(`${this.billsURL}/emailVotes`, { accountId })
+      .post(`${this.billsURL}/emailVotes`, { sponsorId })
       .pipe(catchError(this.handleError<any>('getSubscriberDetails')));
   }
+
+  votedForList(sponsorId: string): Observable<any> {
+    return this.http
+      .post(`${this.billsURL}/votedForList`, { sponsorId })
+      .pipe(catchError(this.handleError<any>('votedForList')));
+  }
+  
+  /**
+   * 
+   * @param sponsorId 
+   * @returns 
+   */
+  votedAgainstList(sponsorId: string): Observable<any> {
+    return this.http
+      .post(`${this.billsURL}/votedAgainstList`, { sponsorId })
+      .pipe(catchError(this.handleError<any>('votedAgainstList')));
+  }
+
+
 
   /**
    * Handle Http operation that failed.

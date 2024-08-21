@@ -40,11 +40,13 @@ import { Title, Meta } from '@angular/platform-browser';
   templateUrl: './subscribers-page.component.html',
   styleUrl: './subscribers-page.component.scss'
 })
-export class SubscribersPageComponent implements OnInit  {
+export class SubscribersPageComponent implements OnInit {
 
   public _id: string = '';
-  public repResponse : any[] = [];
-  constructor(    private headLineService: BillService,
+  public repResponse: any[] = [];
+  public votedAgainstList: any[] = [];
+  public votedForList: any[] = [];
+  constructor(private headLineService: BillService,
     private formBuilder: FormBuilder,
     @Inject(PLATFORM_ID) private _platformId: Object,
     private router: Router,
@@ -54,16 +56,24 @@ export class SubscribersPageComponent implements OnInit  {
 
   }
 
-  ngOnInit( ) {
+  ngOnInit() {
 
     this.route.params.subscribe((params) => {
       this._id = params['id'];
-
       if (this._id) {
-        this.headLineService.getSubscriberDetails(this._id).subscribe((response)=> {
+        this.headLineService.getSubscriberDetails(this._id).subscribe((response) => {
           const _response = response?.data;
           this.repResponse = Object.keys(_response).map(key => _response[key]);
-          console.log("data",this.repResponse)
+        })
+        this.headLineService.votedAgainstList(this._id).subscribe((response) => {
+          const _response = response?.data;
+          this.votedAgainstList = _response
+          console.log("🚀 ~ SubscribersPageComponent ~ this.headLineService.votedAgainstList ~ this.votedAgainstList:", this.votedAgainstList)
+        })
+        this.headLineService.votedForList(this._id).subscribe((response) => {
+          const _response = response?.data;
+          this.votedForList = _response
+          console.log("🚀 ~ SubscribersPageComponent ~ this.headLineService.votedForList ~ this.votedForList:", this.votedForList)
         })
       }
     })

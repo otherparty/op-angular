@@ -76,27 +76,50 @@
     <p class="helvetica larger">{{item.account.first_name}} voted for...</p>
     <div class="third padded black-b b-b-t">
       <br>
-      <div class="ul">
-        <p>Bill from Yea and Aye arrays, sorted by date</p>
-        <br>
-        <p>Bill from Yea and Aye arrays, sorted by date</p>
-        <br>
-        <p>Bill from Yea and Aye arrays, sorted by date</p>
-        <br>
+      <div class="flow-text lucida flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500">
+        <div class="full-height-scrollable-container half padded black-b b-a-f neon-text shine ul">
+          @if (votedForList) {
+          <div class="ul">
+            @for (bill of votedForList; track bill.id) {
+            <p class="spacer"></p>
+            <button class="glitchtext left-align">
+              {{ bill.headLine }}
+            </button>
+            }
+          </div>
+          } @else {
+          <div class="ul">
+            <p class="neon-text">No Headlines</p>
+          </div>
+          }
+        </div>
       </div>
     </div>
+
+
+
     <br>
     <div class="third padded b-s-t black-b">
       <p class="helvetica larger"> {{item.account.first_name}} voted against...</p>
       <div class="third padded black-b b-b-t">
         <br>
-        <div class="ul">
-          <p>Bill from Nay and No arrays, sorted by date</p>
-          <br>
-          <p>Bill from Nay and No arrays, sorted by date</p>
-          <br>
-          <p>Bill from Nay and No arrays, sorted by date</p>
-          <br>
+        <div class="flow-text lucida flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500">
+          <div class="full-height-scrollable-container half padded black-b b-a-f neon-text shine ul">
+            @if (votedAgainstList) {
+            <div class="ul">
+              @for (bill of votedAgainstList; track bill.id) {
+              <p class="spacer"></p>
+              <button class="glitchtext left-align">
+                {{ bill.headLine }}
+              </button>
+              }
+            </div>
+            } @else {
+            <div class="ul">
+              <p class="neon-text">No Headlines</p>
+            </div>
+            }
+          </div>
         </div>
       </div>
     </div>

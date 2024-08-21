@@ -115,8 +115,8 @@ export class ContentComponent implements OnInit {
 
   public filterStories = (stories: any, type?: string) => {
     console.log("🚀 ~ ContentComponent ~ stories:", stories)
-    if (type) this.headLines = stories.slice(0, 5);
-    if (type) this.stories = stories.slice(5, 15);
+    if (type) this.headLines = stories?.slice(0, 5);
+    if (type) this.stories = stories?.slice(5, 15);
     else this.stories = stories;
 
     this.oldHeadlines = this.headLines;
