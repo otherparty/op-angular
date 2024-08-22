@@ -1,14 +1,17 @@
 <div class="tabs">
   @for (tab of tabs; track $index) {
-    <!-- <input type="radio" [name]="tab" id="tab1" checked="checked" (click)="search(tab)">
+  <!-- <input type="radio" [name]="tab" id="tab1" checked="checked" (click)="search(tab)">
     <label for="tab1" class="">{{tab}}</label> -->
 
-    <nav class="sandbar sand monolisk flow-text">
+  <!-- <nav class="sandbar sand monolisk flow-text">
 			<ul>
 				<li><a (click)="getDataBasedOnTags(tab)">{{tab}}</a></li>
 
 			</ul>
-		</nav>
+		</nav> -->
+  <input type="radio" name="tabgroup1" id="tab1" checked="checked">
+  <label for="tab1" class="">{{tab}}</label>
+  <div class="tab"></div>
   }
 
 </div>
