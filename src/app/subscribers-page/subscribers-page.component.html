@@ -77,7 +77,7 @@
     <div class="third padded black-b b-b-t">
       <br>
       <div class="flow-text lucida flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500">
-        <div class="full-height-scrollable-container half padded black-b b-a-f neon-text shine ul">
+        <div class="full-height-scrollable-container full padded black-b b-a-f neon-text shine ul">
           @if (votedForList) {
           <div class="ul">
             @for (bill of votedForList; track bill.id) {
@@ -104,7 +104,7 @@
       <div class="third padded black-b b-b-t">
         <br>
         <div class="flow-text lucida flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500">
-          <div class="full-height-scrollable-container half padded black-b b-a-f neon-text shine ul">
+          <div class="full-height-scrollable-container full padded black-b b-a-f neon-text shine ul">
             @if (votedAgainstList) {
             <div class="ul">
               @for (bill of votedAgainstList; track bill.id) {
