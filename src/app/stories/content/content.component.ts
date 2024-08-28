@@ -58,14 +58,14 @@ export class ContentComponent implements OnInit {
     'https://d2646mjd05vkml.cloudfront.net/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png';
 
   public tabs = [
-    "Recent Votes",
-    "New Laws",
-    "Military",
-    "Education",
-    "Environment",
-    "Business",
-    "Technology",
-    "Healthcare",
+    // { name: "Recent Votes", checked: false },
+    { name: "Latest", checked: true },
+    { name: "Military", checked: false },
+    { name: "Education", checked: false },
+    { name: "Environment", checked: false },
+    { name: "Business", checked: false },
+    { name: "Technology", checked: false },
+    { name: "Healthcare", checked: false },
   ]
   constructor(
     private headLineService: BillService,
@@ -141,6 +141,8 @@ export class ContentComponent implements OnInit {
         20
       );
       story.cStory = this.truncate(story.story, story.isImage ? 10 : 100);
+      this.isSearching = false;
+      this.isLoading  = false
     }
 
     const classes = ['half', 'third', 'full', 'fourth'];
@@ -154,7 +156,12 @@ export class ContentComponent implements OnInit {
        */
       const searchString = sessionStorage.getItem('search');
       if (searchString) {
-        this.search(searchString);
+        const lastSearchedTab = this.tabs.find(t => t.name === searchString)
+        if(lastSearchedTab) {
+          this.getDataBasedOnTags(lastSearchedTab)
+        } else {
+          this.search(searchString);
+        }
       }
     }
   }
@@ -268,7 +275,6 @@ export class ContentComponent implements OnInit {
   }
 
   search(query: string) {
-    console.trace("🚀 ~ ContentComponent ~ search ~ query:", query)
     if (!query) {
       this.isSearching = false;
       this.headLines = this.oldHeadlines;
@@ -289,14 +295,32 @@ export class ContentComponent implements OnInit {
     }
   }
 
-  getDataBasedOnTags(query: string) {
+  getDataBasedOnTags(query: any) {
     console.trace("🚀 ~ ContentComponent ~ search ~ query:", query)
     if (!query) {
       this.isSearching = false;
       this.headLines = this.oldHeadlines;
     } else {
+      this.tabs.map(t=> {
+        t.checked = t.name === query.name ? true : false
+      })
+
+      if (isPlatformServer(this._platformId)) {
+        console.log('Server only code.');
+        // https://github.com/angular/universal#universal-gotchas
+      } else {
+        sessionStorage.setItem('search', query.name);
+      }
+
+      if(query.name === 'Latest') {
+        this.isSearching = true
+        this.isLoading = true
+        this.loadData('init');
+        return
+      };
+
       this.isSearching = true
-      this.headLineService.searchBill(query).subscribe((response) => {
+      this.headLineService.searchBill(query.name).subscribe((response) => {
         const searchResults = response?.data;
         this.filterStories(searchResults, '');
 

@@ -5,13 +5,13 @@
 
   <!-- <nav class="sandbar sand monolisk flow-text">
 			<ul>
-				<li><a (click)="getDataBasedOnTags(tab)">{{tab}}</a></li>
+				<li><a >{{tab}}</a></li>
 
 			</ul>
 		</nav> -->
-  <input type="radio" name="tabgroup1" id="tab1" checked="checked">
-  <label for="tab1" class="">{{tab}}</label>
-  <div class="tab"></div>
+  <input type="radio" [id]="tab.name" [name]="tab.name" [checked]="tab.checked">
+  <label [for]="tab.name" class="" (click)="getDataBasedOnTags(tab)">{{tab.name}}</label>
+  <!-- <div class="tab"></div> -->
   }
 
 </div>
