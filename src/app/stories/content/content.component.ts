@@ -94,6 +94,23 @@ export class ContentComponent implements OnInit {
         });
     }
 
+    if (isPlatformServer(this._platformId)) {
+      return;
+    } else {
+      /**
+       * Restore search results
+       */
+      const searchString = sessionStorage.getItem('search');
+      if (searchString) {
+        const lastSearchedTab = this.tabs.find(t => t.name === searchString)
+        if(lastSearchedTab) {
+          this.getDataBasedOnTags(lastSearchedTab)
+        } else {
+          this.search(searchString);
+        }
+      }
+    }
+
     /**
      * TODO: Add meta tags
      */
@@ -114,7 +131,6 @@ export class ContentComponent implements OnInit {
   }
 
   public filterStories = (stories: any, type?: string) => {
-    console.log("🚀 ~ ContentComponent ~ stories:", stories)
     if (type) this.headLines = stories?.slice(0, 5);
     if (type) this.stories = stories?.slice(5, 15);
     else this.stories = stories;
@@ -147,23 +163,6 @@ export class ContentComponent implements OnInit {
 
     const classes = ['half', 'third', 'full', 'fourth'];
     this.stories = this.assignClassesToStories(this.stories, classes);
-
-    if (isPlatformServer(this._platformId)) {
-      return;
-    } else {
-      /**
-       * Restore search results
-       */
-      const searchString = sessionStorage.getItem('search');
-      if (searchString) {
-        const lastSearchedTab = this.tabs.find(t => t.name === searchString)
-        if(lastSearchedTab) {
-          this.getDataBasedOnTags(lastSearchedTab)
-        } else {
-          this.search(searchString);
-        }
-      }
-    }
   }
 
   public loadData = (type?: string) => {
@@ -281,6 +280,7 @@ export class ContentComponent implements OnInit {
     } else {
       if (isPlatformServer(this._platformId)) {
         console.log('Server only code.');
+    
         // https://github.com/angular/universal#universal-gotchas
       } else {
         sessionStorage.setItem('search', query);
@@ -296,7 +296,6 @@ export class ContentComponent implements OnInit {
   }
 
   getDataBasedOnTags(query: any) {
-    console.trace("🚀 ~ ContentComponent ~ search ~ query:", query)
     if (!query) {
       this.isSearching = false;
       this.headLines = this.oldHeadlines;
