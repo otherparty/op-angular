@@ -5,44 +5,10 @@
 	</div>
 </div>
 
-<!-- <app-divider></app-divider> -->
-
-<!-- <div class="reveal toggle blonk-wrap">
-	<input id="blonknav" class="toggle" type="checkbox">
-	<label for="blonknav" class="label-toggle blonk-tr shape quadrant bottom-left flex middle mint"><i
-			class="bi bi-microscope bi-2x"></i></label>
-	<div class="toggle-content">
-		<div class="bitstream flex">
-			<form class="grey-t" [formGroup]="searchForm">
-				<div class="form-group">
-					<input formControlName="search" type="text" name="search" placeholder="Search for...">
-				</div>
-			</form>
-		</div>
-	</div>
-</div> -->
-
-<!-- 
-
- <div class="wrap-1200 emptiness padded">
-	<div class="lucida center">
-		<h2 class="fluid-text baffle-longer brickbuild mint-t rice-t-s" style="margin: 0; padding: 0;">AI on Congress
-		</h2>
-	</div>
+<div class="tabs">
+  @for (tab of tabs; track $index) {
+    <input type="radio" [id]="tab.name" [name]="tab.name" [checked]="tab.checked">
+    <label [for]="tab.name" class="" (click)="getDataBasedOnTags(tab)">{{tab.name}}</label>
+		<!--  -->
+  }
 </div>
-
-<app-divider></app-divider>
-
-<div class="reveal toggle blonk-wrap">
-	<input id="blonknav" class="toggle" type="checkbox">
-	<label for="blonknav" class="label-toggle blonk-tr shape quadrant bottom-left flex middle red"><i class="bi bi-menu bi-3x"></i></label>
-	<div class="toggle-content">
-		<div class="padded emptiness bitstream flex">
-			<form class="white grey-t brutal-border-dark box-s-k padded" name="demoform" action="" method="post">
-				<div class="form-group">
-					<input type="text" name="search" placeholder="Search">
-				</div>
-			</form>
-		</div>
-	</div>
-</div> -->

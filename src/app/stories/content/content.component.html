@@ -1,20 +1,9 @@
-<div class="tabs">
+<!-- <div class="tabs">
   @for (tab of tabs; track $index) {
-  <!-- <input type="radio" [name]="tab" id="tab1" checked="checked" (click)="search(tab)">
-    <label for="tab1" class="">{{tab}}</label> -->
-
-  <!-- <nav class="sandbar sand monolisk flow-text">
-			<ul>
-				<li><a >{{tab}}</a></li>
-
-			</ul>
-		</nav> -->
-  <input type="radio" [id]="tab.name" [name]="tab.name" [checked]="tab.checked">
-  <label [for]="tab.name" class="" (click)="getDataBasedOnTags(tab)">{{tab.name}}</label>
-  <!-- <div class="tab"></div> -->
+    <input type="radio" [id]="tab.name" [name]="tab.name" [checked]="tab.checked">
+    <label [for]="tab.name" class="" (click)="getDataBasedOnTags(tab)">{{tab.name}}</label>
   }
-
-</div>
+</div> -->
 
 <div class="wrap-1600">
   <div class="flow-text lucida flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500"

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MessageService } from './message.service';
-import { Observable, catchError, of, tap } from 'rxjs';
+import { Observable, Subject, catchError, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +10,10 @@ export class BillService {
   billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
   // billsURL = `https://backend.otherparty.ai/api/v1/stories`;
 
+  private xFunctionSubject = new Subject<any>();
+
+  xFunctionCalled$ = this.xFunctionSubject.asObservable();
+  
   constructor(
     private http: HttpClient,
     private messageService: MessageService
@@ -70,7 +74,9 @@ export class BillService {
       .pipe(catchError(this.handleError<any>('votedAgainstList')));
   }
 
-
+  callXFunction(tab:any) {
+    this.xFunctionSubject.next(tab);
+  }
 
   /**
    * Handle Http operation that failed.

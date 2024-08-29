@@ -113,6 +113,10 @@ export class ContentComponent implements OnInit {
       }
     }
 
+    this.headLineService.xFunctionCalled$.subscribe((tab) => {
+      this.getDataBasedOnTags(tab)
+    });
+
     /**
      * TODO: Add meta tags
      */
@@ -301,10 +305,8 @@ export class ContentComponent implements OnInit {
     if (!query) {
       this.isSearching = false;
       this.headLines = this.oldHeadlines;
+      return
     } else {
-      this.tabs.map(t=> {
-        t.checked = t.name === query.name ? true : false
-      })
 
       if (isPlatformServer(this._platformId)) {
         console.log('Server only code.');
@@ -328,6 +330,7 @@ export class ContentComponent implements OnInit {
         this.isSearching = false;
         this.headLines = searchResults;
         this.cdr.detectChanges();
+        return
       });
     }
   }

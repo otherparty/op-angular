@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { DividerComponent } from '../divider/divider.component';
+import { ContentComponent } from '../stories/content/content.component';
 import { BillService } from '../../services/bill.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -13,31 +14,28 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './title.component.scss'
 })
 export class TitleComponent {
+  @ViewChild(ContentComponent) _component!: ContentComponent;
 
-  searchForm: FormGroup;
-
+  public tabs = [
+    // { name: "Recent Votes", checked: false },
+    { name: "Latest", checked: true },
+    { name: "Military", checked: false },
+    { name: "Education", checked: false },
+    { name: "Environment", checked: false },
+    { name: "Business", checked: false },
+    { name: "Technology", checked: false },
+    { name: "Healthcare", checked: false },
+  ]
   constructor(private formBuilder: FormBuilder, private api: BillService) {
-    this.searchForm = this.formBuilder.group({
-      search: ['']
-    });
-
-    if (this.searchForm && this.searchForm.get('search')?.valueChanges) {
-      (this.searchForm.get('search') as FormControl)?.valueChanges
-        .pipe(
-          debounceTime(500), 
-          distinctUntilChanged()
-        )
-        .subscribe(value => {
-          this.search(value); 
-        });
-    }
 
   }
 
-  search(query: string) {
-    this.api.searchBill(query).subscribe((response) => {
-      console.log("🚀 ~ TitleComponent ~ this.api.searchBill ~ response:", response)
+  getDataBasedOnTags(tab: any) {
+    this.tabs.map(t=> {
+      t.checked = t.name === tab.name ? true : false
     })
+    this.api.callXFunction(tab);
   }
+
 
 }
