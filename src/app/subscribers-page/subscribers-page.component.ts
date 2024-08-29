@@ -46,6 +46,7 @@ export class SubscribersPageComponent implements OnInit {
   public repResponse: any[] = [];
   public votedAgainstList: any[] = [];
   public votedForList: any[] = [];
+  public votedSponsoredCosponsoredList: any[] = [];
   constructor(private headLineService: BillService,
     private formBuilder: FormBuilder,
     @Inject(PLATFORM_ID) private _platformId: Object,
@@ -68,12 +69,14 @@ export class SubscribersPageComponent implements OnInit {
         this.headLineService.votedAgainstList(this._id).subscribe((response) => {
           const _response = response?.data;
           this.votedAgainstList = _response
-          console.log("🚀 ~ SubscribersPageComponent ~ this.headLineService.votedAgainstList ~ this.votedAgainstList:", this.votedAgainstList)
         })
         this.headLineService.votedForList(this._id).subscribe((response) => {
           const _response = response?.data;
           this.votedForList = _response
-          console.log("🚀 ~ SubscribersPageComponent ~ this.headLineService.votedForList ~ this.votedForList:", this.votedForList)
+        })
+        this.headLineService.votedSponsoredCosponsoredList(this._id).subscribe((response) => {
+          const _response = response?.data;
+          this.votedSponsoredCosponsoredList = _response
         })
       }
     })

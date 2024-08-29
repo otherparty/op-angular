@@ -53,6 +53,12 @@ export class BillService {
       .pipe(catchError(this.handleError<any>('votedForList')));
   }
   
+  votedSponsoredCosponsoredList(sponsorId: string): Observable<any> {
+    return this.http
+      .post(`${this.billsURL}/votedSponsoredCosponsoredList`, { sponsorId })
+      .pipe(catchError(this.handleError<any>('votedSponsoredCosponsoredList')));
+  }
+  
   /**
    * 
    * @param sponsorId 

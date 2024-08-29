@@ -58,16 +58,23 @@
     <p class="helvetica larger">{{item.account.first_name}} brought these bills to Congress</p>
     <div class="third padded black-b b-b-t">
       <br>
-      <div class="ul">
-        <p>Education Innovation - ideally, a descending list based on date between bills sponsored and cosponsored
-        </p>
-        <br>
-        <p>Agricultural Improvements - ideally, a descending list based on date between bills sponsored and
-          cosponsored
-        </p>
-        <br>
-        <p>Job Growth Bill - ideally, a descending list based on date between bills sponsored and cosponsored</p>
-        <br>
+      <div class="flow-text lucida flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500">
+        <div class="full-height-scrollable-container full padded black-b b-a-f neon-text shine ul">
+          @if (votedForList) {
+          <div class="ul">
+            @for (bill of votedSponsoredCosponsoredList; track bill.id) {
+            <p class="spacer"></p>
+            <button class="glitchtext left-align">
+              {{ bill.headLine }}
+            </button>
+            }
+          </div>
+          } @else {
+          <div class="ul">
+            <p class="neon-text">No Headlines</p>
+          </div>
+          }
+        </div>
       </div>
     </div>
   </div>
@@ -95,8 +102,6 @@
         </div>
       </div>
     </div>
-
-
 
     <br>
     <div class="third padded b-s-t black-b">
