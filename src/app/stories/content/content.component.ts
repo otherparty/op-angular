@@ -105,8 +105,10 @@ export class ContentComponent implements OnInit {
         const lastSearchedTab = this.tabs.find(t => t.name === searchString)
         if(lastSearchedTab) {
           this.getDataBasedOnTags(lastSearchedTab)
-        } else {
+        } else if(searchString) {
           this.search(searchString);
+        } else {
+          this.loadData('init');
         }
       }
     }
@@ -127,7 +129,7 @@ export class ContentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadData('init');
+    
   }
 
   public filterStories = (stories: any, type?: string) => {
