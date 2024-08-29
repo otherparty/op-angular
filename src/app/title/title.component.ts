@@ -19,12 +19,12 @@ export class TitleComponent {
   public tabs = [
     // { name: "Recent Votes", checked: false },
     { name: "Latest", checked: true },
+    { name: "Business", checked: false },
     { name: "Military", checked: false },
     { name: "Education", checked: false },
-    { name: "Environment", checked: false },
-    { name: "Business", checked: false },
     { name: "Technology", checked: false },
     { name: "Healthcare", checked: false },
+    { name: "Environment", checked: false },
   ]
   constructor(private formBuilder: FormBuilder, private api: BillService) {
 
