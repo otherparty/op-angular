@@ -107,9 +107,9 @@ export class ContentComponent implements OnInit {
           this.getDataBasedOnTags(lastSearchedTab)
         } else if(searchString) {
           this.search(searchString);
-        } else {
-          this.loadData('init');
         }
+      } else {
+        this.loadData('init');
       }
     }
 
@@ -133,7 +133,6 @@ export class ContentComponent implements OnInit {
   }
 
   ngOnInit() {
-    
   }
 
   public filterStories = (stories: any, type?: string) => {
