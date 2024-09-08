@@ -12,46 +12,35 @@ import { isPlatformServer } from '@angular/common';
 
   imports: [DividerComponent, ReactiveFormsModule],
   templateUrl: './title.component.html',
-  styleUrl: './title.component.scss'
+  styleUrl: './title.component.scss',
 })
 export class TitleComponent {
   @ViewChild(ContentComponent) _component!: ContentComponent;
 
   public tabs = [
     // { name: "Recent Votes", checked: false },
-    { name: "Latest", checked: true },
-    { name: "Business", checked: false },
-    { name: "Military", checked: false },
-    { name: "Education", checked: false },
-    { name: "Technology", checked: false },
-    { name: "Healthcare", checked: false },
-    { name: "Environment", checked: false },
-  ]
-  constructor(private formBuilder: FormBuilder, private api: BillService, @Inject(PLATFORM_ID) private _platformId: Object,
+    { name: 'Latest', checked: true },
+    { name: 'Business', checked: false },
+    { name: 'Military', checked: false },
+    { name: 'Education', checked: false },
+    { name: 'Technology', checked: false },
+    { name: 'Healthcare', checked: false },
+    { name: 'Environment', checked: false },
+  ];
+  constructor(
+    private formBuilder: FormBuilder,
+    private api: BillService,
+    @Inject(PLATFORM_ID) private _platformId: Object
   ) {
-
-
     if (isPlatformServer(this._platformId)) {
       return;
-    } else {
-      const searchString = sessionStorage.getItem('search');
-      if (searchString) {
-        const lastSearchedTab = this.tabs.find(t => t.name === searchString)
-        if (lastSearchedTab) {
-          this.tabs.map(t => {
-            t.checked = t.name === lastSearchedTab.name ? true : false
-          })
-        }
-      }
     }
   }
 
   getDataBasedOnTags(tab: any) {
-    this.tabs.map(t => {
-      t.checked = t.name === tab.name ? true : false
-    })
+    this.tabs.map((t) => {
+      t.checked = t.name === tab.name ? true : false;
+    });
     this.api.callXFunction(tab);
   }
-
-
 }

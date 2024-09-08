@@ -7,17 +7,17 @@ import { Observable, Subject, catchError, of, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class BillService {
-  // billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
-  billsURL = `https://backend.otherparty.ai/api/v1/stories`;
+  billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
+  // billsURL = `https://backend.otherparty.ai/api/v1/stories`;
 
   private xFunctionSubject = new Subject<any>();
 
   xFunctionCalled$ = this.xFunctionSubject.asObservable();
-  
+
   constructor(
     private http: HttpClient,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   /** POST: add a new hero to the server */
   getHeadLines(
@@ -56,17 +56,23 @@ export class BillService {
       .post(`${this.billsURL}/votedForList`, { sponsorId })
       .pipe(catchError(this.handleError<any>('votedForList')));
   }
-  
+
   votedSponsoredCosponsoredList(sponsorId: string): Observable<any> {
     return this.http
       .post(`${this.billsURL}/votedSponsoredCosponsoredList`, { sponsorId })
       .pipe(catchError(this.handleError<any>('votedSponsoredCosponsoredList')));
   }
-  
+
+  searchForReps(search: string): Observable<any> {
+    return this.http
+      .post(`${this.billsURL}/rep`, { search })
+      .pipe(catchError(this.handleError<any>('searchForReps')));
+  }
+
   /**
-   * 
-   * @param sponsorId 
-   * @returns 
+   *
+   * @param sponsorId
+   * @returns
    */
   votedAgainstList(sponsorId: string): Observable<any> {
     return this.http
@@ -74,7 +80,7 @@ export class BillService {
       .pipe(catchError(this.handleError<any>('votedAgainstList')));
   }
 
-  callXFunction(tab:any) {
+  callXFunction(tab: any) {
     this.xFunctionSubject.next(tab);
   }
 
@@ -102,5 +108,4 @@ export class BillService {
   private log(message: string) {
     this.messageService.add(`HeroService: ${message}`);
   }
-
 }
