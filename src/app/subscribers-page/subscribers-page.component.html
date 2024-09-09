@@ -1,47 +1,22 @@
 <app-navbar></app-navbar>
 
 <app-title></app-title>
-
-<app-divider></app-divider>
-
+<br>
 <!-- flexbox layout -->
 <div class="wrap-1600">
 </div>
 
 @if (this.repResponse.length) {
 <div class="flex flow-text arial">
-  <div class="third padded">
-    <ul class="tree-list">
-      <li><span class="parent">Bills</span>
-        <ul class="nested">
-          <button>child item</button>
-        </ul>
-      </li>
-      <li><span class="parent">Reps</span>
-        <ul class="nested">
-          <button>child item</button>
-          <br>
-          <button>child item</button>
-          <br>
-          <button>child item</button>
-        </ul>
-      </li>
-      <li><span class="parent">Topics</span>
-        <ul class="nested">
-          <button>child item</button>
-        </ul>
-      </li>
-    </ul>
-  </div>
+
   <!-- two columns -->
   @for (item of this.repResponse; track $index) {
+  <p class="impact larger full shine padded">{{item.account.first_name + ' ' + item.account.last_name }}</p>
+
   <div class="third padded b-s-t black-b">
-    <div class="heat fourth padded b-s-t black-b">
-      <p class="impact larger">{{item.account.first_name + ' ' + item.account.last_name }}</p>
-    </div>
     <br>
-    <p class="helvetica larger">Summary</p>
-    <div class="third padded black-b b-b-t">
+    <p class="helvetica larger glitchtext">Summary</p>
+    <div class="third padded black-b b-b-t infinitile">
       <br>
       <div class="ul">
         <p><span class="bold">Voted</span> {{item.votes || 0}} times</p>
@@ -55,11 +30,11 @@
       </div>
     </div>
     <br>
-    <p class="helvetica larger">{{item.account.first_name}} brought these bills to Congress</p>
+    <p class="helvetica larger glitchtext">Brought to Congress</p>
     <div class="third padded black-b b-b-t">
       <br>
       <div class="flow-text lucida flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500">
-        <div class="full-height-scrollable-container full padded black-b b-a-f neon-text shine ul">
+        <div class="full-height-scrollable-container full padded neon-text shine lo-opacity ul">
           @if (votedForList) {
           <div class="ul">
             @for (bill of votedSponsoredCosponsoredList; track bill.id) {
@@ -80,16 +55,16 @@
   </div>
   <div class="third padded">
     <br>
-    <p class="helvetica larger">{{item.account.first_name}} voted for...</p>
-    <div class="third padded black-b b-b-t">
+    <p class="helvetica larger glitchtext">Supported</p>
+    <div class="third padded black-b b-b-t flood">
       <br>
-      <div class="flow-text lucida flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500">
-        <div class="full-height-scrollable-container full padded black-b b-a-f neon-text shine ul">
+      <div class="flow-text helvetica flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500">
+        <div class="full-height-scrollable-container full padded heavy ul">
           @if (votedForList) {
-          <div class="ul">
+          <div class="ul hi-opacity">
             @for (bill of votedForList; track bill.id) {
             <p class="spacer"></p>
-            <button class="glitchtext left-align">
+            <button class="left-align black">
               {{ bill.headLine }}
             </button>
             }
@@ -104,27 +79,25 @@
     </div>
 
     <br>
-    <div class="third padded b-s-t black-b">
-      <p class="helvetica larger"> {{item.account.first_name}} voted against...</p>
-      <div class="third padded black-b b-b-t">
-        <br>
-        <div class="flow-text lucida flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500">
-          <div class="full-height-scrollable-container full padded black-b b-a-f neon-text shine ul">
-            @if (votedAgainstList) {
-            <div class="ul">
-              @for (bill of votedAgainstList; track bill.id) {
-              <p class="spacer"></p>
-              <button class="glitchtext left-align">
-                {{ bill.headLine }}
-              </button>
-              }
-            </div>
-            } @else {
-            <div class="ul">
-              <p class="neon-text">No Headlines</p>
-            </div>
+    <p class="helvetica larger glitchtext"> Opposed</p>
+    <div class="third padded b-s-t black-b heat">
+      <br>
+      <div class="flow-text helvetica flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500">
+        <div class="full-height-scrollable-container full padded heavy ul">
+          @if (votedAgainstList) {
+          <div class="ul hi-opacity">
+            @for (bill of votedAgainstList; track bill.id) {
+            <p class="spacer"></p>
+            <button class="left-align">
+              {{ bill.headLine }}
+            </button>
             }
           </div>
+          } @else {
+          <div class="ul">
+            <p class="neon-text">No Headlines</p>
+          </div>
+          }
         </div>
       </div>
     </div>
