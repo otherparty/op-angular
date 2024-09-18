@@ -11,9 +11,9 @@
 
   <!-- two columns -->
   @for (item of this.repResponse; track $index) {
-  <p class="impact larger full shine padded">{{item.account.first_name + ' ' + item.account.last_name }}</p>
+  <p class="impact larger full sand padded">{{item.account.first_name + ' ' + item.account.last_name }}</p>
 
-  <div class="third padded b-s-t black-b">
+  <div class="half padded b-s-t black-b">
     <br>
     <p class="helvetica larger glitchtext">Summary</p>
     <div class="third padded black-b b-b-t infinitile">
@@ -31,15 +31,15 @@
     </div>
     <br>
     <p class="helvetica larger glitchtext">Brought to Congress</p>
-    <div class="third padded black-b b-b-t">
+    <div class="third padded black-b b-b-t sand">
       <br>
-      <div class="flow-text lucida flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500">
-        <div class="full-height-scrollable-container full padded neon-text shine lo-opacity ul">
+      <div class="flow-text helvetica flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500">
+        <div class="full-height-scrollable-container full padded heavy ul">
           @if (votedForList) {
-          <div class="ul">
+          <div class="ul hi-opacity">
             @for (bill of votedSponsoredCosponsoredList; track bill.id) {
             <p class="spacer"></p>
-            <button class="glitchtext left-align">
+            <button class="left-align white">
               {{ bill.headLine }}
             </button>
             }
@@ -53,7 +53,7 @@
       </div>
     </div>
   </div>
-  <div class="third padded">
+  <div class="half padded">
     <br>
     <p class="helvetica larger glitchtext">Supported</p>
     <div class="third padded black-b b-b-t flood">
