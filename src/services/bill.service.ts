@@ -10,9 +10,11 @@ export class BillService {
   billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
   // billsURL = `https://backend.otherparty.ai/api/v1/stories`;
 
-  private xFunctionSubject = new Subject<any>();
+  private xFunctionSubject = new Subject<[any, boolean]>();
+  private yFunctionSubject = new Subject<[any, boolean]>();
 
   xFunctionCalled$ = this.xFunctionSubject.asObservable();
+  yFunctionCalled$ = this.yFunctionSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -80,8 +82,11 @@ export class BillService {
       .pipe(catchError(this.handleError<any>('votedAgainstList')));
   }
 
-  callXFunction(tab: any) {
-    this.xFunctionSubject.next(tab);
+  callXFunction(tab: any, isSubscriberPage: boolean) {
+    this.xFunctionSubject.next([tab, isSubscriberPage]);
+  }
+  callYFunction(tab: any, isChecked: boolean) {
+    this.yFunctionSubject.next([tab, isChecked]);
   }
 
   /**

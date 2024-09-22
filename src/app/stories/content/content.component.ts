@@ -8,7 +8,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BillService } from '../../../services/bill.service';
 import { DividerComponent } from '../../divider/divider.component';
 import { FooterComponent } from '../../footer/footer.component';
@@ -64,6 +64,7 @@ export class ContentComponent implements OnInit {
     private formBuilder: FormBuilder,
     @Inject(PLATFORM_ID) private _platformId: Object,
     private router: Router,
+    private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private title: Title,
     private meta: Meta
@@ -99,6 +100,11 @@ export class ContentComponent implements OnInit {
       this.getDataBasedOnTags(tab);
     });
 
+    this.route.queryParams.subscribe(queryParams => {
+      this.headLineService.callYFunction({ name: queryParams['tab'] }, true)
+      this.getDataBasedOnTags({ name: queryParams['tab'] });
+    });
+
     /**
      * TODO: Add meta tags
      */
@@ -114,7 +120,7 @@ export class ContentComponent implements OnInit {
     // this.meta.addTag({name: 'twitter:image', content: 'https://avatars3.githubusercontent.com/u/16628445?v=3&s=200'});
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   public filterStories = (stories: any, type?: string) => {
     if (type) this.headLines = stories?.slice(0, 5);
@@ -217,7 +223,7 @@ export class ContentComponent implements OnInit {
   assignClassesToStories(array: any, classes: any) {
     let currentIndex = 0;
 
-    for (let i = 1; i < array?.length; ) {
+    for (let i = 1; i < array?.length;) {
       const currentClass = classes[currentIndex];
       let increment = 0;
 
