@@ -6,23 +6,13 @@
 </div> -->
 
 <div class="wrap-1600">
-  <div
-    class="flow-text lucida flex"
-    infinite-scroll
-    [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="500"
-    (scrolled)="onScroll()"
-  >
+  <div class="flow-text lucida flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500"
+    (scrolled)="onScroll()">
     <div class="full padded black-b b-a-f neon-text shine">
       <div class="bitstream flex">
         <form class="grey-t" [formGroup]="searchForm">
           <div class="form-group">
-            <input
-              formControlName="search"
-              type="text"
-              name="search"
-              placeholder="Search for..."
-            />
+            <input formControlName="search" type="text" name="search" placeholder="🔎 Reps or topics.." />
           </div>
         </form>
       </div>
@@ -30,9 +20,9 @@
       @if(repsNames && repsNames.length) {
       <div class="reps-flex">
         @for (tab of repsNames; track $index) {
-        <a [routerLink]="['/subscriber-view', tab.id]">
-          {{ tab.name }}
-        </a>
+        <button class="sand"><a [routerLink]="['/subscriber-view', tab.id]">
+            {{ tab.name }}
+          </a></button>
         }
       </div>
       }
@@ -77,31 +67,17 @@
     </div> -->
 
     @if (stories) { @for (story of stories; track $index && story.bill_id) {
-    <div
-      class="padded b-s-t black-b full"
-      (click)="changeRoute(story.bill_id)"
-      [ngClass]="$index === 0 ? 'half' : story.className"
-      [routerLink]="['/story', story.bill_id]"
-    >
+    <div class="padded b-s-t black-b full" (click)="changeRoute(story.bill_id)"
+      [ngClass]="$index === 0 ? 'half' : story.className" [routerLink]="['/story', story.bill_id]">
       <p class="impact larger">{{ story.headLine }}</p>
       <p class="spacer"></p>
 
       @if(story.isImage) {
-      <img
-        class="resize-both responsive"
-        src="{{ story.image }}"
-        alt="{{ story.headLine }}"
-      />
+      <img class="resize-both responsive" src="{{ story.image }}" alt="{{ story.headLine }}" />
       <p class="spacer"></p>
-      <span
-        class="helvetica keep-all flow-text justify guard"
-        [innerHTML]="story.cSummery"
-      ></span>
+      <span class="helvetica keep-all flow-text justify guard" [innerHTML]="story.cSummery"></span>
       } @if(!story.isImage) {
-      <span
-        class="helvetica keep-all flow-text justify guard"
-        [innerHTML]="story.cSummery"
-      ></span>
+      <span class="helvetica keep-all flow-text justify guard" [innerHTML]="story.cSummery"></span>
       }
       <p class="spacer"></p>
       @if (story.latest_major_action && story.latest_major_action_date) {
@@ -112,10 +88,7 @@
         {{ story.latest_major_action }}
       </blockquote>
       } @if (story?.account?.twitter_account) {
-      <button
-        class="flood full-btn bitshadow"
-        (click)="openTwitter(story?.account?.twitter_account)"
-      >
+      <button class="flood full-btn bitshadow" (click)="openTwitter(story?.account?.twitter_account)">
         &#64;{{ story?.account?.twitter_account }}
       </button>
       }
