@@ -302,6 +302,10 @@ export class ContentComponent implements OnInit {
         // https://github.com/angular/universal#universal-gotchas
       }
 
+      if(!query.name) {
+        return;
+      }
+
       if (query.name === 'Latest') {
         this.isSearching = true;
         this.isLoading = true;
