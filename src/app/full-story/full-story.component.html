@@ -24,7 +24,7 @@
       <ul class="tags">
         <li>
           <a href="https://twitter.com/intent/tweet?text={{bill.twitterText}}" target="_blank"
-            class="btn white-t azure hue-h box-s"><strong>Twitter</strong></a>
+            class="btn white-t black hue-h box-s"><strong> X </strong></a>
         </li>
         <li>
           <div class="fb-share-button" data-href="https://otherparty.ai" data-layout="button_count" data-size="">
@@ -49,18 +49,19 @@
     <div class="half padded">
       <p class="helvetica larger">{{billSummery?.headLine}}</p>
       <br>
-      <span class="helvetica keep-all flow-text justify" [innerHTML]="billSummery?.summary || billSummery?.story"></span>
+      <span class="helvetica keep-all flow-text justify"
+        [innerHTML]="billSummery?.summary || billSummery?.story"></span>
       <br>
       <br>
       <span class="helvetica keep-all flow-text justify" [innerHTML]="billSummery?.bill_text_summary"></span>
       @if (bill?.account?.twitter_account) {
-      <button class="flood btn-medium bitshadow" (click)="openTwitter(bill?.account?.twitter_account)">
+      <button class="btn-medium white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
         &#64;{{bill?.account?.twitter_account}}</button>
       }
       <br>
       <br>
       @if (bill?.govtrack_url) {
-      <button class="river-b sepia small-btn bitshadow zoom-in" (click)="openGovTrack(bill?.govtrack_url)">Track
+      <button class="river-b sepia small-btn zoom-in" (click)="openGovTrack(bill?.govtrack_url)">Track
         #{{bill?.bill_slug}}</button>
       }
       <!-- <a class="neon-text" target="_blank" [href]="bill?.govtrack_url">{{bill?.govtrack_url}}</a> -->
