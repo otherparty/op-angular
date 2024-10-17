@@ -27,7 +27,7 @@ export class BillService {
     nOffset: number,
     orderBy: string
   ): Observable<any> {
-    return this.http.post(this.billsURL, { nLimit, nOffset }).pipe(
+    return this.http.post(this.billsURL, { nLimit, nOffset, orderBy }).pipe(
       tap((headlines) => this.log(`Got 10 headlines`)),
       catchError(this.handleError<any>('getHeadLines'))
     );
