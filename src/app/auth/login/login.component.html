@@ -14,10 +14,10 @@
         <small *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters.</small>
       </div>
 
-      <a href="#">Password Help?</a>
+      <a [routerLink]="['/forgot-password']">Password Help?</a>
       <button type="submit" [disabled]="loginForm.invalid">Log in</button>
       <br>
-      <p>Don’t have an account? <a href="#">Create One Now</a></p>
+      <p>Don’t have an account? <a [routerLink]="['/register']">Create One Now</a></p>
     </form>
   </div>
 
@@ -25,6 +25,6 @@
     <h2>New to the Party?</h2>
     <p>Sign up now so you can keep track of your reps, follow bills, and get updates from the floor.</p>
     <br>
-    <button type="button">Subscribe</button>
+    <button type="button" [routerLink]="['/register']">Subscribe</button>
   </div>
 </div>
