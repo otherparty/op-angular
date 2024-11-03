@@ -1,12 +1,24 @@
 <div class="container helvetica">
   <div class="login-form">
     <h1>Log in.</h1>
-    <input type="email" placeholder="Email *" required>
-    <input type="password" placeholder="Password *" required>
-    <a href="#">Password Help?</a>
-    <button type="submit">Log in</button>
-    <br>
-    <p>Don’t have an account? <a href="#">Create One Now</a></p>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <input type="email" placeholder="Email *" formControlName="email">
+      <div *ngIf="email?.invalid && email?.touched">
+        <small *ngIf="email?.errors?.['required']">Email is required.</small>
+        <small *ngIf="email?.errors?.['email']">Please enter a valid email.</small>
+      </div>
+
+      <input type="password" placeholder="Password *" formControlName="password">
+      <div *ngIf="password?.invalid && password?.touched">
+        <small *ngIf="password?.errors?.['required']">Password is required.</small>
+        <small *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters.</small>
+      </div>
+
+      <a href="#">Password Help?</a>
+      <button type="submit" [disabled]="loginForm.invalid">Log in</button>
+      <br>
+      <p>Don’t have an account? <a href="#">Create One Now</a></p>
+    </form>
   </div>
 
   <div class="order-search">

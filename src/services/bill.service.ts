@@ -7,8 +7,9 @@ import { Observable, Subject, catchError, of, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class BillService {
-  // billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
-  billsURL = `https://backend.otherparty.ai/api/v1/stories`;
+  billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
+  authURL = 'http://localhost:9000/api/v1/auth'; // URL to web api
+  // billsURL = `https://backend.otherparty.ai/api/v1/stories`;
 
   private xFunctionSubject = new Subject<[any, boolean]>();
   private yFunctionSubject = new Subject<[any, boolean]>();
@@ -87,6 +88,24 @@ export class BillService {
   }
   callYFunction(tab: any, isChecked: boolean) {
     this.yFunctionSubject.next([tab, isChecked]);
+  }
+
+  registerUser(user: any): Observable<any> {
+    return this.http
+      .post(`${this.authURL}/register`, user)
+      .pipe(catchError(this.handleError<any>('registerUser')));
+  }
+
+  loginUser(user: any): Observable<any> {
+    return this.http
+      .post(`${this.authURL}/login`, user)
+      .pipe(catchError(this.handleError<any>('loginUser')));
+  }
+
+  verifyUser(user: any): Observable<any> {
+    return this.http
+      .post(`${this.authURL}/confirm-user`, user)
+      .pipe(catchError(this.handleError<any>('verifyUser')));
   }
 
   /**

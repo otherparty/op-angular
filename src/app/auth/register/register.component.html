@@ -1,16 +1,43 @@
 <div class="create-account">
   <h1>Create an Account.</h1>
-  <input type="text" placeholder="First Name *" required>
-  <input type="text" placeholder="Last Name *" required>
-  <input type="email" placeholder="Email *" required>
-  <input type="email" placeholder="Confirm Email *" required>
-  <input type="password" placeholder="Password *" required>
-  <input type="password" placeholder="Confirm Password *" required>
-  <label>
-    <input type="checkbox">
-    Receive emails about new products, sales and store events.
-  </label>
-  <button type="submit">Create Account</button>
-  <p>This site is protected by reCAPTCHA and the Google <a href="#">Privacy Policy</a> and <a href="#">Terms of
-      Service</a> apply.</p>
+  <form [formGroup]="createAccountForm" (ngSubmit)="onSubmit()">
+    <input type="text" placeholder="First Name *" formControlName="firstName">
+    <div *ngIf="createAccountForm.get('firstName')?.invalid && createAccountForm.get('firstName')?.touched">
+      <small>First name is required.</small>
+    </div>
+
+    <input type="text" placeholder="Last Name *" formControlName="lastName">
+    <div *ngIf="createAccountForm.get('lastName')?.invalid && createAccountForm.get('lastName')?.touched">
+      <small>Last name is required.</small>
+    </div>
+
+    <input type="email" placeholder="Email *" formControlName="email">
+    <div *ngIf="createAccountForm.get('email')?.invalid && createAccountForm.get('email')?.touched">
+      <small>Valid email is required.</small>
+    </div>
+
+    <input type="email" placeholder="Confirm Email *" formControlName="confirmEmail">
+    <div *ngIf="emailMismatch">
+      <small>Emails do not match.</small>
+    </div>
+
+    <input type="password" placeholder="Password *" formControlName="password">
+    <div *ngIf="createAccountForm.get('password')?.invalid && createAccountForm.get('password')?.touched">
+      <small>Password must be at least 8 characters.</small>
+    </div>
+
+    <input type="password" placeholder="Confirm Password *" formControlName="confirmPassword">
+    <div *ngIf="passwordMismatch">
+      <small>Passwords do not match.</small>
+    </div>
+
+    <label>
+      <input type="checkbox" formControlName="receiveEmails">
+      Receive emails about new products, sales and store events.
+    </label>
+
+    <button type="submit" [disabled]="createAccountForm.invalid">Create Account</button>
+    <p>This site is protected by reCAPTCHA and the Google <a href="#">Privacy Policy</a> and <a href="#">Terms of
+        Service</a> apply.</p>
+  </form>
 </div>

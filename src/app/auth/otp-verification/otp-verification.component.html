@@ -1,0 +1,12 @@
+<div class="create-account">
+  <h1>Verify User.</h1>
+  <form [formGroup]="verifyUserForm" (ngSubmit)="onSubmit()">
+    <input type="text" placeholder="One-time Password *" formControlName="otp">
+    <div *ngIf="otp?.invalid && otp?.touched">
+      <small *ngIf="otp?.errors?.['required']">OTP is required.</small>
+      <small *ngIf="otp?.errors?.['pattern']">OTP must be a 6-digit number.</small>
+    </div>
+
+    <button type="submit" [disabled]="verifyUserForm.invalid">Verify User</button>
+  </form>
+</div>
