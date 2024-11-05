@@ -6,6 +6,7 @@ import { SubscribersPageComponent } from './subscribers-page/subscribers-page.co
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { OtpVerificationComponent } from './auth/otp-verification/otp-verification.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 
 export const routes: Routes = [
   {
@@ -23,6 +24,10 @@ export const routes: Routes = [
   {
     path : 'otp-verification',
     component: OtpVerificationComponent
+  },
+  {
+    path : 'reset-password',
+    component: ResetPasswordComponent
   },
   {
     path : 'story/:id',
