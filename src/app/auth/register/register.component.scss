@@ -1,6 +1,6 @@
-body {
+.body {
   font-family: Arial, sans-serif;
-  background-color: #ffffff;
+  // background-color: #ccc;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,10 +43,28 @@ body {
 .create-account label {
   font-size: 14px;
   margin-bottom: 10px;
-  display: block;
+  margin-left: 0px; /* Space between checkbox and label text */
+  display: flex;
 }
 
 .create-account p {
   margin-top: 15px;
   font-size: 12px;
+}
+
+.checkbox-container {
+  display: flex; /* Aligns the checkbox and label text in a row */
+  align-items: baseline; /* Centers the items vertically */
+  margin: 10px 0; /* Space above and below the checkbox */
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-right: 8px; /* Space between checkbox and label */
+  width: 16px; /* Optional: Set a specific width */
+  height: 16px; /* Optional: Set a specific height */
+  cursor: pointer; /* Change cursor to pointer for better UX */
+}
+
+.checkbox-label {
+  font-size: 17px; /* Optional: Set font size for the label */
 }
