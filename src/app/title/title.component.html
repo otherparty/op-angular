@@ -6,9 +6,9 @@
 </div>
 
 <div class="tabs">
-  @for (tab of tabs; track $index) {
-    <input type="radio" [id]="tab.name" [name]="tab.name" [checked]="tab.checked">
-    <label [for]="tab.name" class="" (click)="getDataBasedOnTags(tab)">{{tab.name}}</label>
-		<!--  -->
-  }
+	@for (tab of tabs; track $index) {
+	<input type="radio" [id]="tab.name" [name]="tab.name" [checked]="tab.checked">
+	<label [for]="tab.name" class="" (click)="getDataBasedOnTags(tab)">{{tab.name}}</label>
+	<!--  -->
+	}
 </div>

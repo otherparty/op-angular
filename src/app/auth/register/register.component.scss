@@ -1,6 +1,6 @@
 .body {
   font-family: Arial, sans-serif;
-  // background-color: #ccc;
+  background-color: #ccc;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,10 +9,11 @@
 }
 
 .create-account {
-  background-color: #f7f7f7;
+  // background-color: #f7f7f7;
+  background-color: transparent;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  // box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 400px;
   text-align: left;
 }
