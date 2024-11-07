@@ -108,6 +108,10 @@ export class BillService {
       .pipe(catchError(this.handleError<any>('verifyUser')));
   }
 
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('logged-in-user');
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
