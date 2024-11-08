@@ -1,6 +1,6 @@
-<div class="body">
-  <div class="create-account">
-    <h1>Create an Account.</h1>
+<div class="body sand">
+  <div class="create-account b-s-f">
+    <h1 class="helvetica heavy">Create a profile</h1>
     <form [formGroup]="createAccountForm" (ngSubmit)="onSubmit()">
       <input type="text" placeholder="First Name *" formControlName="firstName">
       <div *ngIf="createAccountForm.get('firstName')?.invalid && createAccountForm.get('firstName')?.touched">
@@ -37,9 +37,25 @@
         <span class="checkbox-label">Email me about bills I'm interested in.</span>
       </label>
 
-      <button type="submit" [disabled]="createAccountForm.invalid">Create Account</button>
+      <button type="submit" [disabled]="createAccountForm.invalid">Join the Party</button>
       <p>This site is protected by reCAPTCHA and the Google <a href="#">Privacy Policy</a> and <a href="#">Terms of
           Service</a> apply.</p>
     </form>
   </div>
+  <div class="sand info-tile comfortable padded inline-block helvetica">
+    <div style="padding: 2px;" class="mint">
+      <div class="padded black white-t">
+        <div class="b-d-f mint-b rounded" style="border-radius: 4rem">
+          <h3 class="padded flow-text white-t heavy center">Get more for your taxes</h3>
+          <p class="bitstream padded center">See what your reps are doing in Congress.</p>
+          <br>
+          <p class="bitstream padded center">Find bills that make a difference.</p>
+          <br>
+          <p class="bitstream padded center">Make your taxes work for you.</p>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sand logo small-thumb center pointer"><img src="./assets/img/Otherparty_final-logo.png"></div>
 </div>

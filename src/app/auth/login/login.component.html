@@ -1,5 +1,5 @@
 <div class="body">
-  <div class="container">
+  <div class="container sand">
     <div class="login-form">
       <h2 class="login-heading">Log in.</h2>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -16,19 +16,36 @@
         </div>
 
         <a href="#">Password Help?</a>
-        <button type="submit" [disabled]="loginForm.invalid">Log in</button>
+        <button class="mint-t" type="submit" [disabled]="loginForm.invalid">Do the secret handshake</button>
         <br>
-        <p>Don’t have an account? <a href="#">Create One</a></p>
+        <p>Don’t have a profile? <a href="#">Create One</a></p>
       </form>
     </div>
 
     <div class="subscribe-section">
       <div class="subscribe-section-contrast">
-        <h3>New to the Party?</h3>
-        <p>Sign up now to track your reps, follow bills, and get updates from the floor.</p>
+        <h3 class="impact">New to the Party?</h3>
+        <p>We'll send you updates so you can start intelligent political conversations.</p>
         <br>
-        <button type="button">Subscribe</button>
+        <button class="mint helvetica" type="button">Follow the bills</button>
       </div>
     </div>
   </div>
 </div>
+
+<div class="sand-b b-s-k padded inline-block flow-text"
+  style="margin-top: -2px; width: 100%; height: 100%; border-radius: 0 1rem 2rem 3rem;">
+  <div style="padding: 2px;" class="sliced-corner mint">
+    <div class="padded black white-t sliced-corner">
+      <div id="mc_embed_signup" class="b-s-t mint-b rounded">
+        <div id="mc_embed_signup_scroll">
+          <h3 class="padded flow-text monolisk white-t heavy">Get more for your taxes</h3>
+          <p class="bitstream padded helvetica">See what your reps are doing in Congress.</p>
+          <br>
+          <p class="bitstream padded helvetica">Find bills they should support.</p>
+          <br>
+          <p class="bitstream padded helvetica">Make your taxes work for you.</p>
+        </div>
+      </div>
+    </div>
+  </div>

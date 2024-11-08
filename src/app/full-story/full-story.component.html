@@ -53,7 +53,7 @@
         [innerHTML]="billSummery?.summary || billSummery?.story"></span>
       <br>
       <br>
-      <span class="helvetica keep-all flow-text justify padded" [innerHTML]="billSummery?.bill_text_summary"></span>
+      <span class="helvetica keep-all flow-text justify" [innerHTML]="billSummery?.bill_text_summary"></span>
       @if (bill?.account?.twitter_account) {
       <button class="btn-medium white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
         &#64;{{bill?.account?.twitter_account}}</button>

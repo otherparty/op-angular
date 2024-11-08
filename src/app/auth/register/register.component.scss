@@ -3,7 +3,8 @@
   background-color: #ccc;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* Align items to the start */
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
   height: 100vh;
   margin: 0;
 }
@@ -14,7 +15,7 @@
   padding: 20px;
   border-radius: 5px;
   // box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 400px;
+  width: 45%;
   text-align: left;
 }
 
@@ -68,4 +69,35 @@
 
 .checkbox-label {
   font-size: 17px; /* Optional: Set font size for the label */
+}
+
+.info-tile {
+  width: 45%;
+  margin-top: 50px;
+  margin-bottom: 0;
+  margin-right: 0;
+  padding-bottom: 0;
+}
+
+@media (max-width: 768px) { /* Media query for mobile devices */
+  body {
+      flex-direction: column; /* Stack items vertically */
+      align-items: stretch; /* Center align items */
+      margin: 0;
+      padding: 0;
+  }
+
+  .create-account, .info-tile {
+      width: 100%; /* Full width for mobile */
+      margin-bottom: 10px; /* Space between stacked elements */
+  }
+
+}
+
+.logo {
+  width: 45%;
+  margin-top: 20px;
+  margin-bottom: 0;
+  margin-right: 0;
+  padding-bottom: 0;
 }
