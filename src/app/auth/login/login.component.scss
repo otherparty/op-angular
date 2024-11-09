@@ -112,3 +112,9 @@ button {
     margin: 5px 0; /* Space between inputs and buttons */
     box-sizing: border-box; /* Ensures padding is included in the width */
 }
+
+small {
+    display: block; /* Display the error message on a new line */
+    color: red; /* Set the color of the error message */
+    margin-top: 5px; /* Add space above the error message */
+}
