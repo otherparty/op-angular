@@ -8,14 +8,14 @@ html, body {
 .container {
   display: flex; /* Default layout */
   flex-direction: column; /* Stack items vertically */
-  align-items: stretch; /* Ensure full width of children */
+  align-items: center; /* Ensure full width of children */
   padding: 20px; /* Padding around the container */
   margin: 0; /* Reset margins */
-  box-sizing: border-box; /* Include padding in total width/height */
+  // box-sizing: border-box; /* Include padding in total width/height */
 }
 
 .verify-profile {
-  width: 100%; /* Ensure full width */
+  width: 300px; /* Ensure full width */
   padding: 20px; /* Padding within the form section */
   border-radius: 5px; /* Rounded corners */
   margin: 0; /* Reset margin */
@@ -26,7 +26,7 @@ input[type="text"], input[type="password"], button {
   width: 100%; /* Full width */
   padding: 10px; /* Consistent padding */
   margin: 5px 0; /* Space between elements */
-  box-sizing: border-box; /* Ensure padding is included in width */
+  // box-sizing: border-box; /* Ensure padding is included in width */
 }
 
 .verify-profile button {
@@ -35,6 +35,6 @@ input[type="text"], input[type="password"], button {
   background-color: #000;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  // border-radius: 5px;
   cursor: pointer;
 }

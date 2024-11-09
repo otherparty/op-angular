@@ -1,4 +1,4 @@
-<div class="body">
+<div class="sand body">
   <div class="container">
     <div class="verify-profile">
       <h1>Verify Profile.</h1>
@@ -9,8 +9,9 @@
           <small *ngIf="otp?.errors?.['pattern']">OTP must be a 6-digit number.</small>
         </div>
 
-        <button type="submit" [disabled]="verifyUserForm.invalid">Submit</button>
+        <button class="mint-t" type="submit" [disabled]="verifyUserForm.invalid">Submit</button>
       </form>
     </div>
   </div>
+  <div class="sand logo small-thumb center pointer"><img src="./assets/img/Otherparty_final-logo.png"></div>
 </div>
