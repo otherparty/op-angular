@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BillService } from '../../../services/bill.service';
 import { Router, RouterModule } from '@angular/router';
+import { NavbarComponent } from '../../navbar/navbar.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, NavbarComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

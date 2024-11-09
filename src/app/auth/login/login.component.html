@@ -1,5 +1,6 @@
-<div class="body">
-  <div class="container sand">
+<div class="body sand ">
+  <app-navbar></app-navbar>
+  <div class="container">
     <div class="login-form">
       <h2 class="login-heading">Log in.</h2>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -31,20 +32,19 @@
       </div>
     </div>
   </div>
-</div>
-
-<div class="sand-b b-s-k padded inline-block flow-text"
-  style="margin-top: -2px; width: 100%; height: 100%; border-radius: 0 1rem 2rem 3rem;">
-  <div style="padding: 2px;" class="sliced-corner mint">
-    <div class="padded black white-t sliced-corner">
-      <div id="mc_embed_signup" class="b-s-t mint-b rounded">
-        <div id="mc_embed_signup_scroll">
-          <h3 class="padded flow-text monolisk white-t heavy">Get more for your taxes</h3>
-          <p class="bitstream padded helvetica">See what your reps are doing in Congress.</p>
-          <br>
-          <p class="bitstream padded helvetica">Find bills they should support.</p>
-          <br>
-          <p class="bitstream padded helvetica">Make your taxes work for you.</p>
+  <div class="sand-b b-s-k padded inline-block"
+    style="margin-top: -2px; width: 100%; height: 100%; border-radius: 0 1rem 2rem 3rem;">
+    <div style="padding: 2px;" class="sliced-corner mint">
+      <div class="padded black white-t sliced-corner">
+        <div id="mc_embed_signup" class="b-s-t mint-b rounded">
+          <div id="mc_embed_signup_scroll">
+            <h3 class="padded flow-text monolisk white-t heavy">Get more for your taxes</h3>
+            <p class="bitstream padded helvetica">See what your reps are doing in Congress.</p>
+            <br>
+            <p class="bitstream padded helvetica">Find bills they should support.</p>
+            <br>
+            <p class="bitstream padded helvetica">Make your taxes work for you.</p>
+          </div>
         </div>
       </div>
     </div>
