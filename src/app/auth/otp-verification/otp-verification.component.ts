@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import {  FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BillService } from '../../../services/bill.service';
 import { Router } from '@angular/router';
+import { NavbarComponent } from '../../navbar/navbar.component';
 
 @Component({
   selector: 'app-otp-verification',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NavbarComponent],
   templateUrl: './otp-verification.component.html',
   styleUrl: './otp-verification.component.scss'
 })
