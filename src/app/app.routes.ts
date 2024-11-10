@@ -7,6 +7,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { OtpVerificationComponent } from './auth/otp-verification/otp-verification.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { alreadyLoggedInGuard } from './auth.guard';
 
 export const routes: Routes = [
   {
@@ -15,19 +16,23 @@ export const routes: Routes = [
   },
   {
     path : 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+    canActivate: [alreadyLoggedInGuard] // Apply the guard here
   },
   {
     path : 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [alreadyLoggedInGuard] // Apply the guard here
   },
   {
     path : 'otp-verification',
-    component: OtpVerificationComponent
+    component: OtpVerificationComponent,
+    canActivate: [alreadyLoggedInGuard] // Apply the guard here
   },
   {
     path : 'reset-password',
-    component: ResetPasswordComponent
+    component: ResetPasswordComponent,
+    canActivate: [alreadyLoggedInGuard] // Apply the guard here
   },
   {
     path : 'story/:id',

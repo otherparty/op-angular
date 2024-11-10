@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AuthenticateService } from '../../services/cognito.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { AuthenticateService } from '../../services/cognito.service';
 export class NavbarComponent {
   user: any;
  
-  constructor(private readonly router: Router, private readonly cognito: AuthenticateService) {
+  constructor(private readonly cognito: AuthenticateService) {
     this.user = this.cognito.getUser();
   }
 

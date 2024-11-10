@@ -1,16 +1,29 @@
 
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { BillService } from '../services/bill.service'; // Ensure you have an AuthService handling login status
+import { AuthenticateService } from '../services/cognito.service';
 
 export const authGuard = () => {
-  const authService = inject(BillService);
+  const authService = inject(AuthenticateService);
   const router = inject(Router);
 
-  if (authService.isAuthenticated()) { // Check if the user is logged in
-    return true; // Allow access
+  if (authService.getUser()) { 
+    return true; 
   } else {
-    router.navigate(['/login']); // Redirect to login page if not authenticated
+    router.navigate(['/login']);
     return false;
+  }
+};
+
+export const alreadyLoggedInGuard = () => {
+  const authService = inject(AuthenticateService);
+  const router = inject(Router);
+
+  if (authService.getUser()) {
+    // Redirect logged-in users to the home page
+    router.navigate(['/']);
+    return false;
+  } else {
+    return true;
   }
 };

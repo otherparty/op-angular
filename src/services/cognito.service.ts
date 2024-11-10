@@ -128,7 +128,6 @@ export class AuthenticateService {
     };
     this.userPool = new CognitoUserPool(poolData);
     return this.userPool.getCurrentUser();
-
   }
 
   getUserAttributes() {
