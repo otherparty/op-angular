@@ -1,0 +1,148 @@
+import { Injectable } from "@angular/core";
+import {
+  AuthenticationDetails,
+  CognitoUser,
+  CognitoUserPool,
+  CognitoUserAttribute
+} from "amazon-cognito-identity-js";
+import { environment } from "./../environments/environment";
+import { Router } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
+
+@Injectable({
+  providedIn: "root",
+})
+export class AuthenticateService {
+  userPool: any;
+  cognitoUser: any;
+  username: string = "";
+
+  constructor(private readonly router: Router, private toastr: ToastrService) { }
+
+  // Login
+  login(email: any, password: any) {
+    let authenticationDetails = new AuthenticationDetails({
+      Username: email,
+      Password: password,
+    });
+
+    let poolData = {
+      UserPoolId: environment.UserPoolId,
+      ClientId: environment.ClientId,
+    };
+
+    this.username = email;
+    this.userPool = new CognitoUserPool(poolData);
+    let userData = { Username: email, Pool: this.userPool };
+    this.cognitoUser = new CognitoUser(userData);
+
+    this.cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess: (result: any) => {
+        this.router.navigate(["/"]);
+        console.log("Success Results : ", result);
+      },
+      newPasswordRequired: (data: any) => {
+        console.log("newPasswordRequired", data)
+      },
+      mfaRequired: (data: any) => { console.log("mfaRequired", data) },
+      totpRequired: (data: any) => { console.log("totpRequired", data) },
+      customChallenge: (data: any) => { console.log("customChallenge", data) },
+      mfaSetup: (data: any) => { console.log("mfaSetup", data) },
+      selectMFAType: (data: any) => { console.log("selectMFAType", data) },
+      onFailure: (error: any) => {
+        console.log("error", error);
+      },
+    });
+  }
+
+  register(payload: any) {
+    let poolData = {
+      UserPoolId: environment.UserPoolId,
+      ClientId: environment.ClientId,
+    };
+
+    const attributeList = [];
+
+    attributeList.push(new CognitoUserAttribute({ Name: "email", Value: payload.email }));
+    attributeList.push(new CognitoUserAttribute({ Name: "given_name", Value: payload.firstName }));
+    attributeList.push(new CognitoUserAttribute({ Name: "family_name", Value: payload.lastName }));
+    attributeList.push(new CognitoUserAttribute({ Name: "custom:receiveEmail", Value: payload.receiveEmails.toString() }));
+
+    this.userPool = new CognitoUserPool(poolData);
+
+    this.userPool.signUp(payload.email, payload.password, attributeList, null, (error: any, result: any) => {
+      if (error) {
+        console.log("error", error);
+        this.toastr.error(error.message, "Error");
+        return;
+      }
+      this.cognitoUser = result.user;
+      localStorage.setItem('registered-user', this.cognitoUser.getUsername());
+      this.router.navigate(['/otp-verification']);
+    });
+  }
+
+  // First time login attempt - New password require
+  otpVerification(
+    otp: any,
+  ) {
+    let poolData = {
+      UserPoolId: environment.UserPoolId,
+      ClientId: environment.ClientId,
+    };
+
+    const email = localStorage.getItem('registered-user');
+
+    this.userPool = new CognitoUserPool(poolData);
+
+    let userData : any = { Username: email, Pool: this.userPool };
+    this.cognitoUser = new CognitoUser(userData);
+
+    this.cognitoUser.confirmRegistration(otp, true, (error: any, result: any) => {
+      if (error) {
+        console.log("error", error);
+        this.toastr.error(error.message, "Error");
+        return;
+      }
+      this.toastr.success("User verified successfully", "Success");
+      this.router.navigate(['/login']);
+    });
+
+
+  }
+
+  // Logout 
+  logOut() {
+    let poolData = {
+      UserPoolId: environment.UserPoolId,
+      ClientId: environment.ClientId,
+    };
+    this.userPool = new CognitoUserPool(poolData);
+    this.cognitoUser = this.userPool.getCurrentUser();
+    if (this.cognitoUser) {
+      this.cognitoUser.signOut();
+      localStorage.clear();
+      this.router.navigate(["login"]);
+    }
+  }
+
+  getUser() {
+    let poolData = {
+      UserPoolId: environment.UserPoolId,
+      ClientId: environment.ClientId,
+    };
+    this.userPool = new CognitoUserPool(poolData);
+    return this.userPool.getCurrentUser();
+
+  }
+
+  getUserAttributes() {
+    let poolData = {
+      UserPoolId: environment.UserPoolId,
+      ClientId: environment.ClientId,
+    };
+    this.userPool = new CognitoUserPool(poolData);
+    this.cognitoUser = this.userPool.getUsername()
+  }
+
+}

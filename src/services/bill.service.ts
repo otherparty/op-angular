@@ -108,6 +108,12 @@ export class BillService {
       .pipe(catchError(this.handleError<any>('verifyUser')));
   }
 
+  getUser(user: any): Observable<any> {
+    return this.http
+      .post(`${this.authURL}/confirm-user`, user)
+      .pipe(catchError(this.handleError<any>('verifyUser')));
+  }
+
   isAuthenticated(): boolean {
     return !!localStorage.getItem('logged-in-user');
   }

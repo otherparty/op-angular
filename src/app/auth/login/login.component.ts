@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BillService } from '../../../services/bill.service';
-import { Router, RouterModule } from '@angular/router';
+import { AuthenticateService } from '../../../services/cognito.service';
+import {  RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../navbar/navbar.component';
 
 @Component({
@@ -14,8 +14,13 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  loading: boolean = false;
 
-  constructor(private readonly fb: FormBuilder, private readonly authService: BillService, private router: Router) {
+  userPool: any;
+  cognitoUser: any;
+  username: string = "";
+
+  constructor(private readonly cognito: AuthenticateService ,private readonly fb: FormBuilder) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -23,22 +28,13 @@ export class LoginComponent {
   }
 
   onSubmit() {
+    console.log("this.loginForm.valid",this.loginForm.valid);
+    
     if (this.loginForm.valid) {
-      const user = {
-        email: this.loginForm.value.email,
-        password: this.loginForm.value.password
-      }
-      this.authService.loginUser(user).subscribe({
-        next: (res) => {
-          console.log('User logged in successfully', res);
-          localStorage.setItem('logged-in-user', JSON.stringify(res?.data));
-          this.router.navigate(['/']);
-        },
-        error: (err) => {
-          console.error('Error logging in user', err);
-        }
-      })
-      console.log('Login Form Submitted', this.loginForm.value);
+      this.loading = true;
+
+     this.cognito.login(this.loginForm.value.email, this.loginForm.value.password);
+    
     } else {
       console.log('Form is invalid');
     }

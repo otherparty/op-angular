@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AbstractControl, AbstractControlOptions, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BillService } from '../../../services/bill.service';
+import { AuthenticateService } from '../../../services/cognito.service';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../../navbar/navbar.component';
 
@@ -15,7 +15,7 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 export class RegisterComponent {
   createAccountForm: FormGroup;
 
-  constructor(private readonly fb: FormBuilder, private readonly authService: BillService, private router: Router) {
+  constructor(private readonly fb: FormBuilder, private readonly authService: AuthenticateService, private router: Router) {
     this.createAccountForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -29,18 +29,7 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.createAccountForm.valid) {
-      console.log('Form Submitted', this.createAccountForm.value);
-      this.authService.registerUser(this.createAccountForm.value).subscribe({
-        next: (res) => {
-          console.log('User registered successfully', res);
-          localStorage.setItem('registered-user', res.data);
-          this.router.navigate(['/otp-verification']);
-        },
-        error: (err) => {
-          console.error('Error registering user', err);
-        }
-      });
-
+      this.authService.register(this.createAccountForm.value)
     } else {
       console.log('Form is invalid');
     }

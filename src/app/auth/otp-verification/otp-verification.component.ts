@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {  FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BillService } from '../../../services/bill.service';
+import { AuthenticateService } from '../../../services/cognito.service';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../../navbar/navbar.component';
 
@@ -15,7 +15,7 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 export class OtpVerificationComponent {
   verifyUserForm: FormGroup;
 
-  constructor(private readonly fb: FormBuilder, private readonly authService: BillService, private router: Router) {
+  constructor(private readonly fb: FormBuilder, private readonly authService: AuthenticateService) {
     this.verifyUserForm = this.fb.group({
       otp: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]]
     });
@@ -23,18 +23,7 @@ export class OtpVerificationComponent {
 
   onSubmit() {
     if (this.verifyUserForm.valid) {
-      const localStorageUser = localStorage.getItem('registered-user')
-      const user = localStorageUser;
-      this.authService.verifyUser({ otp: this.verifyUserForm.value.otp, email: user }).subscribe({
-        next: (res) => {
-          console.log('User verified successfully', res);
-          this.router.navigate(['/login']);
-        },
-        error: (err) => {
-          console.error('Error verifying user', err);
-        }
-      })
-      console.log('OTP Submitted', this.verifyUserForm.value);
+      this.authService.otpVerification(this.verifyUserForm.value.otp)
     } else {
       console.log('OTP is invalid');
     }
