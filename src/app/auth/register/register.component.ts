@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { AbstractControl, AbstractControlOptions, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BillService } from '../../../services/bill.service';
 import { Router } from '@angular/router';
+import { NavbarComponent } from '../../navbar/navbar.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NavbarComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
