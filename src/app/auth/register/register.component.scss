@@ -18,7 +18,6 @@ html, body {
   padding: 20px; /* Padding around the container */
   margin: 0; /* Reset margins */
   justify-content: space-between;
-
   // box-sizing: border-box; /* Include padding in total width/height */
 }
 
@@ -29,6 +28,7 @@ html, body {
   border-radius: 5px;
   width: 45%;
   text-align: left;
+  height: 61%;
 }
 
 .create-account h1 {
@@ -119,4 +119,8 @@ small {
   display: block; /* Display the error message on a new line */
   color: red; /* Set the color of the error message */
   margin-top: 5px; /* Add space above the error message */
+}
+
+.body {
+  height: 100vh;
 }

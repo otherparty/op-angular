@@ -19,7 +19,7 @@
         <a href="#">Password Help?</a>
         <button class="mint-t crumble" type="submit" [disabled]="loginForm.invalid || loading" >{{loading ? 'Doing handshaking...' : 'Do the secret handshake'}}</button>
         <br>
-        <p>Don’t have a profile? <a routerLink="['/register']">Create One</a></p>
+        <p>Don’t have a profile? <a [routerLink]="['/register']">Create One</a></p>
       </form>
     </div>
 
@@ -28,12 +28,12 @@
         <h3 class="impact">New to the Party?</h3>
         <p>We'll send you updates so you can start intelligent political conversations.</p>
         <br>
-        <button class="mint helvetica" type="button" routerLink="['/register']">Follow the bills</button>
+        <button class="mint helvetica" type="button" [routerLink]="['/register']">Follow the bills</button>
       </div>
     </div>
   </div>
   <div class="sand-b b-s-k padded inline-block"
-    style="margin-top: -2px; width: 100%; height: 100%; border-radius: 0 1rem 2rem 3rem;">
+    style="margin-top: -2px; width: 100%; border-radius: 0 1rem 2rem 3rem;">
     <div style="padding: 2px;" class="sliced-corner mint">
       <div class="padded black white-t sliced-corner">
         <div id="mc_embed_signup" class="b-s-t mint-b rounded">
