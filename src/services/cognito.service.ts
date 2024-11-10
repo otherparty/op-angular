@@ -40,17 +40,11 @@ export class AuthenticateService {
       onSuccess: (result: any) => {
         this.router.navigate(["/"]);
         console.log("Success Results : ", result);
+        return result;
       },
-      newPasswordRequired: (data: any) => {
-        console.log("newPasswordRequired", data)
-      },
-      mfaRequired: (data: any) => { console.log("mfaRequired", data) },
-      totpRequired: (data: any) => { console.log("totpRequired", data) },
-      customChallenge: (data: any) => { console.log("customChallenge", data) },
-      mfaSetup: (data: any) => { console.log("mfaSetup", data) },
-      selectMFAType: (data: any) => { console.log("selectMFAType", data) },
       onFailure: (error: any) => {
-        console.log("error", error);
+        this.toastr.error(error.message, "Error");
+        
       },
     });
   }
@@ -122,6 +116,7 @@ export class AuthenticateService {
     if (this.cognitoUser) {
       this.cognitoUser.signOut();
       localStorage.clear();
+      this.toastr.success("User logged out successfully", "Success");
       this.router.navigate(["login"]);
     }
   }

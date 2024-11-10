@@ -31,10 +31,11 @@ export class LoginComponent {
     console.log("this.loginForm.valid",this.loginForm.valid);
     
     if (this.loginForm.valid) {
-      this.loading = true;
-
+     this.loading = true;
      this.cognito.login(this.loginForm.value.email, this.loginForm.value.password);
-    
+     setTimeout(() => {
+      this.loading = false;
+     }, 2000);
     } else {
       console.log('Form is invalid');
     }
