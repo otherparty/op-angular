@@ -1,0 +1,9 @@
+{
+  "routes": [
+    "/",
+    "/login",
+    "/otp-verification",
+    "/register",
+    "/reset-password"
+  ]
+}
