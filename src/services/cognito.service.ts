@@ -101,8 +101,54 @@ export class AuthenticateService {
       this.toastr.success("User verified successfully", "Success");
       this.router.navigate(['/login']);
     });
+  }
 
+  resetPassword(email: any) {
+    let poolData = {
+      UserPoolId: environment.UserPoolId,
+      ClientId: environment.ClientId,
+    };
 
+    this.userPool = new CognitoUserPool(poolData);
+    let userData = { Username: email, Pool: this.userPool };
+    this.cognitoUser = new CognitoUser(userData);
+
+    this.cognitoUser.forgotPassword({
+      onSuccess: (result: any) => {
+        console.log(result);
+      },
+      onFailure: (err: any) => {
+        console.log(err);
+      },
+      inputVerificationCode: (data: any) => {
+        this.toastr.success("Verification code sent to your email", "Success");
+        localStorage.setItem("reset-password-user", email);
+        this.router.navigate(["/new-password"]);
+      }
+    });
+  }
+
+  changePassword(code: any, password: any) {
+    let poolData = {
+      UserPoolId: environment.UserPoolId,
+      ClientId: environment.ClientId,
+    };
+
+    this.userPool = new CognitoUserPool(poolData);
+    const email = localStorage.getItem("reset-password-user");
+    let userData :any = { Username: email, Pool: this.userPool };
+    this.cognitoUser = new CognitoUser(userData);
+
+    this.cognitoUser.confirmPassword(code, password,{
+      onSuccess: (result: any) => {
+        this.toastr.success("Password changed successfully", "Success");
+        this.router.navigate(["/login"]);
+      },
+      onFailure: (err: any) => {
+        console.log(err);
+        this.toastr.error(err.message, "Error");
+      },
+    });
   }
 
   // Logout 

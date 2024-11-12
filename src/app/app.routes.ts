@@ -9,6 +9,7 @@ import { OtpVerificationComponent } from './auth/otp-verification/otp-verificati
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { AboutComponent } from './about/about.component';
 import { alreadyLoggedInGuard } from './auth.guard';
+import { CreateNewPasswordComponent } from './auth/create-new-password/create-new-password.component';
 
 export const routes: Routes = [
   {
@@ -33,6 +34,11 @@ export const routes: Routes = [
   {
     path : 'reset-password',
     component: ResetPasswordComponent,
+    canActivate: [alreadyLoggedInGuard] // Apply the guard here
+  },
+  {
+    path : 'new-password',
+    component: CreateNewPasswordComponent,
     canActivate: [alreadyLoggedInGuard] // Apply the guard here
   },
   {

@@ -5,30 +5,31 @@ import { AuthenticateService } from '../../../services/cognito.service';
 import { NavbarComponent } from '../../navbar/navbar.component';
 
 @Component({
-  selector: 'app-otp-verification',
+  selector: 'app-create-new-password',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, NavbarComponent],
-  templateUrl: './otp-verification.component.html',
-  styleUrl: './otp-verification.component.scss'
+  templateUrl: './create-new-password.component.html',
+  styleUrl: './create-new-password.component.scss'
 })
-export class OtpVerificationComponent {
-  verifyUserForm: FormGroup;
+export class CreateNewPasswordComponent {
+  newPasswordFrom: FormGroup;
 
   constructor(private readonly fb: FormBuilder, private readonly authService: AuthenticateService) {
-    this.verifyUserForm = this.fb.group({
-      otp: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]]
+    this.newPasswordFrom = this.fb.group({
+      otp: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
   onSubmit() {
-    if (this.verifyUserForm.valid) {
-      this.authService.otpVerification(this.verifyUserForm.value.otp)
+    if (this.newPasswordFrom.valid) {
+      this.authService.changePassword(this.newPasswordFrom.value.otp, this.newPasswordFrom.value.password)
     } else {
       console.log('OTP is invalid');
     }
   }
 
   get otp() {
-    return this.verifyUserForm.get('otp');
+    return this.newPasswordFrom.get('otp');
   }
 }
