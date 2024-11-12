@@ -7,12 +7,9 @@
 <!-- flexbox layout -->
 
 @if (bill) {
-<div class="wrap-1600 table-responsive">
-
-  <div class="flex flow-text lucida">
-    <!-- two columns -->
-    <div class="half padded evenly infinitile">
-      <!-- <p class="helvetica larger">Dairy Innovation</p> -->
+<div class="table-responsive">
+  <div class="body flex flow-text lucida">
+    <div class="visual third padded evenly infinitile">
       <div class="resize-both responsive"><img [src]="sanitize(billSummery.image)" style="max-height: 80%" sanitize>
       </div>
       <br>
@@ -32,51 +29,95 @@
               class="btn white-t azure hue-h box-s fb-xfbml-parse-ignore">Facebook</a>
           </div>
         </li>
-      </ul>
-
-
-      <!-- <ul class="tags">
+        <!-- BILL TRACK -->
+        @if (bill?.govtrack_url) {
         <li>
-          <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{bill.twitterText}}" target="_blank">
-            <i class="bi bi-apple"></i> </a>
-          &nbsp;
-          <a href="">
-            <i class="bi bi-avocado"></i>
-          </a>
+          <button class="river-b sepia small-btn zoom-in" (click)="openGovTrack(bill?.govtrack_url)">GovTrack</button>
         </li>
-      </ul> -->
+        }
+      </ul>
+      <br>
+      <div class="left-align">
+        <button class="river-b sand small-btn zoom-in" (click)="openGovTrack(bill?.govtrack_url)">Follow
+          #{{bill?.bill_slug}}</button>
+      </div>
+      <br>
     </div>
-    <div class="half padded">
+    <!-- HEADLINE -->
+    <div class="verbal third padded">
       <p class="helvetica larger">{{billSummery?.headLine}}</p>
       <br>
+      <!-- STORY -->
       <span class="helvetica keep-all flow-text justify"
         [innerHTML]="billSummery?.summary || billSummery?.story"></span>
       <br>
       <br>
-      <span class="helvetica keep-all flow-text justify" [innerHTML]="billSummery?.bill_text_summary"></span>
+      <!-- Display rep interactions before bill text summary if the bill has a sponsor X account -->
       @if (bill?.account?.twitter_account) {
-      <button class="btn-medium white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
-        &#64;{{bill?.account?.twitter_account}}</button>
+      <div class="fourth interactive">
+        <div class="left-align">
+          <p class="impact">What's your vote?</p>
+          <br>
+          <p class="helvetica smaller">Let your rep know.</p>
+          <br>
+          <ul class="tags">
+            <li class="river-b btn-tiny">Yea</li>
+            <li class="hottie-b btn-tiny">Nay</li>
+            <li class="hottie-b btn-small">Tell me more</li>
+          </ul>
+        </div>
+        <br>
+      </div>
+      }
+      <br>
+
+      <!-- BILL TEXT SUMMARY -->
+      @if (billSummery?.bill_text_summary) {
+      <span class="bill-text-summary helvetica keep-all flow-text justify"
+        [innerHTML]="billSummery?.bill_text_summary"></span>
+      <br>
+      <!-- SOCIAL -->
+      @if (bill?.account?.twitter_account) {
+      <div class="center">
+        <p class="bold">Kudos or questions?</p>
+        <br>
+        <!-- <p class="helvetica smaller">Give them kudos or questions</p>
+        <br> -->
+        <button class="btn-medium white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
+          &#64;{{bill?.account?.twitter_account}}</button>
+      </div>
+      }
+      <!-- Display rep interaction after bill text summary if bill doesn't have a sponsor X account -->
+      @if (!bill?.account?.twitter_account){
+      <div class="fourth interactive">
+        <div class="center">
+          <p class="impact">What's your vote?</p>
+          <br>
+          <p class="helvetica smaller">Let your rep know.</p>
+          <br>
+          <button class="padded river-b btn-tiny">Yea</button>
+          <button class="padded hottie-b btn-tiny">Nay</button>
+          <br>
+          <br>
+          <button class="hottie-b btn-small">Tell me more</button>
+        </div>
+        <br>
+      </div>
+      }
       }
       <br>
       <br>
-      @if (bill?.govtrack_url) {
-      <button class="river-b sepia small-btn zoom-in" (click)="openGovTrack(bill?.govtrack_url)">Track
-        #{{bill?.bill_slug}}</button>
-      }
       <!-- <a class="neon-text" target="_blank" [href]="bill?.govtrack_url">{{bill?.govtrack_url}}</a> -->
     </div>
-
   </div>
+  <p class="spacer"></p>
   <app-content></app-content>
-  <p class="spacer"></p>
-  <p class="spacer"></p>
-  <p class="spacer"></p>
 </div>
 }
 
+<!-- TODO: Create separate component -->
 @if(isError) {
-<div class="wrap-1600 table-responsive">
+<div class="table-responsive">
 
   <div class="flex flow-text lucida">
     <!-- two columns -->

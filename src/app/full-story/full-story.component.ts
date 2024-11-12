@@ -10,6 +10,7 @@ import { DividerComponent } from '../divider/divider.component';
 import { FooterComponent } from '../footer/footer.component';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ContentComponent } from '../stories/content/content.component';
+import { AuthenticateService } from '../../services/cognito.service';
 
 @Component({
   selector: 'app-full-story',
@@ -38,6 +39,7 @@ export class FullStoryComponent implements OnInit {
   public fallbackImage = "https://d2646mjd05vkml.cloudfront.net/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png"
   public isLoading: any;
   public isError: any = false;
+  user: any;
 
   constructor(
     private billService: BillService,
@@ -46,9 +48,10 @@ export class FullStoryComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private title: Title,
     private meta: Meta,
+    private readonly cognito: AuthenticateService    
   ) {
     console.log(this.router.url);
-    
+    this.user = this.cognito.getUser();
   }
 
   ngOnInit(): void {
@@ -139,4 +142,9 @@ export class FullStoryComponent implements OnInit {
   fallbackHome() {
     this.router.navigate(['/']);
   }
+
+  public logOut() {
+    this.cognito.logOut();
+  }
+
 }

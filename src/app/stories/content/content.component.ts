@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
+import { AuthenticateService } from '../../../services/cognito.service';
 
 @Component({
   selector: 'app-content',
@@ -46,6 +47,8 @@ export class ContentComponent implements OnInit {
   public isLoading: any;
   public isSearching: any;
   public oldHeadlines: any;
+
+  user: any;
   throttle = 300;
   scrollDistance = 1;
   scrollUpDistance = 2;
@@ -67,11 +70,16 @@ export class ContentComponent implements OnInit {
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private title: Title,
-    private meta: Meta
+    private meta: Meta,
+    private readonly cognito: AuthenticateService 
   ) {
     this.searchForm = this.formBuilder.group({
       search: [''],
     });
+
+    {
+      this.user = this.cognito.getUser();
+    }
 
     if (this.searchForm && this.searchForm.get('search')?.valueChanges) {
       (this.searchForm.get('search') as FormControl)?.valueChanges
@@ -324,6 +332,10 @@ export class ContentComponent implements OnInit {
         return;
       });
     }
+  }
+
+  public logOut() {
+    this.cognito.logOut();
   }
 
   onImgError(event: any) {

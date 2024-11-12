@@ -12,3 +12,50 @@ p {
   justify-content: center;
   padding-bottom: 20px;
 }
+
+@media (max-width: 768px) { /* Media query for mobile devices */
+  .body {
+      display: flex;
+      flex-direction: column; /* Stack items vertically */
+      align-items: flex-start; /* Center align items */
+      flex-wrap: wrap;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      box-sizing: border-box;
+  }
+}
+
+.verbal,
+.visual {
+  /* Optional styling for verbal and visual elements */
+  flex: 1;
+  /* Allows these elements to take equal width (optional) */
+  // padding: 10px;
+  /* Padding to make the elements visible */
+  box-sizing: border-box;
+}
+
+.interactive {
+  /* Optional styling for the interactive element */
+  // padding: 10px;
+  /* Padding to make the element visible */
+  box-sizing: border-box;
+  justify-content: space-around;
+}
+
+.bill-text-summary {
+  word-wrap: break-word;
+  /* Breaks long words to fit within the container */
+  overflow-wrap: break-word;
+  /* Ensures text wrapping is applied to long words */
+  white-space: normal;
+  /* Ensures the text wraps and does not stay on a single line */
+}
+
+.cta {
+  display: flex;
+  margin-top: auto;
+  justify-content: space-between;
+  padding: 0 77px;
+}
