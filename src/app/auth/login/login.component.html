@@ -16,7 +16,7 @@
           <small *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters.</small>
         </div>
 
-        <a href="#">Password Help?</a>
+        <a [routerLink]="['/reset-password']">Password Help?</a>
         <button class="mint-t crumble" type="submit" [disabled]="loginForm.invalid || loading" >{{loading ? 'Doing handshaking...' : 'Do the secret handshake'}}</button>
         <br>
         <p>Don’t have a profile? <a [routerLink]="['/register']">Create One</a></p>
