@@ -7,6 +7,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { OtpVerificationComponent } from './auth/otp-verification/otp-verification.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { AboutComponent } from './about/about.component';
 import { alreadyLoggedInGuard } from './auth.guard';
 
 export const routes: Routes = [
@@ -33,6 +34,10 @@ export const routes: Routes = [
     path : 'reset-password',
     component: ResetPasswordComponent,
     canActivate: [alreadyLoggedInGuard] // Apply the guard here
+  },
+  {
+    path : 'about',
+    component: AboutComponent,
   },
   {
     path : 'story/:id',
