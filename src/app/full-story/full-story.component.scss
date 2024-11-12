@@ -15,11 +15,14 @@ p {
 
 @media (max-width: 768px) { /* Media query for mobile devices */
   .body {
+      display: flex;
       flex-direction: column; /* Stack items vertically */
-      align-items: center; /* Center align items */
-      // display: flex;
-      flex-direction: column;
+      align-items: flex-start; /* Center align items */
+      flex-wrap: wrap;
       overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      box-sizing: border-box;
   }
 }
 

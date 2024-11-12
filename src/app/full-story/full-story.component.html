@@ -7,7 +7,7 @@
 <!-- flexbox layout -->
 
 @if (bill) {
-<div class="wrap-1600 table-responsive">
+<div class="table-responsive">
   <div class="body flex flow-text lucida">
     <div class="visual third padded evenly infinitile">
       <div class="resize-both responsive"><img [src]="sanitize(billSummery.image)" style="max-height: 80%" sanitize>
@@ -37,24 +37,10 @@
         }
       </ul>
       <br>
-      <br>
-      @if (user && billSummery?.bill_text_summary) {
-      <div class="fourth interactive">
-        <div class="comfortable b-b-t">
-          <p class="impact">What's your vote?</p>
-          <br>
-          <p class="helvetica smaller">Let your rep know.</p>
-          <br>
-          <button class="river-b btn-tiny">Yea</button>
-          <button class="hottie-b btn-tiny">Nay</button>
-          <br>
-          <br>
-          <button class="hottie-b btn-small">Tell me more</button>
-        </div>
-        <br>
-        <br>
+      <div class="left-align">
+        <button class="river-b sand small-btn zoom-in" (click)="openGovTrack(bill?.govtrack_url)">Follow
+          #{{bill?.bill_slug}}</button>
       </div>
-      }
       <br>
     </div>
     <!-- HEADLINE -->
@@ -66,26 +52,32 @@
         [innerHTML]="billSummery?.summary || billSummery?.story"></span>
       <br>
       <br>
-      <button class="river-b sand small-btn zoom-in" (click)="openGovTrack(bill?.govtrack_url)">Follow
-        #{{bill?.bill_slug}}</button>
-      <br>
-      <br>
-      <!-- SOCIAL -->
-      @if (bill?.account?.twitter_account && !user) {
-      <div class="">
-        <p class="bold oblique">Kudos or questions?</p>
+      <!-- Display rep interactions before bill text summary if the bill has a sponsor X account -->
+      @if (bill?.account?.twitter_account) {
+      <div class="fourth interactive">
+        <div class="left-align">
+          <p class="impact">What's your vote?</p>
+          <br>
+          <p class="helvetica smaller">Let your rep know.</p>
+          <br>
+          <ul class="tags">
+            <li class="river-b btn-tiny">Yea</li>
+            <li class="hottie-b btn-tiny">Nay</li>
+            <li class="hottie-b btn-small">Tell me more</li>
+          </ul>
+        </div>
         <br>
-        <!-- <p class="helvetica smaller">Give them kudos or questions</p>
-        <br> -->
-        <button class="btn-medium white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
-          &#64;{{bill?.account?.twitter_account}}</button>
       </div>
       }
-      <!-- BILL TEXT SUMMARY -->
-      @if (user) {
-      @if(billSummery?.bill_text_summary) {
-      <span class="helvetica keep-all flow-text justify" [innerHTML]="billSummery?.bill_text_summary"></span>
       <br>
+
+      <!-- BILL TEXT SUMMARY -->
+      @if (billSummery?.bill_text_summary) {
+      <span class="bill-text-summary helvetica keep-all flow-text justify"
+        [innerHTML]="billSummery?.bill_text_summary"></span>
+      <br>
+      <!-- SOCIAL -->
+      @if (bill?.account?.twitter_account) {
       <div class="center">
         <p class="bold">Kudos or questions?</p>
         <br>
@@ -95,33 +87,23 @@
           &#64;{{bill?.account?.twitter_account}}</button>
       </div>
       }
-      }
-      <br>
-      @if (!user || !billSummery?.bill_text_summary) {
-      <div class="">
-        <p class="impact">Kudos or questions?</p>
-        <br>
-        <!-- <p class="helvetica smaller">Give them kudos or questions</p>
-          <br> -->
-        <button class="btn-medium white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
-          &#64;{{bill?.account?.twitter_account}}</button>
-      </div>
-      <br>
+      <!-- Display rep interaction after bill text summary if bill doesn't have a sponsor X account -->
+      @if (!bill?.account?.twitter_account){
       <div class="fourth interactive">
-        <div class="comfortable b-b-t">
+        <div class="center">
           <p class="impact">What's your vote?</p>
           <br>
           <p class="helvetica smaller">Let your rep know.</p>
           <br>
-          <button class="river-b btn-tiny">Yea</button>
-          <button class="hottie-b btn-tiny">Nay</button>
+          <button class="padded river-b btn-tiny">Yea</button>
+          <button class="padded hottie-b btn-tiny">Nay</button>
           <br>
           <br>
           <button class="hottie-b btn-small">Tell me more</button>
         </div>
         <br>
-        <br>
       </div>
+      }
       }
       <br>
       <br>
@@ -135,7 +117,7 @@
 
 <!-- TODO: Create separate component -->
 @if(isError) {
-<div class="wrap-1600 table-responsive">
+<div class="table-responsive">
 
   <div class="flex flow-text lucida">
     <!-- two columns -->
