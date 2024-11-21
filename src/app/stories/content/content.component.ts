@@ -155,7 +155,8 @@ export class ContentComponent implements OnInit {
       this.isLoading = false;
     }
 
-    const classes = ['half', 'third', 'full', 'fourth'];
+    // const classes = ['half', 'third', 'full', 'fourth'];
+    const classes = ['half', 'third'];
     this.stories = this.assignClassesToStories(this.stories, classes);
   };
 
@@ -265,6 +266,7 @@ export class ContentComponent implements OnInit {
   changeRoute(id: string) {
     this.router.navigate([`/story/${id}`]);
     this.cdr.detectChanges();
+    // window.open(`/story/${id}`, '_blank')
   }
 
   search(query: string) {

@@ -7,7 +7,7 @@
 <!-- flexbox layout -->
 
 @if (bill) {
-<div class="table-responsive">
+<div class="table-responsive wrap-1600">
   <div class="body flex flow-text lucida">
     <div class="visual third padded evenly infinitile">
       <div class="resize-both responsive"><img [src]="sanitize(billSummery.image)" style="max-height: 80%" sanitize>
@@ -52,56 +52,102 @@
         [innerHTML]="billSummery?.summary || billSummery?.story"></span>
       <br>
       <br>
-      <!-- Display rep interactions before bill text summary if the bill has a sponsor X account -->
-      @if (bill?.account?.twitter_account) {
-      <div class="fourth interactive">
-        <div class="left-align">
-          <p class="impact">What's your vote?</p>
-          <br>
-          <p class="helvetica smaller">Let your rep know.</p>
-          <br>
-          <ul class="tags">
-            <li class="river-b btn-tiny">Yea</li>
-            <li class="hottie-b btn-tiny">Nay</li>
-            <li class="hottie-b btn-small">Tell me more</li>
-          </ul>
-        </div>
-        <br>
-      </div>
-      }
-      <br>
 
-      <!-- BILL TEXT SUMMARY -->
-      @if (billSummery?.bill_text_summary) {
-      <span class="bill-text-summary helvetica keep-all flow-text justify"
-        [innerHTML]="billSummery?.bill_text_summary"></span>
-      <br>
-      <!-- SOCIAL -->
-      @if (bill?.account?.twitter_account) {
-      <div class="center">
-        <p class="bold">Kudos or questions?</p>
-        <br>
-        <!-- <p class="helvetica smaller">Give them kudos or questions</p>
-        <br> -->
-        <button class="btn-medium white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
-          &#64;{{bill?.account?.twitter_account}}</button>
+      @if (!user) {
+      <div class="half flex table-responsive interactive">
+        @if (bill?.account?.twitter_account) {
+        <div class="left-align fourth">
+          <p class="bold">Kudos or questions?</p>
+          <br>
+          <!-- <p class="helvetica smaller">Give them kudos or questions</p>
+                <br> -->
+          <button class="btn-medium white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
+            &#64;{{bill?.account?.twitter_account}}</button>
+        </div>
+        <!-- REPLACE WITH REFERENCE TO REPS IN CUSTOMER DB -->
+        <!-- WILL NEED DIFFERENT DISPLAY LOGIC FOR SENATE BILLS; START BY AUTOSELECTING ONE -->
+        <div class="right-align fourth">
+          <div class="left-align">
+            <p class="impact">What's your vote?</p>
+            <br>
+            <p class="helvetica smaller">Let your rep know.</p>
+            <br>
+            <ul class="tags">
+              <li>
+                <button class="river-b btn-small black-t white">Yea</button>
+              </li>
+              <li>
+                <button class="hottie-b btn-small black-t white">Nay</button>
+              </li>
+              <li>
+                <button class="hottie-b btn-small black-t white">Tell me more</button>
+              </li>
+            </ul>
+          </div>
+          <br>
+        </div>
+        }
+        <!-- ACCOUNT FOR BILLS THAT DON'T HAVE EXPLICIT SPONSORS OR DATA IN SYNC -->
+        @if (!bill?.account?.twitter_account){
+        <div class="fourth interactive">
+          <div class="center">
+            <p class="impact">What's your vote?</p>
+            <br>
+            <p class="helvetica smaller">Let your rep know.</p>
+            <br>
+            <ul class="tags">
+              <li>
+                <button class="river-b btn-small black-t white">Yea</button>
+              </li>
+              <li>
+                <button class="hottie-b btn-small black-t white">Nay</button>
+              </li>
+              <li>
+                <button class="hottie-b btn-small black-t white">Tell me more</button>
+              </li>
+            </ul>
+          </div>
+          <br>
+        </div>
+        }
       </div>
       }
-      <!-- Display rep interaction after bill text summary if bill doesn't have a sponsor X account -->
-      @if (!bill?.account?.twitter_account){
+      <br>
+      <!-- LOGGED IN -->
+      @if (user){
       <div class="fourth interactive">
         <div class="center">
           <p class="impact">What's your vote?</p>
           <br>
           <p class="helvetica smaller">Let your rep know.</p>
           <br>
-          <button class="padded river-b btn-tiny">Yea</button>
-          <button class="padded hottie-b btn-tiny">Nay</button>
-          <br>
-          <br>
-          <button class="hottie-b btn-small">Tell me more</button>
+          <ul class="tags">
+            <li>
+              <button class="river-b btn-small black-t white">Yea</button>
+            </li>
+            <li>
+              <button class="hottie-b btn-small black-t white">Nay</button>
+            </li>
+            <li>
+              <button class="hottie-b btn-small black-t white">Tell me more</button>
+            </li>
+          </ul>
         </div>
         <br>
+      </div>
+      <br>
+      <!-- BILL TEXT SUMMARY -->
+      <span class="bill-text-summary helvetica keep-all flow-text justify"
+        [innerHTML]="billSummery?.bill_text_summary"></span>
+      <br>
+      @if (bill?.account?.twitter_account) {
+      <div class="center fourth">
+        <p class="bold">Kudos or questions?</p>
+        <br>
+        <!-- <p class="helvetica smaller">Give them kudos or questions</p>
+            <br> -->
+        <button class="btn-medium white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
+          &#64;{{bill?.account?.twitter_account}}</button>
       </div>
       }
       }
@@ -110,9 +156,9 @@
       <!-- <a class="neon-text" target="_blank" [href]="bill?.govtrack_url">{{bill?.govtrack_url}}</a> -->
     </div>
   </div>
-  <p class="spacer"></p>
-  <app-content></app-content>
 </div>
+<p class="spacer"></p>
+<app-content></app-content>
 }
 
 <!-- TODO: Create separate component -->

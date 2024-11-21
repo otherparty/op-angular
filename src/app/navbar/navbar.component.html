@@ -12,34 +12,34 @@
 
 			<ul class="simple-nav two-col flow-text" style="width: 100%; border-right: 2px solid #fff;">
 				@if (!user) {
-					<li>
-							<a [routerLink]="['/login']">
-								<i class="bi bi-core-block"></i>Login
-							</a>
-					</li>
-					<li>
-						<a [routerLink]="['/register']">
-							<i class="bi bi-sparkle"></i>Subscribe
-						</a>
-					</li>
+				<li>
+					<a [routerLink]="['/login']">
+						<i class="bi bi-core-block"></i> Login
+					</a>
+				</li>
+				<li>
+					<a [routerLink]="['/register']">
+						<i class="bi bi-sparkle"></i> Subscribe
+					</a>
+				</li>
 				}
 
-				<li><a [routerLink]="['shop.otherparty.ai']"><i class="bi bi-flag"></i>Shop</a></li>
-				<li><a href="buix.php"><i class="bi bi-navigate"></i>About OP</a></li>
+				<li><a [routerLink]="['shop.otherparty.ai']"><i class="bi bi-flag"></i> Shop</a></li>
+				<li><a [routerLink]="['/about']"><i class="bi bi-navigate"></i> About OP</a></li>
 			</ul>
 			<ul class="simple-nav two-col flow-text" style="width: 100%; border-top: 2px solid #fff;">
-				<li><a href="butch.php"><i class="bi bi-communist"></i> X</a></li>
-				<li><a href="flavors.php"><i class="bi bi-cone"></i> Facebook</a></li>
-				<li><a href="rebar.php"><i class="bi bi-converge-left"></i> Instagram</a></li>
+				<li><a href="https://x.com/otherpartyai"><i class="bi bi-smoking"></i> X</a></li>
+				<li><a href="https://facebook.com/otherpartyai"><i class="bi bi-approve"></i> Facebook</a></li>
+				<li><a href="https://instagram.com/otherpartyai"><i class="bi bi-camera"></i> Instagram</a></li>
 				@if (user) {
-					<ul class="simple-nav two-col flow-text" style="width: 100%; border-top: 2px solid #fff;">
-						<li><a href='javascript:;' (click)="logOut()"><i class="bi bi-core-block"></i>Logout</a></li>
-					</ul>
+				<ul class="simple-nav two-col flow-text" style="width: 100%; border-top: 2px solid #fff;">
+					<li><a href='javascript:;' (click)="logOut()"><i class="bi bi-core-block"></i>Logout</a></li>
+				</ul>
 				}
 
 			</ul>
 		</div>
-		</div>
+	</div>
 </div>
 
-				<!-- ss -->
+<!-- ss -->
