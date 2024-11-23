@@ -63,25 +63,23 @@ export class ContentComponent implements OnInit {
   public repsNames: any;
 
   constructor(
-    private headLineService: BillService,
-    private formBuilder: FormBuilder,
-    @Inject(PLATFORM_ID) private _platformId: Object,
-    private router: Router,
-    private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef,
-    private title: Title,
-    private meta: Meta,
+    private readonly headLineService: BillService,
+    private readonly formBuilder: FormBuilder,
+    @Inject(PLATFORM_ID) private readonly _platformId: Object,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute,
+    private readonly cdr: ChangeDetectorRef,
+    private readonly title: Title,
+    private readonly meta: Meta,
     private readonly cognito: AuthenticateService 
   ) {
     this.searchForm = this.formBuilder.group({
       search: [''],
     });
 
-    {
-      this.user = this.cognito.getUser();
-    }
+    this.user = this.cognito.getUser();
 
-    if (this.searchForm && this.searchForm.get('search')?.valueChanges) {
+    if (this.searchForm?.get('search')?.valueChanges) {
       (this.searchForm.get('search') as FormControl)?.valueChanges
         .pipe(
           tap(() => {
@@ -113,20 +111,7 @@ export class ContentComponent implements OnInit {
       this.getDataBasedOnTags({ name: queryParams['tab'] });
     });
 
-    /**
-     * TODO: Add meta tags
-     */
-    // this.title.setTitle(this.title);
-
-    // this.meta.updateTag({name: "description", content: this.longDescription});
-
-    // this.meta.addTag({name: 'twitter:card', content: 'summary'});
-    // this.meta.addTag({name: 'twitter:site', content: '@otherparty'});
-    // this.meta.addTag({name: 'twitter:title', content: this.title});
-    // this.meta.addTag({name: 'twitter:description', content: this.description});
-    // this.meta.addTag({name: 'twitter:text:description', content: this.description});
-    // this.meta.addTag({name: 'twitter:image', content: 'https://avatars3.githubusercontent.com/u/16628445?v=3&s=200'});
-  }
+   }
 
   ngOnInit() { }
 
@@ -165,7 +150,7 @@ export class ContentComponent implements OnInit {
       .getHeadLines(this.itemsPerPage, this.currentPage, 'DESC')
       .subscribe({
         next: (response) => {
-          this.filterStories(response?.data?.stories, type);
+          this.filterStories(response?.data, type);
         },
         error: (err) => console.log(err),
         complete: () => this.toggleLoading(),
