@@ -166,8 +166,8 @@ export class ContentComponent implements OnInit {
       .getHeadLines(this.itemsPerPage, this.currentPage, 'DESC')
       .subscribe({
         next: (response) => {
-          for (let i = 0; i < response?.data?.stories.length; i++) {
-            const story = response?.data?.stories[i];
+          for (let i = 0; i < response?.data?.length; i++) {
+            const story = response?.data[i];
 
             if (story.image) {
               story.image = story.image.replace(
@@ -189,7 +189,9 @@ export class ContentComponent implements OnInit {
             );
             story.cStory = this.truncate(story.story, story.isImage ? 10 : 100);
           }
-          this.stories = [...this.stories, ...response?.data?.stories];
+          if (response?.data) {
+            this.stories = [...this.stories, ...response.data];
+          }
           const classes = ['half', 'third', 'full'];
           this.stories = this.assignClassesToStories(this.stories, classes);
 

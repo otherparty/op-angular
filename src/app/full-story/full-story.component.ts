@@ -100,19 +100,6 @@ export class FullStoryComponent implements OnInit {
               { name: 'og:image', content: this.billSummery.image },
 
             ], true);
-          
-
-            // this.meta.updateTag({ name: 'twitter:site', content: '@otherpartyai' });
-            // this.meta.updateTag({ name: 'twitter:title', content: `Other Party | ${this.billSummery.headLine}` });
-            // this.meta.updateTag({ name: 'twitter:description', content: "story" });
-            // this.meta.updateTag({ name: 'twitter:text:description', content: "story" });
-            // this.meta.updateTag({ name: 'twitter:image', content: 'https://otherparty.ai/assets/img/logo.png' });
-
-            // this.meta.updateTag({ name: 'og:type', content: 'website' });
-            // this.meta.updateTag({ name: 'og:url', content: `${window.location.href}` });
-            // this.meta.updateTag({ name: 'og:title', content: `Other Party | ${this.billSummery.headLine}` });
-            // this.meta.updateTag({ name: 'og:description', content: "story" });
-            // this.meta.updateTag({ name: 'og:image', content: 'https://otherparty.ai/assets/img/logo.png' });
 
             this.isLoading = false;
             this.isError = false;
