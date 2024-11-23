@@ -5,7 +5,7 @@
 	</div>
 </div>
 
-<div class="tabs">
+<div class="tabs wrap-1600">
 	@for (tab of tabs; track $index) {
 	<input type="radio" [id]="tab.name" [name]="tab.name" [checked]="tab.checked">
 	<label [for]="tab.name" class="" (click)="getDataBasedOnTags(tab)">{{tab.name}}</label>
