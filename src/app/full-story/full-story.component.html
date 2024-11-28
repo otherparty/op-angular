@@ -7,93 +7,94 @@
 <!-- flexbox layout -->
 
 @if (bill) {
-<div class="table-responsive">
-  <div class="body flex flow-text lucida">
-    <!-- IMAGE, TRACKING, GENERIC SOCIAL -->
-    <div class="visual third padded evenly invert infinitile">
-      <div class="resize-both responsive"><img [src]="sanitize(billSummery.image)" style="max-height: 80%" sanitize>
-      </div>
-      <br>
-      <p class="brutal-text fittext float-right">{{ bill.latest_major_action_date | date}}</p>
-      <ul class="tags">
-        <li>{{ bill.latest_major_action }}</li>
-      </ul>
+<div class="invert white">
+  <div class="table-responsive wrap-1600">
+    <div class="body flex flow-text lucida">
+      <!-- IMAGE, TRACKING, GENERIC SOCIAL -->
+      <div class="visual third padded evenly infinitile">
+        <div class="resize-both responsive"><img [src]="sanitize(billSummery.image)" style="max-height: 80%" sanitize>
+        </div>
+        <br>
+        <p class="brutal-text fittext float-right">{{ bill.latest_major_action_date | date}}</p>
+        <ul class="tags">
+          <li>{{ bill.latest_major_action }}</li>
+        </ul>
 
-      <ul class="tags">
-        <li>
-          <a href="https://twitter.com/intent/tweet?text={{bill.twitterText}}" target="_blank"
-            class="btn white-t black hue-h box-s"><strong> X </strong></a>
-        </li>
-        <li>
-          <div class="fb-share-button" data-href="https://otherparty.ai" data-layout="button_count" data-size="">
-            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{bill.faceBookText}}"
-              class="btn white-t azure hue-h box-s fb-xfbml-parse-ignore">Facebook</a>
-          </div>
-        </li>
-        <!-- BILL TRACK -->
-        @if (bill?.govtrack_url) {
-        <li>
-          <button class="river-b sepia small-btn zoom-in" (click)="openGovTrack(bill?.govtrack_url)">GovTrack</button>
-        </li>
-        }
-      </ul>
-      <br>
-      <div class="left-align">
-        <button class="river-b sand small-btn zoom-in" (click)="openGovTrack(bill?.govtrack_url)">Follow
-          #{{bill?.bill_slug}}</button>
+        <ul class="tags">
+          <li>
+            <a href="https://twitter.com/intent/tweet?text={{bill.twitterText}}" target="_blank"
+              class="btn white-t black hue-h box-s"><strong> X </strong></a>
+          </li>
+          <li>
+            <div class="fb-share-button" data-href="https://otherparty.ai" data-layout="button_count" data-size="">
+              <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{bill.faceBookText}}"
+                class="btn white-t azure hue-h box-s fb-xfbml-parse-ignore">Facebook</a>
+            </div>
+          </li>
+          <!-- BILL TRACK -->
+          @if (bill?.govtrack_url) {
+          <li>
+            <button class="river-b sepia small-btn zoom-in" (click)="openGovTrack(bill?.govtrack_url)">GovTrack</button>
+          </li>
+          }
+        </ul>
+        <br>
+        <div class="left-align">
+          <button class="river-b sand small-btn zoom-in" (click)="openGovTrack(bill?.govtrack_url)">Follow
+            #{{bill?.bill_slug}}</button>
+        </div>
+        <br>
       </div>
-      <br>
-    </div>
-    <!-- CONTENT, TARGETED SOCIAL -->
-    <!-- HEADLINE -->
-    <div class="white verbal third padded invert">
-      <p class="helvetica larger">{{billSummery?.headLine}}</p>
-      <br>
-      <!-- STORY -->
-      <span class="helvetica keep-all flow-text justify"
-        [innerHTML]="billSummery?.summary || billSummery?.story"></span>
-      <br>
-      <!-- TODO: remove post resolution -->
-      <!-- <span class="bill-text-summary helvetica keep-all flow-text justify"
+      <!-- CONTENT, TARGETED SOCIAL -->
+      <!-- HEADLINE -->
+      <div class="verbal third padded">
+        <p class="helvetica larger">{{billSummery?.headLine}}</p>
+        <br>
+        <!-- STORY -->
+        <span class="helvetica keep-all flow-text justify"
+          [innerHTML]="billSummery?.summary || billSummery?.story"></span>
+        <br>
+        <!-- TODO: remove post resolution -->
+        <!-- <span class="bill-text-summary helvetica keep-all flow-text justify"
         [innerHTML]="billSummery?.bill_text_summary"></span> -->
-      <br>
+        <br>
 
-      @if (!user) {
-      <div class="half flex table-responsive interactive">
-        @if (bill?.account?.twitter_account) {
-        <div class="left-align fourth">
-          <p class="bold">Kudos or questions?</p>
-          <br>
-          <!-- <p class="helvetica smaller">Give them kudos or questions</p>
+        @if (!user) {
+        <div class="half flex table-responsive interactive">
+          @if (bill?.account?.twitter_account) {
+          <div class="left-align fourth">
+            <p class="bold">Kudos or questions?</p>
+            <br>
+            <!-- <p class="helvetica smaller">Give them kudos or questions</p>
                 <br> -->
-          <button class="btn-medium white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
-            &#64;{{bill?.account?.twitter_account}}</button>
-        </div>
-        <!-- REPLACE WITH REFERENCE TO REPS IN CUSTOMER DB -->
-        <!-- WILL NEED DIFFERENT DISPLAY LOGIC FOR SENATE BILLS; START BY AUTOSELECTING ONE -->
-        <div class="right-align fourth">
-          <div class="left-align">
-            <p class="impact">What's your vote?</p>
-            <br>
-            <p class="helvetica smaller">Let your rep know.</p>
-            <br>
-            <ul class="tags">
-              <li>
-                <button class="river-b btn-small black-t white">Yea</button>
-              </li>
-              <li>
-                <button class="hottie-b btn-small black-t white">Nay</button>
-              </li>
-              <li>
-                <button class="hottie-b btn-small black-t white">Tell me more</button>
-              </li>
-            </ul>
+            <button class="btn-medium white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
+              &#64;{{bill?.account?.twitter_account}}</button>
           </div>
-          <br>
-        </div>
-        }
-        <!-- ACCOUNT FOR BILLS THAT DON'T HAVE EXPLICIT SPONSORS OR DATA IN SYNC -->
-        <!-- @if (!bill?.account?.twitter_account){
+          <!-- REPLACE WITH REFERENCE TO REPS IN CUSTOMER DB -->
+          <!-- WILL NEED DIFFERENT DISPLAY LOGIC FOR SENATE BILLS; START BY AUTOSELECTING ONE -->
+          <div class="right-align fourth">
+            <div class="left-align">
+              <p class="impact">What's your vote?</p>
+              <br>
+              <p class="helvetica smaller">Let your rep know.</p>
+              <br>
+              <ul class="tags">
+                <li>
+                  <button class="river-b btn-small black-t white">Yea</button>
+                </li>
+                <li>
+                  <button class="hottie-b btn-small black-t white">Nay</button>
+                </li>
+                <li>
+                  <button class="hottie-b btn-small black-t white">Tell me more</button>
+                </li>
+              </ul>
+            </div>
+            <br>
+          </div>
+          }
+          <!-- ACCOUNT FOR BILLS THAT DON'T HAVE EXPLICIT SPONSORS OR DATA IN SYNC -->
+          <!-- @if (!bill?.account?.twitter_account){
         <div class="fourth interactive">
           <div class="center">
             <p class="impact">What's your vote?</p>
@@ -115,92 +116,93 @@
           <br>
         </div>
         } -->
-      </div>
-      }
-      <br>
-      <!-- LOGGED IN -->
-      @if (user) {
-      <div class="fourth interactive">
-        <div class="center">
-          <p class="impact">What's your vote?</p>
+        </div>
+        }
+        <br>
+        <!-- LOGGED IN -->
+        @if (user) {
+        <div class="fourth interactive">
+          <div class="center">
+            <p class="impact">What's your vote?</p>
+            <br>
+            <p class="helvetica smaller">Let your rep know.</p>
+            <br>
+            <ul class="tags">
+              <li>
+                <button class="river-b btn-small black-t white">Yea</button>
+              </li>
+              <li>
+                <button class="hottie-b btn-small black-t white">Nay</button>
+              </li>
+              <li>
+                <button class="hottie-b btn-small black-t white">Tell me more</button>
+              </li>
+            </ul>
+          </div>
           <br>
-          <p class="helvetica smaller">Let your rep know.</p>
-          <br>
-          <ul class="tags">
-            <li>
-              <button class="river-b btn-small black-t white">Yea</button>
-            </li>
-            <li>
-              <button class="hottie-b btn-small black-t white">Nay</button>
-            </li>
-            <li>
-              <button class="hottie-b btn-small black-t white">Tell me more</button>
-            </li>
-          </ul>
         </div>
         <br>
-      </div>
-      <br>
-      <!-- BILL TEXT SUMMARY -->
-      <span class="bill-text-summary helvetica keep-all flow-text justify"
-        [innerHTML]="billSummery?.bill_text_summary"></span>
-      <br>
-      @if (bill?.account?.twitter_account) {
-      <div class="center fourth">
-        <p class="bold">Kudos or questions?</p>
+        <!-- BILL TEXT SUMMARY -->
+        <span class="bill-text-summary helvetica keep-all flow-text justify"
+          [innerHTML]="billSummery?.bill_text_summary"></span>
         <br>
-        <button class="btn-medium white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
-          &#64;{{bill?.account?.twitter_account}}</button>
+        @if (bill?.account?.twitter_account) {
+        <div class="center fourth">
+          <p class="bold">Kudos or questions?</p>
+          <br>
+          <button class="btn-medium white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
+            &#64;{{bill?.account?.twitter_account}}</button>
+        </div>
+        }
+        }
+        <br>
+        <br>
+        <!-- <a class="neon-text" target="_blank" [href]="bill?.govtrack_url">{{bill?.govtrack_url}}</a> -->
       </div>
-      }
-      }
-      <br>
-      <br>
-      <!-- <a class="neon-text" target="_blank" [href]="bill?.govtrack_url">{{bill?.govtrack_url}}</a> -->
     </div>
   </div>
 </div>
-<p class="spacer"></p>
 <app-content></app-content>
 }
 
 <!-- TODO: Create separate component -->
 @if(isError) {
-<div class="table-responsive">
+<div class="invert white">
+  <div class="wrap-1600 table-responsive">
 
-  <div class="flex flow-text lucida">
-    <!-- two columns -->
-    <div class="half padded evenly infinitile">
-      <!-- <p class="helvetica larger">Dairy Innovation</p> -->
-      <div class="resize-both responsive"><img [src]="sanitize(fallbackImage)" style="max-height: 80%" sanitize>
+    <div class="flex flow-text lucida">
+      <!-- two columns -->
+      <div class="half padded evenly infinitile">
+        <!-- <p class="helvetica larger">Dairy Innovation</p> -->
+        <div class="resize-both responsive"><img [src]="sanitize(fallbackImage)" style="max-height: 80%" sanitize>
+        </div>
+        <p class="spacer"></p>
       </div>
-      <p class="spacer"></p>
-    </div>
-    <div class="half padded">
-      <p class="helvetica larger neon-text">404 Error: Missing Bill</p>
-      <br>
-      <span class="helvetica keep-all flow-text justify">
-        <!-- we realize we've delved into uncharted legislative realms. Our robotic allies are diligently scouring for
+      <div class="half padded">
+        <p class="helvetica larger neon-text">404 Error: Missing Bill</p>
+        <br>
+        <span class="helvetica keep-all flow-text justify">
+          <!-- we realize we've delved into uncharted legislative realms. Our robotic allies are diligently scouring for
         answers. In the interim, let's retreat to familiar ground. Home beckons, offering respite amidst uncertainty. As
         we await resolution, let's regroup, recharge, and strategize our next steps. Together, we'll navigate this
         unfamiliar terrain with caution and resolve. Our journey may be unpredictable, but with perseverance and
         collaboration, we'll overcome any obstacle that stands in our path. -->
-      </span>
-      <p class="spacer"></p>
-      <p class="spacer"></p>
-      <p class="spacer"></p>
-      <button class="flood btn-medium bitshadow" (click)="fallbackHome()">
-        Go Back Home</button>
-      <br>
-      <br>
+        </span>
+        <p class="spacer"></p>
+        <p class="spacer"></p>
+        <p class="spacer"></p>
+        <button class="flood btn-medium bitshadow" (click)="fallbackHome()">
+          Go Back Home</button>
+        <br>
+        <br>
+      </div>
     </div>
-
   </div>
-  <app-content></app-content>
-  <p class="spacer"></p>
-  <p class="spacer"></p>
-  <p class="spacer"></p>
 </div>
+<app-content></app-content>
+<p class="spacer"></p>
+<p class="spacer"></p>
+<p class="spacer"></p>
 }
 
 @if (isLoading) {
