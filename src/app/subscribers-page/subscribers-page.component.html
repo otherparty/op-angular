@@ -3,39 +3,37 @@
 <app-title></app-title>
 <br>
 <!-- flexbox layout -->
-<div class="wrap-1600">
-</div>
 
 @if (bill) {
-  <div class="wrap-1600 table-responsive">
-  
-    <div class="flex flow-text lucida">
-      <!-- two columns -->
-      <div class="half padded evenly infinitile">
-        <!-- <p class="helvetica larger">Dairy Innovation</p> -->
-        <div class="resize-both responsive"><img [src]="sanitize(billSummery.image)" style="max-height: 80%" sanitize>
-        </div>
-        <br>
-        <p class="brutal-text fittext float-right">{{ bill.latest_major_action_date | date}}</p>
-        <ul class="tags">
-          <li>{{ bill.latest_major_action }}</li>
-        </ul>
-  
-        <ul class="tags">
-          <li>
-            <a href="https://twitter.com/intent/tweet?text={{bill.twitterText}}" target="_blank"
-              class="btn white-t azure hue-h box-s"><strong>Twitter</strong></a>
-          </li>
-          <li>
-            <div class="fb-share-button" data-href="https://otherparty.ai" data-layout="button_count" data-size="">
-              <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{bill.faceBookText}}"
-                class="btn white-t azure hue-h box-s fb-xfbml-parse-ignore">Facebook</a>
-            </div>
-          </li>
-        </ul>
-  
-  
-        <!-- <ul class="tags">
+<div class="white invert table-responsive">
+
+  <div class="flex flow-text lucida">
+    <!-- two columns -->
+    <div class="half padded evenly infinitile">
+      <!-- <p class="helvetica larger">Dairy Innovation</p> -->
+      <div class="resize-both responsive"><img [src]="sanitize(billSummery.image)" style="max-height: 80%" sanitize>
+      </div>
+      <br>
+      <p class="brutal-text fittext float-right">{{ bill.latest_major_action_date | date}}</p>
+      <ul class="tags">
+        <li>{{ bill.latest_major_action }}</li>
+      </ul>
+
+      <ul class="tags">
+        <li>
+          <a href="https://twitter.com/intent/tweet?text={{bill.twitterText}}" target="_blank"
+            class="btn white-t azure hue-h box-s"><strong>Twitter</strong></a>
+        </li>
+        <li>
+          <div class="fb-share-button" data-href="https://otherparty.ai" data-layout="button_count" data-size="">
+            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{bill.faceBookText}}"
+              class="btn white-t azure hue-h box-s fb-xfbml-parse-ignore">Facebook</a>
+          </div>
+        </li>
+      </ul>
+
+
+      <!-- <ul class="tags">
           <li>
             <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{bill.twitterText}}" target="_blank">
               <i class="bi bi-apple"></i> </a>
@@ -45,37 +43,38 @@
             </a>
           </li>
         </ul> -->
-      </div>
-      <div class="half padded">
-        <p class="helvetica larger">{{billSummery?.headLine}}</p>
-        <br>
-        <span class="helvetica keep-all flow-text justify" [innerHTML]="billSummery?.summary || billSummery?.story"></span>
-        <br>
-        <br>
-        <span class="helvetica keep-all flow-text justify" [innerHTML]="billSummery?.bill_text_summary"></span>
-        @if (bill?.account?.twitter_account) {
-        <button class="flood btn-medium bitshadow" (click)="openTwitter(bill?.account?.twitter_account)">
-          &#64;{{bill?.account?.twitter_account}}</button>
-        }
-        <br>
-        <br>
-        @if (bill?.govtrack_url) {
-        <button class="river-b sepia small-btn bitshadow zoom-in" (click)="openGovTrack(bill?.govtrack_url)">Track
-          #{{bill?.bill_slug}}</button>
-        }
-        <!-- <a class="neon-text" target="_blank" [href]="bill?.govtrack_url">{{bill?.govtrack_url}}</a> -->
-      </div>
-  
     </div>
-    <!-- <app-content></app-content> -->
-    <p class="spacer"></p>
-    <p class="spacer"></p>
-    <p class="spacer"></p>
+    <div class="half padded">
+      <p class="helvetica larger">{{billSummery?.headLine}}</p>
+      <br>
+      <span class="helvetica keep-all flow-text justify"
+        [innerHTML]="billSummery?.summary || billSummery?.story"></span>
+      <br>
+      <br>
+      <span class="helvetica keep-all flow-text justify" [innerHTML]="billSummery?.bill_text_summary"></span>
+      @if (bill?.account?.twitter_account) {
+      <button class="flood btn-medium bitshadow" (click)="openTwitter(bill?.account?.twitter_account)">
+        &#64;{{bill?.account?.twitter_account}}</button>
+      }
+      <br>
+      <br>
+      @if (bill?.govtrack_url) {
+      <button class="river-b sepia small-btn bitshadow zoom-in" (click)="openGovTrack(bill?.govtrack_url)">Track
+        #{{bill?.bill_slug}}</button>
+      }
+      <!-- <a class="neon-text" target="_blank" [href]="bill?.govtrack_url">{{bill?.govtrack_url}}</a> -->
+    </div>
+
   </div>
+  <!-- <app-content></app-content> -->
+  <p class="spacer"></p>
+  <p class="spacer"></p>
+  <p class="spacer"></p>
+</div>
 }
 
 @if (this.repResponse.length) {
-<div class="flex flow-text arial">
+<div class="white invert flex flow-text arial">
 
   <!-- two columns -->
   @for (item of this.repResponse; track $index) {
@@ -132,7 +131,7 @@
           <div class="ul hi-opacity">
             @for (bill of votedForList; track bill.bill_id) {
             <p class="spacer"></p>
-            <button class="left-align black" (click)="getStory(bill)"> 
+            <button class="left-align black" (click)="getStory(bill)">
               {{ bill.headLine }}
             </button>
             }

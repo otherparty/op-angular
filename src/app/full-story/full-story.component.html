@@ -7,9 +7,10 @@
 <!-- flexbox layout -->
 
 @if (bill) {
-<div class="table-responsive wrap-1600">
+<div class="table-responsive">
   <div class="body flex flow-text lucida">
-    <div class="visual third padded evenly infinitile">
+    <!-- IMAGE, TRACKING, GENERIC SOCIAL -->
+    <div class="visual third padded evenly invert infinitile">
       <div class="resize-both responsive"><img [src]="sanitize(billSummery.image)" style="max-height: 80%" sanitize>
       </div>
       <br>
@@ -43,14 +44,18 @@
       </div>
       <br>
     </div>
+    <!-- CONTENT, TARGETED SOCIAL -->
     <!-- HEADLINE -->
-    <div class="verbal third padded">
+    <div class="white verbal third padded invert">
       <p class="helvetica larger">{{billSummery?.headLine}}</p>
       <br>
       <!-- STORY -->
       <span class="helvetica keep-all flow-text justify"
         [innerHTML]="billSummery?.summary || billSummery?.story"></span>
       <br>
+      <!-- TODO: remove post resolution -->
+      <!-- <span class="bill-text-summary helvetica keep-all flow-text justify"
+        [innerHTML]="billSummery?.bill_text_summary"></span> -->
       <br>
 
       @if (!user) {
@@ -88,7 +93,7 @@
         </div>
         }
         <!-- ACCOUNT FOR BILLS THAT DON'T HAVE EXPLICIT SPONSORS OR DATA IN SYNC -->
-        @if (!bill?.account?.twitter_account){
+        <!-- @if (!bill?.account?.twitter_account){
         <div class="fourth interactive">
           <div class="center">
             <p class="impact">What's your vote?</p>
@@ -109,12 +114,12 @@
           </div>
           <br>
         </div>
-        }
+        } -->
       </div>
       }
       <br>
       <!-- LOGGED IN -->
-      @if (user){
+      @if (user) {
       <div class="fourth interactive">
         <div class="center">
           <p class="impact">What's your vote?</p>
@@ -144,8 +149,6 @@
       <div class="center fourth">
         <p class="bold">Kudos or questions?</p>
         <br>
-        <!-- <p class="helvetica smaller">Give them kudos or questions</p>
-            <br> -->
         <button class="btn-medium white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
           &#64;{{bill?.account?.twitter_account}}</button>
       </div>
@@ -208,6 +211,5 @@
   <p class="spacer"></p>
 </div>
 }
-
 
 <app-footer></app-footer>

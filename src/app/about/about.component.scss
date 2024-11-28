@@ -1,3 +1,17 @@
 .body {
-  // padding: 100px;
+  padding: 100px;
 } 
+
+.about {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: space-evenly;
+  margin: 0 auto;
+}
+
+.item {
+  flex: 1;
+  // width: 30%;
+  text-align: center;
+  padding: 10px;
+}
