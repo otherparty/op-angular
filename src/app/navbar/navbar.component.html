@@ -1,49 +1,49 @@
 <div class="invert white">
-	<div class="wrap-1600">
+	<div class="wrap-1600 table-responsive">
 		<header class="padded flex middle" id="uptop" style="min-height: 5vh; margin-bottom: 0;">
 			<div class="small-thumb center pointer" [routerLink]="'/'"><img src="./assets/img/Otherparty_final-logo.png">
 			</div>
 		</header>
-		<div class="wrap-1600">
-			<div class="reveal toggle blonk-wrap hi-opacity">
-				<input id="blonknav" class="toggle" type="checkbox">
+		<!-- <div class="wrap-1600"> -->
+		<div class="invert reveal toggle blonk-wrap hi-opacity no-padding">
+			<input id="blonknav" class="toggle" type="checkbox">
+			<!-- <label for="blonknav" class="invert label-toggle blonk-tr shape quadrant bottom-left flex middle mint" -->
+			<label for="blonknav" class="label-toggle blonk-tr shape quadrant bottom-left flex middle mint"
+				aria-label="Toggle Navigation"><i class="bi bi-menu bi-eagle"></i></label>
+			<div class="toggle-content">
+				<div class="padded emptiness bitstream flex">
 
-				<label for="blonknav" class="invert label-toggle blonk-tr shape quadrant bottom-left flex middle mint"
-					aria-label="Toggle Navigation"><i class="bi bi-menu bi-eagle"></i></label>
-				<div class="toggle-content">
-					<div class="padded emptiness bitstream flex">
+					<ul class="simple-nav two-col flow-text" style="width: 100%; border-right: 2px solid #fff;">
+						@if (!user) {
+						<li>
+							<a [routerLink]="['/login']">
+								<i class="bi bi-core-block"></i> Login
+							</a>
+						</li>
+						<li>
+							<a [routerLink]="['/register']">
+								<i class="bi bi-sparkle"></i> Subscribe
+							</a>
+						</li>
+						}
 
-						<ul class="simple-nav two-col flow-text" style="width: 100%; border-right: 2px solid #fff;">
-							@if (!user) {
-							<li>
-								<a [routerLink]="['/login']">
-									<i class="bi bi-core-block"></i> Login
-								</a>
-							</li>
-							<li>
-								<a [routerLink]="['/register']">
-									<i class="bi bi-sparkle"></i> Subscribe
-								</a>
-							</li>
-							}
-
-							<li><a [routerLink]="['shop.otherparty.ai']"><i class="bi bi-flag"></i> Shop</a></li>
-							<li><a [routerLink]="['/about']"><i class="bi bi-navigate"></i> About OP</a></li>
-						</ul>
+						<li><a [routerLink]="['shop.otherparty.ai']"><i class="bi bi-flag"></i> Shop</a></li>
+						<li><a [routerLink]="['/about']"><i class="bi bi-navigate"></i> About OP</a></li>
+					</ul>
+					<ul class="simple-nav two-col flow-text" style="width: 100%; border-top: 2px solid #fff;">
+						<li><a href="https://x.com/otherpartyai"><i class="bi bi-smoking"></i> X</a></li>
+						<li><a href="https://facebook.com/otherpartyai"><i class="bi bi-approve"></i> Facebook</a></li>
+						<li><a href="https://instagram.com/otherpartyai"><i class="bi bi-camera"></i> Instagram</a></li>
+						@if (user) {
 						<ul class="simple-nav two-col flow-text" style="width: 100%; border-top: 2px solid #fff;">
-							<li><a href="https://x.com/otherpartyai"><i class="bi bi-smoking"></i> X</a></li>
-							<li><a href="https://facebook.com/otherpartyai"><i class="bi bi-approve"></i> Facebook</a></li>
-							<li><a href="https://instagram.com/otherpartyai"><i class="bi bi-camera"></i> Instagram</a></li>
-							@if (user) {
-							<ul class="simple-nav two-col flow-text" style="width: 100%; border-top: 2px solid #fff;">
-								<li><a href='javascript:;' (click)="logOut()"><i class="bi bi-core-block"></i>Logout</a></li>
-							</ul>
-							}
-
+							<li><a href='javascript:;' (click)="logOut()"><i class="bi bi-core-block"></i>Logout</a></li>
 						</ul>
-					</div>
+						}
+
+					</ul>
 				</div>
 			</div>
 		</div>
+		<!-- </div> -->
 	</div>
 </div>
