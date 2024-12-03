@@ -166,8 +166,7 @@ export class ContentComponent implements OnInit {
       .subscribe({
         next: (response) => {
           for (let i = 0; i < response?.data?.length; i++) {
-            const story = response?.data[i];
-
+            const story :any = response?.data[i];
             if (story.image) {
               story.image = story.image.replace(
                 'https://other-party-images.s3.amazonaws.com',
@@ -179,7 +178,7 @@ export class ContentComponent implements OnInit {
 
             story.isImage = Math.round(Math.random());
             story.cSummery = this.truncate(
-              story.summary,
+              story.billsummery[0]?.summary,
               story.isImage ? 10 : 100
             );
             story.latest_major_action = this.truncate(
