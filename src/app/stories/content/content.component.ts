@@ -116,9 +116,7 @@ export class ContentComponent implements OnInit {
   ngOnInit() { }
 
   public filterStories = (stories: any, type?: string) => {
-    if (type) this.headLines = stories?.slice(0, 5);
-    if (type) this.stories = stories?.slice(5, 15);
-    else this.stories = stories;
+    this.stories = stories.filter((story: any) => story);
 
     this.oldHeadlines = this.headLines;
 
@@ -132,6 +130,7 @@ export class ContentComponent implements OnInit {
       } else {
         story.image = this.fallbackImage;
       }
+      story.headLine = story?.billsummery[0]?.headLine;
       story.isImage = Math.round(Math.random());
       story.cSummery = this.truncate(story.summary, story.isImage ? 30 : 100);
       story.latest_major_action = this.truncate(story.latest_major_action, 20);

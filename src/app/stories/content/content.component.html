@@ -67,7 +67,6 @@
       }
     </div> -->
       @if (stories) { @for (story of stories; track $index && story.bill_id) {
-      <!-- <div class="invert white wrap-1600"> -->
       <div class="padded b-s-t black-b full" (click)="changeRoute(story.bill_id)"
         [ngClass]="$index === 0 ? 'half' : story.className" [routerLink]="['/story', story.bill_id]">
         <p class="impact larger">{{ story.headLine }}</p>
