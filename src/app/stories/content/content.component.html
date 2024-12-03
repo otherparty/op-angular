@@ -69,11 +69,11 @@
       @if (stories) { @for (story of stories; track $index && story.bill_id) {
       <div class="padded b-s-t black-b full" (click)="changeRoute(story.bill_id)"
         [ngClass]="$index === 0 ? 'half' : story.className" [routerLink]="['/story', story.bill_id]">
-        <p class="impact larger">{{ story.headLine }}</p>
+        <p class="impact larger">{{ story?.billsummery[0]?.headLine }}</p>
         <p class="spacer"></p>
 
         @if(story.isImage) {
-        <img class="resize-both responsive" src="{{ story.image }}" alt="{{ story.headLine }}" />
+        <img class="resize-both responsive" src="{{ story.image }}" alt="{{ story?.billsummery[0]?.headLine }}" />
         <p class="spacer"></p>
         <span class="helvetica keep-all flow-text justify guard" [innerHTML]="story.cSummery"></span>
         } @if(!story.isImage) {
@@ -93,7 +93,6 @@
         </button>
         }
       </div>
-      <!-- </div> -->
       } } @else {
       <br>
       <br>
