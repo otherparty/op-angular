@@ -132,7 +132,7 @@ export class ContentComponent implements OnInit {
       }
       story.headLine = story?.billsummery[0]?.headLine;
       story.isImage = Math.round(Math.random());
-      story.cSummery = this.truncate(story.summary, story.isImage ? 30 : 100);
+      story.cSummery = this.truncate(story?.billsummery[0]?.summary, story.isImage ? 30 : 100);
       story.latest_major_action = this.truncate(story.latest_major_action, 20);
       story.cStory = this.truncate(story.story, story.isImage ? 10 : 100);
       this.isSearching = false;
