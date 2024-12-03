@@ -25,8 +25,11 @@
         </div>
 
         <input type="password" placeholder="Password *" formControlName="password">
-        <div *ngIf="createAccountForm.get('password')?.invalid && createAccountForm.get('password')?.touched">
-          <small>Password must be at least 8 characters.</small>
+        <div *ngIf="createAccountForm.get('password')?.hasError('minLength') && createAccountForm.get('password')?.touched">
+          <small>Password must be at least 8 characters .</small>
+        </div>
+        <div *ngIf="createAccountForm.get('password')?.hasError('pattern') && createAccountForm.get('password')?.touched">
+          <small>Password must include at least one uppercase letter, one number, and one special character</small>
         </div>
 
         <input type="password" placeholder="Confirm Password *" formControlName="confirmPassword">

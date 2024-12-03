@@ -17,7 +17,9 @@ export class CreateNewPasswordComponent {
   constructor(private readonly fb: FormBuilder, private readonly authService: AuthenticateService) {
     this.newPasswordFrom = this.fb.group({
       otp: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(8),
+        Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
+      ]],
     });
   }
 
