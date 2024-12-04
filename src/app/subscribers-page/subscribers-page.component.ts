@@ -124,7 +124,7 @@ export class SubscribersPageComponent implements OnInit {
       } else {
         this.bill = data.data;
         this.billSummery = data.data?.billsummery[0];
-        this.bill.twitterText = `${this.billSummery.headLine} \n\nRead more: https://otherparty.ai/story/${this.bill.bill_id}`;
+        this.bill.twitterText = `${this.billSummery.headLine} \n\nread more: https://otherparty.ai/story/${this.bill.bill_id}`;
         this.bill.faceBookText = `https://otherparty.ai/story/${this.bill.bill_id}`
 
         if (this.billSummery.image) {
