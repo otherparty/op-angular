@@ -67,6 +67,7 @@
       }
     </div> -->
       @if (stories) { @for (story of stories; track $index && story.bill_id) {
+      @if (story.billsummery[0].summary || story.billsummery[0].story) {
       <div class="padded b-s-t black-b full" (click)="changeRoute(story.bill_id)"
         [ngClass]="$index === 0 ? 'half' : story.className" [routerLink]="['/story', story.bill_id]">
         <p class="impact larger">{{ story?.billsummery[0]?.headLine }}</p>
@@ -93,6 +94,7 @@
         </button>
         }
       </div>
+      }
       } } @else {
       <br>
       <br>
