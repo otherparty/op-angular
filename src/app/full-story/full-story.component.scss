@@ -13,17 +13,122 @@ p {
   padding-bottom: 20px;
 }
 
+.subscribe-button {
+  flex: 0 1 auto; /* Allows the button to wrap when needed */
+  margin: 10px; /* Optional: adds spacing around the button */
+}
+
+.body {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping of child elements */
+  justify-content: center; /* Optional: centers the content horizontally */
+}
+
 @media (max-width: 768px) { /* Media query for mobile devices */
   .body {
       display: flex;
       flex-direction: column; /* Stack items vertically */
-      align-items: flex-start; /* Center align items */
+      align-items: center; /* Center align items */
       flex-wrap: wrap;
       overflow-x: hidden;
       width: 100%;
       max-width: 100vw;
       box-sizing: border-box;
   }
+}
+
+@media (max-width: 1200px) { /* Media query for mobile devices */
+  .body {
+      display: flex;
+      flex-direction: column; /* Stack items vertically */
+      justify-content: flex-start;
+      align-items: center; /* Center align items */
+      flex-wrap: wrap;
+      overflow-x: hidden;
+      width: 100%;
+      // height: 100vh;
+      box-sizing: border-box;
+      margin:0;
+  }
+}
+
+@media screen and (min-width: 701px) and (max-width: 1200px) {
+	.sidebar {width: 100%; flex-basis: 100%; -webkit-flex-basis: 100%; -moz-flex-basis: 100%; position: relative;}
+	.main{width: 100%; }
+	.flex>.half,.flex>.third,.flex>.fourth,.flex>.fifth{flex-basis: 100%; -webkit-flex-basis: 100%; width: 100%;}
+}
+
+@media (max-width: 768px) { /* Media query for mobile devices */
+  .body {
+      display: flex;
+      flex-direction: column; /* Stack items vertically */
+      align-items: center; /* Center align items */
+      flex-wrap: wrap;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      box-sizing: border-box;
+  }
+}
+
+// @media (max-width: 768px) {
+//   .image {
+//     width: 60%;  /* Scale the image to 80% of the container width */
+//     max-width: 60%;  /* Prevent the image from exceeding 80% */
+//     justify-content: center;
+//     align-items: center;
+//   }
+// }
+
+@media (max-width: 768px) { /* Media query for mobile devices */
+  .fourth {
+    flex-basis: 100%; 
+    -webkit-flex-basis: 100%; 
+    width: 100%;
+  }
+}
+
+.social-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between the clusters */
+  width: 100%;
+  padding: 0px;
+  box-sizing: border-box;
+  align-items: flex-start;
+}
+
+.vote-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  // width: 100%;
+  width: 100%;  /* Specify width or it will default to the content's size */
+  margin: 0 auto;  /* Horizontally center the div */
+  display: flex;
+  // justify-content: center; /* Horizontally center */
+  // align-items: center;     /* Vertically center */
+}
+
+.tags { 
+  list-style: none; 
+  padding: 10; 
+  margin: 0; 
+}
+
+.additional-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.subscribe-btn {
+  width: 100%; /* Makes the button span the full width of the container */
+  color: white;
+  border: none;
+  font-size: 16px;
+  text-align: center;
 }
 
 .verbal,
@@ -36,12 +141,39 @@ p {
   box-sizing: border-box;
 }
 
+// Rep buttons + CTAs
 .interactive {
   /* Optional styling for the interactive element */
   // padding: 10px;
   /* Padding to make the element visible */
+  flex: 1;
   box-sizing: border-box;
-  justify-content: space-around;
+  // justify-content: space-around;
+}
+
+@media (max-width: 768px) { /* Media query for mobile devices */
+  .interactive {
+      // display: flex;
+      // flex-direction: column; /* Stack items vertically */
+      align-items: center; /* Center align items */
+      // flex-wrap: wrap;
+      // overflow-x: hidden;
+      width: 100%;
+      // max-width: 100vw;
+      // box-sizing: border-box;
+  }
+}
+
+@media (max-width: 1200px) { /* Media query for mobile devices */
+  .interactive {
+      // display: flex;
+      // flex-direction: column; /* Stack items vertically */
+      align-items: center; /* Center align items */
+      // flex-wrap: wrap;
+      // overflow-x: hidden;
+      width: 100%;
+      // box-sizing: border-box;
+  }
 }
 
 .bill-text-summary {
@@ -51,11 +183,4 @@ p {
   /* Ensures text wrapping is applied to long words */
   white-space: normal;
   /* Ensures the text wraps and does not stay on a single line */
-}
-
-.cta {
-  display: flex;
-  margin-top: auto;
-  justify-content: space-between;
-  padding: 0 77px;
 }

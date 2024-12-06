@@ -1,6 +1,6 @@
 
 
-html, body {
+body {
   margin: 0; /* Remove default body margins */
   padding: 0; /* Remove default body padding */
   height: 100%; /* Ensure body takes full height */
@@ -8,7 +8,17 @@ html, body {
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
+  justify-content: center;
   // justify-content: space-between;
+}
+
+@media (max-width: 768px) { /* Media query for mobile devices */
+  body {
+      flex-direction: column; /* Stack items vertically */
+      align-items: stretch; /* Center align items */
+      margin: 0;
+      padding: 0;
+  }
 }
 
 .container {
@@ -18,7 +28,17 @@ html, body {
   padding: 20px; /* Padding around the container */
   margin: 0; /* Reset margins */
   justify-content: space-between;
+  width: 100%;
   // box-sizing: border-box; /* Include padding in total width/height */
+}
+
+@media (max-width: 768px) { /* Media query for mobile devices */
+  .container {
+      flex-direction: column; /* Stack items vertically */
+      align-items: stretch; /* Center align items */
+      margin: 0;
+      padding: 0;
+  }
 }
 
 .create-account {
@@ -29,6 +49,26 @@ html, body {
   width: 45%;
   text-align: left;
   height: 61%;
+  flex: 1;
+}
+
+.info-tile {
+  width: 45%;
+  margin-top: 50px;
+  margin-bottom: 0;
+  margin-right: 0;
+  padding-bottom: 0;
+  flex: 1;
+  // margin-left: 50px;
+}
+
+@media (max-width: 768px) { /* Media query for mobile devices */
+  .create-account, .info-tile {
+      width: 100%; /* Full width for mobile */
+      margin-bottom: 0; /* Space between stacked elements */
+      flex: 1 1 100%;
+  }
+
 }
 
 .create-account h1 {
@@ -81,30 +121,6 @@ html, body {
 
 .checkbox-label {
   font-size: 17px; /* Optional: Set font size for the label */
-}
-
-.info-tile {
-  width: 45%;
-  margin-top: 50px;
-  margin-bottom: 0;
-  margin-right: 0;
-  padding-bottom: 0;
-  // margin-left: 50px;
-}
-
-@media (max-width: 768px) { /* Media query for mobile devices */
-  body {
-      flex-direction: column; /* Stack items vertically */
-      align-items: stretch; /* Center align items */
-      margin: 0;
-      padding: 0;
-  }
-
-  .create-account, .info-tile {
-      width: 100%; /* Full width for mobile */
-      margin-bottom: 10px; /* Space between stacked elements */
-  }
-
 }
 
 .logo {

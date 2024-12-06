@@ -12,25 +12,35 @@
   <br>
   <div class="wrap-1600">
     <div class="fourth padded">
-      <p>We built this place to cut the spin and give you the facts so you, your family, your friends, and your
-        neighbors
-        can tell your representatives what they need to do to make better facts.</p>
+      <p>A good chunk of your paycheck goes to the federal government and Congress decides how
+        that money is spent. We want to make sure that you, your family, your friends, and your neighbors have a say.
+      </p>
     </div>
     <br>
     <div class="fourth padded">
-      <p>We use AI to track the bills and policies that shape our lives, dissect the details, and
-        distill them down to what matters. We don’t feed you answers or tell you what to think. We give you tools to
-        shape the future.</p>
+      <p>Our goal is to help you track and influence Congress. We have opinions but we stay away from analysis and
+        speculation. We use AI
+        to follow bills and representatives and we do our best to mitigate bias.</p>
     </div>
     <br>
     <div class="fourth padded">
-      <p>You’ll find no fluff here. This is political news stripped to the bone, built for
-        sharing,
-        talking, challenging, and celebrating. We’re here for the people who don’t want a filter, who believe
-        that
-        thinking for yourself is a lot more interesting than picking a side.</p>
+      <p>This is policy stripped to the bone, packaged for you to level the playing field with lobbyists and large
+        donors. Your representatives aren't mind readers, so tell them what you think.</p>
     </div>
     <br>
+    @if (user) {
+    <div class="fourth padded center">
+      <p class="neon-text">Godspeed.</p>
+    </div>
+    }
+    @if (!user) {
+    <div class="fourth padded center b-b-t">
+      <a [routerLink]="['/register']">
+        <p class="neon-text">Godspeed.</p>
+      </a>
+    </div>
+    }
+
   </div>
 </div>
 <div class="white invert">
