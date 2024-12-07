@@ -7,9 +7,10 @@ import { Observable, Subject, catchError, of, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class BillService {
-  billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
-  authURL = 'http://localhost:9000/api/v1/auth'; // URL to web api
-  // billsURL = `https://backend.otherparty.ai/api/v1/stories`;
+  // billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
+  // authURL = 'http://localhost:9000/api/v1/auth'; // URL to web api
+  billsURL = `https://backend.otherparty.ai/api/v1/stories`;
+  authURL = 'https://backend.otherparty.ai/api/v1/auth'
 
   private xFunctionSubject = new Subject<[any, boolean]>();
   private yFunctionSubject = new Subject<[any, boolean]>();
