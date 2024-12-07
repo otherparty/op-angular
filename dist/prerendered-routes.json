@@ -1,7 +1,9 @@
 {
   "routes": [
     "/",
+    "/about",
     "/login",
+    "/new-password",
     "/otp-verification",
     "/register",
     "/reset-password"

@@ -235,9 +235,9 @@ export class ContentComponent implements OnInit {
   }
 
   changeRoute(id: string) {
-    this.router.navigate([`/story/${id}`]);
-    this.cdr.detectChanges();
-    // window.open(`/story/${id}`, '_blank')
+    // this.router.navigate([`/story/${id}`]);
+    // this.cdr.detectChanges();
+    window.open(`/story/${id}`, '_blank')
   }
 
   search(query: string) {
