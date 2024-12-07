@@ -139,9 +139,7 @@ export class ContentComponent implements OnInit {
       this.isLoading = false;
     }
 
-    // const classes = ['half', 'third', 'full', 'fourth'];
-    const classes = ['half', 'third'];
-    this.stories = this.assignClassesToStories(this.stories, classes);
+    this.stories = this.assignClassesToStories(this.stories);
   };
 
   public loadData = (type?: string) => {
@@ -190,8 +188,7 @@ export class ContentComponent implements OnInit {
           if (response?.data) {
             this.stories = [...this.stories, ...response.data];
           }
-          const classes = ['half', 'third', 'full'];
-          this.stories = this.assignClassesToStories(this.stories, classes);
+          this.stories = this.assignClassesToStories(this.stories);
 
           this.oldHeadlines = this.headLines;
         },
@@ -214,32 +211,21 @@ export class ContentComponent implements OnInit {
     this.appendData();
   };
 
-  assignClassesToStories(array: any, classes: any) {
-    let currentIndex = 0;
+  assignClassesToStories(array: any) {
+  
+    let i = 0;
+    while (i < array.length) {
+        // Assign 'half' to the next two elements, if available.
+        for (let j = 0; j < 2 && i < array.length; j++, i++) {
+            array[i].className = 'half';
+        }
 
-    for (let i = 1; i < array?.length;) {
-      const currentClass = classes[currentIndex];
-      let increment = 0;
-
-      if (currentClass === 'third') {
-        increment = 3; // For 'third' class, assign to 3 consecutive elements
-      } else if (currentClass === 'half') {
-        increment = 2; // For other classes, assign to 1 element
-      } else if (currentClass === 'full') {
-        increment = 1;
-      } else if (currentClass === 'fourth') {
-        increment = 4;
-      }
-
-      // Assign the current class to the next group of elements
-      for (let j = 0; j < increment && i < array.length; j++) {
-        array[i].className = currentClass;
-        i++;
-      }
-
-      // Move to the next class index based on the rules
-      currentIndex = (currentIndex + 1) % classes.length;
+        // Assign 'third' to the next three elements, if available.
+        for (let j = 0; j < 3 && i < array.length; j++, i++) {
+            array[i].className = 'third';
+        }
     }
+
     return array;
   }
 
