@@ -1,3 +1,7 @@
 .story-block {
   height: 100dvh;
 }
+
+.invert, img.invert, .invert-h:hover {
+  filter: invert(100%);
+}

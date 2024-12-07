@@ -2,3 +2,7 @@
   height: 50vh; /* 100% of viewport height */
   overflow-y: auto; /* Enable vertical scrolling if content exceeds viewport height */
 }
+
+.invert, img.invert, .invert-h:hover {
+  filter: invert(100%);
+}

@@ -17,3 +17,7 @@ p {
   justify-content: space-around;
   flex-wrap: wrap;
 }
+
+.invert, img.invert, .invert-h:hover {
+  filter: invert(100%);
+}

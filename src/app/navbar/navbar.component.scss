@@ -1,1 +1,5 @@
 .blonk-wrap .label-toggle {padding: 0; text-align: center; margin-right: 0em;}
+
+.invert, img.invert, .invert-h:hover {
+  filter: invert(100%);
+}

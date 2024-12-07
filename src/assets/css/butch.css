@@ -52,10 +52,27 @@ h6 {
 .palatino, .palatino-text { font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; }
 
 /* Font Sizes */
-.fineprint {font-size:65%;}
-.smaller {font-size: 80%;}
-.larger, .bigger {font-size: 160%;}
-.huge {font-size: 240%;}
+html {
+	font-size: 100%; /* Typically 16px */
+}
+
+.fineprint {
+  font-size: 0.65rem; /* 65% of the root font size */
+}
+
+.smaller {
+  font-size: 0.8rem; /* 80% of the root font size */
+}
+
+.larger,
+.bigger {
+  font-size: 1.6rem; /* 160% of the root font size */
+}
+
+.huge {
+  font-size: 2.4rem; /* 240% of the root font size */
+}
+
 
 /* Font Weights */
 .normal {font-weight: normal;}
@@ -64,9 +81,18 @@ h6 {
 
 /* Font Styles & Formatting */
 .oblique {font-style: oblique;}
-.spaced-2x {line-height: 200% !important;}
-.spaced-3x {line-height: 300% !important;}
-.spaced-4x {line-height: 400% !important;}
+
+.spaced-2x {
+  line-height: 2; /* Equivalent to 200% */
+}
+
+.spaced-3x {
+  line-height: 3; /* Equivalent to 300% */
+}
+
+.spaced-4x {
+  line-height: 4; /* Equivalent to 400% */
+}
 .allcaps {text-transform: uppercase !important;}
 .lowercase, .alllower {text-transform: lowercase !important;}
 .capitalize, .capitals {text-transform: capitalize !important;}
@@ -215,15 +241,13 @@ h6.fluid-text, .fluid-text-h6 {font-size: calc(14px + (44 - 14) * ((100vw - 300p
 .wrap-1200{max-width: 1200px;}
 .wrap-1600{max-width: 1600px;}
 .flex {
-	box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;
-  display: -ms-flex; display: -webkit-box; display: -moz-box;
-  display: -ms-flexbox; display: -webkit-flex; display: flex;
-  -ms-flex: 0 1 auto; -webkit-box-flex: 0; flex: 0 1 auto;
-  -ms-flex-direction: row; -moz-flex-direction: row; -webkit-flex-direction: row;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal; flex-direction: row;
-  -ms-flex-wrap: wrap; flex-wrap: wrap; -webkit-flex-wrap: wrap; -moz-flex-wrap: wrap;
-  margin-right: 0; margin-left: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-right: 0;
+  margin-left: 0;
 }
 .flex > * {flex: 0 0 auto;}
 .flex.column{
@@ -240,13 +264,12 @@ h6.fluid-text, .fluid-text-h6 {font-size: calc(14px + (44 - 14) * ((100vw - 300p
   -webkit-flex-direction: column-reverse; -webkit-box-orient: vertical;
   -webkit-box-direction: reverse; flex-direction: column-reverse;
 }
-.flex.middle, .flex .middle { 
-	-ms-flex-pack: center; -webkit-box-pack: center; justify-content: center;
-	-moz-justify-content: center; -webkit-justify-content: center;
-	align-self: center;
-	-ms-flex-align: center; -webkit-box-align: center;
-	align-items: center; -webkit-align-items: center; 
-	align-content: center; -webkit-align-content: center;
+.flex.middle, .flex .middle {
+  display: flex; /* Ensure flexbox layout */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  align-self: center; /* Align the item itself to the center */
+  align-content: center; /* Align the content in a multi-line flex container */
 }
 .flex.start, .flex .start { 
 	-ms-flex-align: start; -webkit-box-align: start;
@@ -283,27 +306,85 @@ h6.fluid-text, .fluid-text-h6 {font-size: calc(14px + (44 - 14) * ((100vw - 300p
 .flex>.full{width: 100%; flex-basis: 100%; -webkit-flex-basis: 100%;}
 .bricks>div,.bricks>p,.bricks>li,.inline-brick,.inline-block{display:inline-block;padding: var(--padding);}
 
-@media screen and (min-width: 1200px){
-	.flex>.sidebar {width: 20%; flex-basis: 20%; -webkit-flex-basis: 20%;}
-	.flex>.main {width: 80%; flex-basis: 80%; -webkit-flex-basis: 80%;}
-	.flex>.half {flex-basis: 50%; -webkit-flex-basis: 50%; width: 50%;}
-	.flex>.third {flex-basis: 33.33%; -webkit-flex-basis: 33.33%; width: 33.33%;}
-	.flex>.fourth{flex-basis: 25%; -webkit-flex-basis: 25%; width: 25%;}
-	.flex>.fifth{flex-basis: 20%; -webkit-flex-basis: 20%; width: 20%;}
+@media screen and (min-width: 1200px) {
+  .flex > .sidebar {
+    flex-basis: 20%; /* Flex container takes up 20% of the parent container */
+  }
+  .flex > .main {
+    flex-basis: 80%;
+  }
+  .flex > .half {
+    flex-basis: 50%;
+  }
+  .flex > .third {
+    flex-basis: 33.33%;
+  }
+  .flex > .fourth {
+    flex-basis: 25%;
+  }
+  .flex > .fifth {
+    flex-basis: 20%;
+  }
 }
+
+/* Responsive styles for medium-sized screens (701px to 1199px) */
 @media screen and (min-width: 701px) and (max-width: 1199px) {
-	.flex>.sidebar{width: 25%; flex-basis: 25%; -webkit-flex-basis: 25%; -moz-flex-basis: 25%;}
-	.flex>.main {width: 75%; flex-basis: 75%; -webkit-flex-basis: 75%; -moz-flex-basis: 75%;}
-	.flex>.half {flex-basis: 50%; -webkit-flex-basis: 50%; width: 50%;}
-	.flex>.third, .flex>.fifth {flex-basis: 33.33%; -webkit-flex-basis: 33.33%; width: 33.33%;}
-	.flex>.fourth{flex-basis: 50%; -webkit-flex-basis: 50%; width: 50%;}
-	.flex>.fifth:nth-of-type(4n+0),.flex>.fifth:nth-of-type(5n+0){flex-basis: 50%; -webkit-flex-basis: 50%; width: 50%;}
+  .flex {
+    display: flex; /* Ensure flex layout for the parent */
+  }
+
+  /* Sidebar and Main */
+  .flex > .sidebar {
+    flex: 0 0 25%; /* flex-grow, flex-shrink, flex-basis */
+  }
+
+  .flex > .main {
+    flex: 0 0 75%; /* flex-grow, flex-shrink, flex-basis */
+  }
+
+  /* Half and Third Layouts */
+  .flex > .half {
+    flex: 0 0 50%;
+  }
+
+  .flex > .third,
+  .flex > .fifth {
+    flex: 0 0 33.33%;
+  }
+
+  /* Fourth Layout */
+  .flex > .fourth {
+    flex: 0 0 50%;
+  }
+
+  /* Fifth Layout (nth-of-type) */
+  .flex > .fifth:nth-of-type(4n+0),
+  .flex > .fifth:nth-of-type(5n+0) {
+    flex: 0 0 50%;
+  }
 }
-@media screen and (max-width: 700px){
-	.sidebar {width: 100%; flex-basis: 100%; -webkit-flex-basis: 100%; -moz-flex-basis: 100%; position: relative;}
-	.main{width: 100%; }
-	.flex>.half,.flex>.third,.flex>.fourth,.flex>.fifth{flex-basis: 100%; -webkit-flex-basis: 100%; width: 100%;}
+
+@media screen and (max-width: 700px) {
+  /* Sidebar takes full width on small screens */
+  .sidebar {
+    flex: 0 0 100%; /* Equivalent to width: 100%; flex-basis: 100% */
+    position: relative;
+  }
+
+  /* Main takes full width */
+  .main {
+    width: 100%;
+  }
+
+  /* Flex items (half, third, fourth, fifth) take full width */
+  .flex > .half,
+  .flex > .third,
+  .flex > .fourth,
+  .flex > .fifth {
+    flex: 0 0 100%; /* Equivalent to width: 100%; flex-basis: 100% */
+  }
 }
+
 
 /* TABLES */
 table.responsive {
@@ -672,8 +753,8 @@ hr.charlie:after {
 .hue-d, img.hue-d, *.hue-d-h:hover {
 	filter:hue-rotate(45deg);-webkit-filter: hue-rotate(45deg);-moz-filter: hue-rotate(45deg);-o-filter: hue-rotate(45deg);-ms-filter: hue-rotate(45deg);
 }
-.invert, img.invert, *.invert-h:hover {
-	filter: invert(100%);-webkit-filter: invert(100%);-moz-filter: invert(100%);-o-filter: invert(100%);-ms-filter: invert(100%);
+.invert, img.invert, .invert-h:hover {
+  filter: invert(100%);
 }
 .grayscale, .greyscale, img.grayscale, img.greyscale, *.grayscale-h:hover, *.greyscale-h:hover {
 	filter: grayscale(100%); -webkit-filter: grayscale(100%);-moz-filter: grayscale(100%);-o-filter: grayscale(100%);-ms-filter: grayscale(100%);

@@ -7,8 +7,8 @@ html {
   -moz-box-sizing: border-box;
   line-height: 1.5; scroll-behavior: smooth;
 }
-*, *:before, *:after { 
-	-webkit-box-sizing: inherit; -moz-box-sizing: inherit; box-sizing: inherit; 
+*, *::before, *::after {
+  box-sizing: inherit;
 }
 @media only screen and (min-width: 0) {html {font-size: 14px;}}
 @media only screen and (min-width: 992px) {html {font-size: 14.5px;}}
@@ -20,7 +20,7 @@ body {
   -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 	counter-reset: section;
-  /*overflow-x: hidden;*/
+  overflow-x: hidden;
 }
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;

@@ -184,3 +184,7 @@ p {
   white-space: normal;
   /* Ensures the text wraps and does not stay on a single line */
 }
+
+.invert, img.invert, .invert-h:hover {
+  filter: invert(100%);
+}

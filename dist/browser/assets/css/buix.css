@@ -189,7 +189,9 @@ ul.tree-list ul { padding: 0 0 0 1.2em; margin: 0; list-style-type: none; }
 .b-loader.no-counter .load-more__btn .loadcount {display:none !important; visibility: hidden !important;}
 
 /* THUMBNAILS */
-.micro-thumb, .tiny-thumb, .small-thumb, .medium-thumb, .large-thumb, .xlarge-thumb, .jumbo-thumb { }
+.micro-thumb, .tiny-thumb, .small-thumb, .medium-thumb, .large-thumb, .xlarge-thumb, .jumbo-thumb {
+  display: flex; flex-wrap: wrap; padding: 0; margin: 0;
+ }
 .thumbs-micro, .thumbs-tiny, .thumbs-small, .thumbs-medium, .thumbs-large, .thumbs-xlarge {
 	display: flex; flex-wrap: wrap; padding: 0; margin: 0;
 }
