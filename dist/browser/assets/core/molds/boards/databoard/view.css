@@ -8,5 +8,5 @@
 /* Datarecords */
 .datarecords {
 	display:flex;
-	flex-direction: column; -moz-flex-direction: column; -webkit-flex-direction: column;
+	flex-direction: column;
 }

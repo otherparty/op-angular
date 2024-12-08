@@ -5,8 +5,8 @@
 .photoboard {}
 
 /* Lite Gallery */
-.gallery-lite-wrap {display: flex; flex-wrap: wrap; -moz-flex-wrap: wrap; -webkit-flex-wrap: wrap;}
-.gallery-lite-wrap .figure {margin: 2px 2px 0px 2px; display: inline-block; }
+.gallery-lite-wrap {display: flex; flex-wrap: wrap;}
+.gallery-lite-wrap .figure {margin: 2px 2px 0px 2px; display: inline-block;}
 .gallery-lite-wrap .figure img{margin: 0; padding: 0;}
 .gallery-lite-wrap.tiny-size .figure img{height: 60px; width: auto;}
 .gallery-lite-wrap.small-size .figure img{height: 90px; width: auto;}

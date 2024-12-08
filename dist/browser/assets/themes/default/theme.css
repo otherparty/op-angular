@@ -7,7 +7,6 @@ body {overflow-x:hidden;}
 .lemonlink,.lemonlink:visited {border-bottom: 4px dotted #ffff00; color: #ffff00;}
 .lemonlink:hover{background: #000;}
 .sliced-corner { 
-	-webkit-clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 25%, 75% 0);
 	clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 25%, 75% 0);
 }
 

@@ -34,9 +34,7 @@
 }
 .jumpbtn:hover,.jumpnav .brik:hover{text-shadow: 1px 1px 12px #ff0000; color: #ff0000; background-image: url('images/concrete_tile005.jpg');}
 .vh10{display: block; height: 10vh;}
-.trikat {max-width: 420px; max-height: 420px; text-align: center; margin: 0 auto; display: inline-block; 
-	-ms-transform: rotate(9deg);  -webkit-transform: rotate(9deg);  transform: rotate(9deg);  
-}
+.trikat {max-width: 420px; max-height: 420px; text-align: center; margin: 0 auto; display: inline-block; transform: rotate(9deg);}
 .trikat:after{content:""; display: block; max-width: 420px; height: 10px; background: #ff0000;}
 .trikat>div{margin: 0 auto; max-width: 380px; max-height: 380px; }
 .trikat>div>img{margin: 0 auto;}

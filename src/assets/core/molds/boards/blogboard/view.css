@@ -36,7 +36,7 @@
 .microblog article .post .toggler button, .microblog article .post .toggler a {
 	display: inline-block; width: 100%; padding: 1.25rem; align-self: center;
 	color: #0000ff; border: 3px solid #0000ff; text-decoration: none;
-	border-radius: 8px; -webkit-border-radius: 8px; transition: background 0.5s ease;
+	border-radius: 8px; transition: background 0.5s ease;
 }
 .microblog article .post .toggler button:hover, .microblog article .post .toggler a:hover {background: #d8d8d8;}
 .microblog article .post .intro p{line-height: 180%;}
@@ -54,7 +54,7 @@
 .mbmodal .body figure .coverimg {height: auto; width: 100%;}
 
 @media (max-width: 768px) {
-	.mbmodal .body {display: flex; flex-direction: column; -webkit-flex-direction: column;}
+	.mbmodal .body {display: flex; flex-direction: column;}
 	.mbmodal .body .coverimg {height: auto; width: 90%; margin: 0 auto; }
 }
 

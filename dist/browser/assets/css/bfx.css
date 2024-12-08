@@ -58,7 +58,7 @@ https://freefrontend.com/css-animation-examples/
 
 /* RUMBLER */
 .rumble, .crumble, .strumble, .trumble, .caffeinated {cursor: pointer;}
-.hrumble {cursor: -webkit-grabbing; cursor: grabbing;}
+.hrumble {cursor: grabbing;}
 .mdrumble {cursor: crosshair;}
 
 /* GLITCH EFFECT */
@@ -66,42 +66,40 @@ https://freefrontend.com/css-animation-examples/
 	-webkit-animation: glitch1 2.5s infinite;
 	animation: glitch1 2.5s infinite;
 }
-span.glitch { -webkit-animation: glitch2 1.25s infinite; animation: glitch2 1.25s infinite; }
+span.glitch { animation: glitch2 1.25s infinite; }
 
 @keyframes glitch1 {
-  0% { -webkit-transform: none; transform: none; opacity: 1; }
-  7% { -webkit-transform: skew(-0.5deg, -0.9deg); transform: skew(-0.5deg, -0.9deg); opacity: 0.75; }
-  10% { -webkit-transform: none; transform: none; opacity: 1; }
-  27% { -webkit-transform: none; transform: none; opacity: 1; }
-  30% { -webkit-transform: skew(0.8deg, -0.1deg); transform: skew(0.8deg, -0.1deg); opacity: 0.75; }
-  35% { -webkit-transform: none; transform: none; opacity: 1; }
-  52% { -webkit-transform: none; transform: none; opacity: 1; }
-  55% { -webkit-transform: skew(-1deg, 0.2deg); transform: skew(-1deg, 0.2deg); opacity: 0.75; }
-  50% { -webkit-transform: none; transform: none; opacity: 1; }
-  72% { -webkit-transform: none; transform: none; opacity: 1; }
-  75% { -webkit-transform: skew(0.4deg, 1deg); transform: skew(0.4deg, 1deg); opacity: 0.75; }
-  80% { -webkit-transform: none; transform: none; opacity: 1; }
-  100% { -webkit-transform: none; transform: none; opacity: 1; }
+  0% { transform: none; opacity: 1; }
+  7% { transform: skew(-0.5deg, -0.9deg); opacity: 0.75; }
+  10% { transform: none; opacity: 1; }
+  27% { transform: none; opacity: 1; }
+  30% { transform: skew(0.8deg, -0.1deg); opacity: 0.75; }
+  35% { transform: none; opacity: 1; }
+  52% { transform: none; opacity: 1; }
+  55% { transform: skew(-1deg, 0.2deg); opacity: 0.75; }
+  50% { transform: none; opacity: 1; }
+  72% { transform: none; opacity: 1; }
+  75% { transform: skew(0.4deg, 1deg); opacity: 0.75; }
+  80% { transform: none; opacity: 1; }
+  100% { transform: none; opacity: 1; }
 }
 
 @keyframes glitch2 {
-  0% { -webkit-transform: none; transform: none; opacity: 1; }
-  7% { -webkit-transform: skew(-0.7deg, -5deg); transform: skew(-0.7deg, -5deg); opacity: 0.75; }
-  10% {  -webkit-transform: none; transform: none; opacity: 1; }
-  27% { -webkit-transform: none; transform: none; opacity: 1; }
-  30% { -webkit-transform: skew(0.6deg, -0.2deg); transform: skew(0.6deg, -0.2deg); opacity: 0.5; }
-  35% { -webkit-transform: none; transform: none; opacity: 1; }
-  52% { -webkit-transform: none; transform: none; opacity: 1; }
-  55% { -webkit-transform: skew(-15deg, 0.5deg); transform: skew(-15deg, 0.5deg); opacity: 0.75; }
-  50% { -webkit-transform: none; transform: none; opacity: 1; }
-  72% { -webkit-transform: none; transform: none; opacity: 1; }
-  75% { -webkit-transform: skew(0.5deg, 12deg); transform: skew(0.5deg, 12deg); opacity: 0.25; }
-  80% { -webkit-transform: none; transform: none; opacity: 1; }
-  100% { -webkit-transform: none; transform: none; opacity: 1; }
+  0% { transform: none; opacity: 1; }
+  7% { transform: skew(-0.7deg, -5deg); opacity: 0.75; }
+  10% { transform: none; opacity: 1; }
+  27% { transform: none; opacity: 1; }
+  30% { transform: skew(0.6deg, -0.2deg); opacity: 0.5; }
+  35% { transform: none; opacity: 1; }
+  52% { transform: none; opacity: 1; }
+  55% { transform: skew(-15deg, 0.5deg); opacity: 0.75; }
+  50% { transform: none; opacity: 1; }
+  72% { transform: none; opacity: 1; }
+  75% { transform: skew(0.5deg, 12deg); opacity: 0.25; }
+  80% { transform: none; opacity: 1; }
+  100% { transform: none; opacity: 1; }
 }
 .shift-glitch {
-	-moz-animation: shift 4s ease-in-out infinite alternate;
-  -webkit-animation: shift 4s ease-in-out infinite alternate;
   animation: shift 4s ease-in-out infinite alternate;
 }
 
@@ -155,24 +153,24 @@ span.glitch { -webkit-animation: glitch2 1.25s infinite; animation: glitch2 1.25
   animation-iteration-count: infinite; animation-duration: 2s; 
 }
 @keyframes throb {
-  0% { transform: scale( .75 );-webkit-transform: scale( .75 );-ms-transform: scale( .75 );}
-  20% { transform: scale( 1 );-webkit-transform: scale( 1 );-ms-transform: scale( 1 );}
-  40% { transform: scale( .75 );-webkit-transform: scale( .75 );-ms-transform: scale( .75 );}
-  60% { transform: scale( 1 );-webkit-transform: scale( 1 );-ms-transform: scale( 1 );}
-  80% { transform: scale( .75 );-webkit-transform: scale( .75 );-ms-transform: scale( .75 );}
-  100% { transform: scale( .75 );-webkit-transform: scale( .75 );-ms-transform: scale( .75 );}
+  0% { transform: scale( .75 );}
+  20% { transform: scale( 1 );}
+  40% { transform: scale( .75 );}
+  60% { transform: scale( 1 );}
+  80% { transform: scale( .75 );}
+  100% { transform: scale( .75 );}
 }
 .throb-throw {
   animation-name: throbthrow; display: inline-block !important;
   animation-iteration-count: infinite; animation-duration: 2.5s; 
 }
 @keyframes throbthrow {
-  0% { transform: scale( .75 );-webkit-transform: scale( .75 );-ms-transform: scale( .75 );}
-  20% { transform: rotate(45deg) scale( 1.25 );-webkit-transform: rotate(45deg) scale( 1 );-ms-transform: rotate(45deg) scale( 1 );}
-  40% { transform: scale( .75 );-webkit-transform: scale( .75 );-ms-transform: scale( .75 );}
-  60% { transform: rotate(45deg) scale( 1.25 );-webkit-transform: rotate(45deg) scale( 1 );-ms-transform: rotate(45deg) scale( 1 );}
-  80% { transform: scale( .75 );-webkit-transform: scale( .75 );-ms-transform: scale( .75 );}
-  100% { transform: scale( .75 );-webkit-transform: scale( .75 );-ms-transform: scale( .75 );}
+  0% { transform: scale( .75 );}
+  20% { transform: rotate(45deg) scale( 1.25 );}
+  40% { transform: scale( .75 );}
+  60% { transform: rotate(45deg) scale( 1.25 );}
+  80% { transform: scale( .75 );}
+  100% { transform: scale( .75 );}
 }
 
 /* SPIN ANIMATIONS */
@@ -192,19 +190,19 @@ span.glitch { -webkit-animation: glitch2 1.25s infinite; animation: glitch2 1.25
 .spin-r-xfast{animation-name: spin-reverse;animation-duration: 500ms;}
 .spin-cycle{animation-name: spin-cycle;animation-duration: 5000ms;}
 @keyframes spin { 
-	from { transform:rotate(0deg);-ms-transform:rotate(0deg);-webkit-transform:rotate(0deg);}
-	to { transform:rotate(360deg);-ms-transform:rotate(360deg);-webkit-transform:rotate(360deg);}
+	from { transform:rotate(0deg);}
+	to { transform:rotate(360deg);}
 }
 @keyframes spin-reverse {
-    from { transform:rotate(360deg);-ms-transform:rotate(360deg);-webkit-transform:rotate(360deg);}
-    to { transform:rotate(0deg);-ms-transform:rotate(0deg);-webkit-transform:rotate(0deg);}
+    from { transform:rotate(360deg);}
+    to { transform:rotate(0deg);}
 }
 @keyframes spin-cycle {
-    0%   {transform:rotate(360deg);-ms-transform:rotate(360deg);-webkit-transform:rotate(360deg);}
-	25%  {transform:rotate(0deg);-ms-transform:rotate(0deg);-webkit-transform:rotate(0deg);}
-	50%  {transform:rotate(180deg);-ms-transform:rotate(180deg);-webkit-transform:rotate(180deg);}
-	75%	 {transform:rotate(90deg);-ms-transform:rotate(90deg);-webkit-transform:rotate(90deg);}
-	100% {transform:rotate(360deg);-ms-transform:rotate(360deg);-webkit-transform:rotate(360deg);}
+    0%   {transform:rotate(360deg);}
+	25%  {transform:rotate(0deg);}
+	50%  {transform:rotate(180deg);}
+	75%	 {transform:rotate(90deg);}
+	100% {transform:rotate(360deg);}
 }
 
 /* BOUNCY ANIMATION */
@@ -212,21 +210,11 @@ span.glitch { -webkit-animation: glitch2 1.25s infinite; animation: glitch2 1.25
 	animation: bouncy 0.5s; animation-direction: alternate;
     animation-timing-function: cubic-bezier(.5, 0.05, 1, .5);
     animation-iteration-count: infinite;
-	-webkit-transform-origin: center bottom;
-      -ms-transform-origin: center bottom;
           transform-origin: center bottom;
 }
 @keyframes bouncy {
     from { transform: translate3d(0, 0, 0);}
     to { transform: translate3d(0, 100%, 0);}
-}
-@-webkit-keyframes bouncy {
-    from {-webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-    }
-    to { -webkit-transform: translate3d(0, 100%, 0);
-     transform: translate3d(0, 100%, 0);
-    }
 }
 
 /* ANIMATED BACKGROUNDS 
@@ -273,20 +261,9 @@ span.glitch { -webkit-animation: glitch2 1.25s infinite; animation: glitch2 1.25
 .gathering {
 background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
 	background-size: 400% 400%;
-	-webkit-animation: Gradient 15s ease infinite;
-	-moz-animation: Gradient 15s ease infinite;
 	animation: Gradient 15s ease infinite;
 }
-@-webkit-keyframes Gradient {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
-@-moz-keyframes Gradient {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
+
 @keyframes Gradient {
 	0% { background-position: 0% 50% }
 	50% { background-position: 100% 50% }
@@ -297,20 +274,9 @@ background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
 background: rgb(134,0,0);
 background: radial-gradient(circle, rgba(134,0,0,1) 0%, rgba(97,11,11,1) 50%, rgba(0,0,0,1) 100%);
 	background-size: 500% 500%;
-	-webkit-animation: Vampire 23s ease infinite;
-	-moz-animation: Vampire 23s ease infinite;
 	animation: Vampire 23s ease infinite;
 }
-@-webkit-keyframes Vampire {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
-@-moz-keyframes Vampire {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
+
 @keyframes Vampire {
 	0% { background-position: 0% 50% }
 	50% { background-position: 100% 50% }
@@ -322,20 +288,9 @@ background: linear-gradient(217deg, rgba(255,0,0,1), rgba(255,0,0,0) 70.71%),
       linear-gradient(127deg, rgba(0,255,0,1), rgba(0,255,0,0) 70.71%),
       linear-gradient(336deg, rgba(0,0,255,1), rgba(0,0,255,0) 70.71%);
 	background-size: 400% 400%;
-	-webkit-animation: Pastel 13s ease infinite;
-	-moz-animation: Pastel 13s ease infinite;
 	animation: Pastel 13s ease infinite;
 }
-@-webkit-keyframes Pastel {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
-@-moz-keyframes Pastel {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
+
 @keyframes Pastel {
 	0% { background-position: 0% 50% }
 	50% { background-position: 100% 50% }
@@ -345,25 +300,9 @@ background: linear-gradient(217deg, rgba(255,0,0,1), rgba(255,0,0,0) 70.71%),
 .heat { color: #000;
 background: linear-gradient(98deg, #ff0000, #ffab40, #ff9800, #F4FA58);
 	background-size: 400% 400%;
-	-webkit-animation: Hot 12s ease infinite;
-	-moz-animation: Hot 12s ease infinite;
 	animation: Hot 12s ease infinite;
 }
-@-webkit-keyframes Hot {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
-@-moz-keyframes Hot {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
-@-o-keyframes Hot {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
+
 @keyframes Hot {
 	0% { background-position: 0% 50% }
 	50% { background-position: 100% 50% }
@@ -373,25 +312,9 @@ background: linear-gradient(98deg, #ff0000, #ffab40, #ff9800, #F4FA58);
 .flood { color: #fff;
 background-image: radial-gradient(circle, #add8e6, #81d4fa, #2196f3, #81d4fa, #add8e6);
 	background-size: 500% 500%;
-	-webkit-animation: Water 22s ease-in-out infinite;
-	-moz-animation: Water 22s ease-in-out infinite;
 	animation: Water 22s ease-in-out infinite;
 }
-@-webkit-keyframes Water {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
-@-moz-keyframes Water {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
-@-o-keyframes Water {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
+
 @keyframes Water {
 	0% { background-position: 0% 50% }
 	50% { background-position: 100% 50% }
@@ -401,20 +324,9 @@ background-image: radial-gradient(circle, #add8e6, #81d4fa, #2196f3, #81d4fa, #a
 .shine { color: #000;
 background: linear-gradient(-45deg, #808080, #808080, #e6e6e6, #808080, #808080, #e6e6e6, #808080, #808080, #e6e6e6);
 	background-size: 400% 400%;
-	-webkit-animation: Shine 9s ease-in-out infinite;
-	-moz-animation: Shine 9s ease-in-out infinite;
 	animation: Shine 9s ease-in-out infinite;
 }
-@-webkit-keyframes Shine {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
-@-moz-keyframes Shine {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
+
 @keyframes Shine {
 	0% { background-position: 0% 50% }
 	50% { background-position: 100% 50% }
@@ -424,25 +336,9 @@ background: linear-gradient(-45deg, #808080, #808080, #e6e6e6, #808080, #808080,
 .neon { color: #000;
 background: linear-gradient(-60deg, #000000, #00ff00, #00ccff, #ff3399, #cc66ff, #000000, #83ff17, #fffb21, #000000, #ff1c27, #ff1c27, #000000, #ff1c8a, #ff1c8a, #ff1c27, #ff1c27);
 	background-size: 500% 500%;
-	-webkit-animation: Neon 14s ease-in-out infinite;
-	-moz-animation: Neon 14s ease-in-out infinite;
 	animation: Neon 14s ease-in-out infinite;
 }
-@-webkit-keyframes Neon {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
-@-moz-keyframes Neon {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
-@-o-keyframes Neon {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
+
 @keyframes Neon {
 	0% { background-position: 0% 50% }
 	50% { background-position: 100% 50% }
@@ -452,25 +348,9 @@ background: linear-gradient(-60deg, #000000, #00ff00, #00ccff, #ff3399, #cc66ff,
 .earthly { color: #fff;
 background: linear-gradient(55deg, #305ca8, #2f673b, #2f673b, #2f673b, #305ca8, #305ca8, #305ca8, #5a4f2f, #5a4f2f, #5a4f2f, #2f673b, #2f673b, #2f673b, #305ca8, #305ca8, #305ca8);
 	background-size: 450% 450%;
-	-webkit-animation: Earth 24s ease-in-out infinite;
-	-moz-animation: Earth 24s ease-in-out infinite;
 	animation: Earth 24s ease-in-out infinite;
 }
-@-webkit-keyframes Earth {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
-@-moz-keyframes Earth {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
-@-o-keyframes Earth {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
+
 @keyframes Earth {
 	0% { background-position: 0% 50% }
 	50% { background-position: 100% 50% }
@@ -478,27 +358,10 @@ background: linear-gradient(55deg, #305ca8, #2f673b, #2f673b, #2f673b, #305ca8, 
 }
 
 /* Infinity (light) */
-@-webkit-keyframes bg-scrolling-reverse {
-  100% {background-position: 50px 50px;}
-}
-@-moz-keyframes bg-scrolling-reverse {
-  100% {background-position: 50px 50px;}
-}
-@-o-keyframes bg-scrolling-reverse {
-  100% {background-position: 50px 50px;}
-}
 @keyframes bg-scrolling-reverse {
   100% {background-position: 50px 50px;}
 }
-@-webkit-keyframes bg-scrolling {
-  0% {background-position: 50px 50px;}
-}
-@-moz-keyframes bg-scrolling {
-  0% {background-position: 50px 50px;}
-}
-@-o-keyframes bg-scrolling {
-  0% {background-position: 50px 50px;}
-}
+
 @keyframes bg-scrolling {
   0% {background-position: 50px 50px;}
 }
@@ -506,43 +369,22 @@ background: linear-gradient(55deg, #305ca8, #2f673b, #2f673b, #2f673b, #305ca8, 
 .infinitile {
   /* img size is 50x50 */
   background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABnSURBVHja7M5RDYAwDEXRDgmvEocnlrQS2SwUFST9uEfBGWs9c97nbGtDcquqiKhOImLs/UpuzVzWEi1atGjRokWLFi1atGjRokWLFi1atGjRokWLFi1af7Ukz8xWp8z8AAAA//8DAJ4LoEAAlL1nAAAAAElFTkSuQmCC") repeat 0 0;
-  -webkit-animation: bg-scrolling-reverse .92s infinite;
-  /* Safari 4+ */
-  -moz-animation: bg-scrolling-reverse .92s infinite;
-  /* Fx 5+ */
-  -o-animation: bg-scrolling-reverse .92s infinite;
-  /* Opera 12+ */
   animation: bg-scrolling-reverse .92s infinite;
-  /* IE 10+ */
-  -webkit-animation-timing-function: linear;
-  -moz-animation-timing-function: linear;
-  -o-animation-timing-function: linear;
   animation-timing-function: linear;
 }
 
 .psychedelic {
   background: linear-gradient(233deg, #e56420, #c22525, #3d9c31, #37bbde);
   background-blend-mode: hard-light;
-  -webkit-animation: hue-rotate 3s linear infinite; animation: hue-rotate 3s linear infinite;
+  animation: hue-rotate 3s linear infinite;
 }
-@-webkit-keyframes hue-rotate {
-  from {
-    -webkit-filter: hue-rotate(0); -moz-filter: hue-rotate(0);
-    -ms-filter: hue-rotate(0); filter: hue-rotate(0);
-  }
-  to {
-    -webkit-filter: hue-rotate(360deg); -moz-filter: hue-rotate(360deg);
-    -ms-filter: hue-rotate(360deg); filter: hue-rotate(360deg);
-  }
-}
+
 @keyframes hue-rotate {
   from {
-    -webkit-filter: hue-rotate(0); -moz-filter: hue-rotate(0);
-    -ms-filter: hue-rotate(0); filter: hue-rotate(0);
+    filter: hue-rotate(0);
   }
   to {
-    -webkit-filter: hue-rotate(360deg); -moz-filter: hue-rotate(360deg);
-    -ms-filter: hue-rotate(360deg); filter: hue-rotate(360deg);
+    filter: hue-rotate(360deg);
   }
 }
 

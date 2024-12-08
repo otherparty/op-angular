@@ -79,7 +79,7 @@
 .fog, .fog-h:hover{background-color:#655967 !important;}
 .fog-t{color:#655967 !important;}
 .fog-b{border-color:#655967 !important;}
-.fog-o{outline-color:$655967 !important;}
+.fog-o{outline-color:#655967 !important;}
 .fossil,.fossil-h:hover{background-color:#787276 !important;}
 .fossil-t{color: #787276 !important;}
 .fossil-t-s{text-shadow: var(--tsb) #787276 !important;}

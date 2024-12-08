@@ -7,7 +7,7 @@
 .baudio-wrap .baudio-play-wrap{font-size:22px;min-width:50px;display:flex;align-items:center;justify-content:center;vertical-align:middle;}
 .baudio-wrap .baudio-play{cursor:pointer;z-index:10;color:#aaa;display:flex;align-items:center;}
 .baudio-wrap .baudio-progress{position:absolute;bottom:0;border-right:1px solid #bbb;background-color:#000;height:100%;z-index:-1;}
-.baudio-wrap .baudio-text{z-index:2;font-size:14px;padding:7px 10px 7px 0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
+.baudio-wrap .baudio-text{z-index:2;font-size:14px;padding:7px 10px 7px 0;user-select:none;}
 .baudio-wrap .baudio-title{font-weight: 600 !important; color: #fff; text-shadow: 2px 2px #000;}
 .baudio-wrap .baudio-artist{color:#fff;}
 .baudio-wrap .baudio-progress-click{z-index:5;position:absolute;height:100%;width:100%;top:0;}
@@ -21,7 +21,7 @@
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'vplay' !important;speak: none;
   font-style: normal;font-weight: normal;font-variant: normal;text-transform: none;
-  line-height: 1;-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  line-height: 1;
 }
 .vplay-compress:before {content: "\e901";}
 .vplay-expand:before {content: "\e900";}
