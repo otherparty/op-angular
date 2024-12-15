@@ -5,3 +5,13 @@
 .invert, img.invert, .invert-h:hover {
   filter: invert(100%);
 }
+
+app-navbar {
+  position: relative;
+  z-index: 1;
+}
+
+app-title {
+  position: relative;
+  z-index: 0;
+}

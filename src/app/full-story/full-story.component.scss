@@ -188,3 +188,8 @@ p {
 .invert, img.invert, .invert-h:hover {
   filter: invert(100%);
 }
+
+.larger,
+.bigger {
+  font-size: 1.6rem; /* 160% of the root font size */
+}

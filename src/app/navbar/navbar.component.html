@@ -6,7 +6,7 @@
 			</div>
 		</header>
 		<!-- <div class="wrap-1600"> -->
-		<div class="invert reveal toggle blonk-wrap hi-opacity no-padding">
+		<div class="menu invert reveal toggle blonk-wrap hi-opacity no-padding">
 			<input id="blonknav" class="toggle" type="checkbox">
 			<!-- <label for="blonknav" class="invert label-toggle blonk-tr shape quadrant bottom-left flex middle mint" -->
 			<label for="blonknav" class="label-toggle blonk-tr shape quadrant bottom-left flex middle mint"
@@ -23,18 +23,17 @@
 						</li>
 						<li>
 							<a [routerLink]="['/register']">
-								<i class="bi bi-sparkle"></i> Subscribe
+								<p class="glitchtext"> Join </p>
 							</a>
 						</li>
 						}
-
 						<!-- <li><a [routerLink]="['shop.otherparty.ai']"><i class="bi bi-flag"></i> Shop</a></li> -->
-						<li><a [routerLink]="['/about']"><i class="bi bi-navigate"></i> About OP</a></li>
+						<li><a [routerLink]="['/about']"><i class="bi bi-navigate"></i> About</a></li>
 					</ul>
 					<ul class="simple-nav two-col flow-text" style="width: 100%; border-top: 2px solid #fff;">
 						<li><a href="https://x.com/otherpartyai"><i class="bi bi-smoking"></i> X</a></li>
-						<li><a href="https://facebook.com/otherpartyai"><i class="bi bi-approve"></i> Facebook</a></li>
-						<li><a href="https://instagram.com/otherpartyai"><i class="bi bi-camera"></i> Instagram</a></li>
+						<li><a href="https://facebook.com/otherpartyai"><i class="bi bi-approve"></i> FB</a></li>
+						<li><a href="https://instagram.com/otherpartyai"><i class="bi bi-camera"></i> Insta</a></li>
 						@if (user) {
 						<ul class="simple-nav two-col flow-text" style="width: 100%; border-top: 2px solid #fff;">
 							<li><a href='javascript:;' (click)="logOut()"><i class="bi bi-core-block"></i>Logout</a></li>

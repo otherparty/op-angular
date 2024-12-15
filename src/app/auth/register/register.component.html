@@ -24,6 +24,11 @@
           <small>Emails do not match.</small>
         </div>
 
+        <input type="zip" placeholder="ZIP Code *" formControlName="zipCode">
+        <div *ngIf="invalidZIP">
+          <small>We need a ZIP to find your reps.</small>
+        </div>
+
         <input type="password" placeholder="Password *" formControlName="password">
         <div
           *ngIf="createAccountForm.get('password')?.hasError('minLength') && createAccountForm.get('password')?.touched">
