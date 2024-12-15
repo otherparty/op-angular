@@ -24,7 +24,7 @@
           <small>Emails do not match.</small>
         </div>
 
-        <input type="zip" placeholder="ZIP Code *" formControlName="zipCode">
+        <input type="text" placeholder="ZIP Code *" formControlName="zipCode" autocomplete="off">
         <div *ngIf="invalidZIP">
           <small>We need a ZIP to find your reps.</small>
         </div>
