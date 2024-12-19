@@ -7,10 +7,10 @@ import { Observable, Subject, catchError, of, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class BillService {
-  // billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
-  // authURL = 'http://localhost:9000/api/v1/auth'; // URL to web api
-  billsURL = `https://backend.otherparty.ai/api/v1/stories`;
-  authURL = 'https://backend.otherparty.ai/api/v1/auth'
+  billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
+  baseURL = 'http://localhost:9000/api/v1'; // URL to web api
+  // baseURL = 'https://backend.otherparty.ai/api/v1/'; // URL to web api
+  // billsURL = `https://backend.otherparty.ai/api/v1/stories`;
 
   private xFunctionSubject = new Subject<[any, boolean]>();
   private yFunctionSubject = new Subject<[any, boolean]>();
@@ -91,33 +91,12 @@ export class BillService {
     this.yFunctionSubject.next([tab, isChecked]);
   }
 
-  registerUser(user: any): Observable<any> {
+  getRepsFromZipCode(zip: any): Observable<any> {    
     return this.http
-      .post(`${this.authURL}/register`, user)
-      .pipe(catchError(this.handleError<any>('registerUser')));
+      .get(`${this.baseURL}/user/zip/${zip}`)
+      .pipe(catchError(this.handleError<any>('getRepsFromZipCode')));
   }
 
-  loginUser(user: any): Observable<any> {
-    return this.http
-      .post(`${this.authURL}/login`, user)
-      .pipe(catchError(this.handleError<any>('loginUser')));
-  }
-
-  verifyUser(user: any): Observable<any> {
-    return this.http
-      .post(`${this.authURL}/confirm-user`, user)
-      .pipe(catchError(this.handleError<any>('verifyUser')));
-  }
-
-  getUser(user: any): Observable<any> {
-    return this.http
-      .post(`${this.authURL}/confirm-user`, user)
-      .pipe(catchError(this.handleError<any>('verifyUser')));
-  }
-
-  isAuthenticated(): boolean {
-    return !!localStorage.getItem('logged-in-user');
-  }
 
   /**
    * Handle Http operation that failed.

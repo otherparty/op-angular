@@ -4,6 +4,7 @@ import { AbstractControl, AbstractControlOptions, FormBuilder, FormGroup, Reacti
 import { AuthenticateService } from '../../../services/cognito.service';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../../navbar/navbar.component';
+import { BillService } from '../../../services/bill.service';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,7 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 export class RegisterComponent {
   createAccountForm: FormGroup;
 
-  constructor(private readonly fb: FormBuilder, private readonly authService: AuthenticateService, private router: Router) {
+  constructor(private readonly fb: FormBuilder, private readonly authService: AuthenticateService, private router: Router, private userService: BillService) {
     this.createAccountForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -27,12 +28,23 @@ export class RegisterComponent {
       confirmPassword: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
       ]],
       receiveEmails: [false],
+      reps: []
     }, { validators: [this.matchingFieldsValidator('email', 'confirmEmail'), this.matchingFieldsValidator('password', 'confirmPassword')] } as AbstractControlOptions);
   }
 
   onSubmit() {
     if (this.createAccountForm.valid) {
-      this.authService.register(this.createAccountForm.value)
+      console.log(this.createAccountForm.get('zipCode')?.value);
+      
+      this.userService.getRepsFromZipCode(this.createAccountForm.get('zipCode')?.value).subscribe({
+        next: (data) => {
+          this.createAccountForm.controls['reps'].setValue(data.data);
+          this.authService.register(this.createAccountForm.value);
+        },
+        error: (error) => {
+          console.log('Form is invalid');
+        }
+      });
     } else {
       console.log('Form is invalid');
     }

@@ -5,9 +5,10 @@ import { routes } from './app.routes';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { provideHttpClient, withFetch, withInterceptorsFromDi, HttpClientModule } from "@angular/common/http";
+import { provideHttpClient, withFetch, withInterceptorsFromDi, HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeadersInterceptor } from '../services/headers.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,5 +18,8 @@ export const appConfig: ApplicationConfig = {
     })),
     importProvidersFrom(HttpClientModule, FormBuilder, BrowserModule, FormGroup, FormsModule, ReactiveFormsModule, BrowserAnimationsModule, CommonModule, ToastrModule.forRoot()),
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
+    {
+      provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true
+    }
   ],
 };

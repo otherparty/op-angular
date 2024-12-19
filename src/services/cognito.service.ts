@@ -61,6 +61,7 @@ export class AuthenticateService {
     attributeList.push(new CognitoUserAttribute({ Name: "given_name", Value: payload.firstName }));
     attributeList.push(new CognitoUserAttribute({ Name: "family_name", Value: payload.lastName }));
     attributeList.push(new CognitoUserAttribute({ Name: "custom:receiveEmail", Value: payload.receiveEmails.toString() }));
+    attributeList.push(new CognitoUserAttribute({ Name: "custom:reps", Value: payload.reps }));
 
     this.userPool = new CognitoUserPool(poolData);
 
@@ -127,6 +128,32 @@ export class AuthenticateService {
       }
     });
   }
+
+  updateAttributes(payload: any, email: any) { 
+    let poolData = {
+      UserPoolId: environment.UserPoolId,
+      ClientId: environment.ClientId,
+    };
+
+    this.userPool = new CognitoUserPool(poolData);
+    let userData = { Username: email, Pool: this.userPool };
+    this.cognitoUser = new CognitoUser(userData);
+
+
+    const attributeList = [];
+
+    attributeList.push(new CognitoUserAttribute({ Name: "custom:reps", Value: payload.reps.toString() }));
+
+    this.cognitoUser.updateAttributes(attributeList, (error: any, result: any) => {
+      if (error) {
+        console.log("error", error);
+        this.toastr.error(error.message, "Error");
+        return;
+      }
+      this.toastr.success("User updated successfully", "Success");
+    })
+
+   }
 
   changePassword(code: any, password: any) {
     let poolData = {
