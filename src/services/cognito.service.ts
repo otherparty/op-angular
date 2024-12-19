@@ -62,6 +62,7 @@ export class AuthenticateService {
     attributeList.push(new CognitoUserAttribute({ Name: "family_name", Value: payload.lastName }));
     attributeList.push(new CognitoUserAttribute({ Name: "custom:receiveEmail", Value: payload.receiveEmails.toString() }));
     attributeList.push(new CognitoUserAttribute({ Name: "custom:reps", Value: payload.reps }));
+    attributeList.push(new CognitoUserAttribute({ Name: "custom:zip", Value: payload.zipCode.toString() }));
 
     this.userPool = new CognitoUserPool(poolData);
 
