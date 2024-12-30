@@ -43,8 +43,15 @@ export class AuthenticateService {
         return result;
       },
       onFailure: (error: any) => {
-        this.toastr.error(error.message, "Error");
-        
+        if(error.code === 'UserNotConfirmedException') {
+          this.resendConfirmationCode(email);
+          localStorage.setItem('registered-user', this.cognitoUser.getUsername());
+          this.toastr.error("User is not confirmed", "Error");
+          this.router.navigate(['/otp-verification']);
+        } else {
+          this.toastr.error(error.message, "Error");
+        }
+
       },
     });
   }
@@ -91,7 +98,7 @@ export class AuthenticateService {
 
     this.userPool = new CognitoUserPool(poolData);
 
-    let userData : any = { Username: email, Pool: this.userPool };
+    let userData: any = { Username: email, Pool: this.userPool };
     this.cognitoUser = new CognitoUser(userData);
 
     this.cognitoUser.confirmRegistration(otp, true, (error: any, result: any) => {
@@ -115,6 +122,10 @@ export class AuthenticateService {
     let userData = { Username: email, Pool: this.userPool };
     this.cognitoUser = new CognitoUser(userData);
 
+    this.cognitoUser.getUserData((error:any,data:any)=>{
+      console.log(error,data);
+      
+    })    
     this.cognitoUser.forgotPassword({
       onSuccess: (result: any) => {
         console.log(result);
@@ -128,9 +139,32 @@ export class AuthenticateService {
         this.router.navigate(["/new-password"]);
       }
     });
+
   }
 
-  updateAttributes(payload: any, email: any) { 
+  resendConfirmationCode(email: any) {
+    let poolData = {
+      UserPoolId: environment.UserPoolId,
+      ClientId: environment.ClientId,
+    };
+
+    this.userPool = new CognitoUserPool(poolData);
+    let userData = { Username: email, Pool: this.userPool };
+    this.cognitoUser = new CognitoUser(userData);
+
+    this.cognitoUser.resendConfirmationCode((error: any, result: any) => {
+      if (error) {
+        console.log("error", error);
+        this.toastr.error(error.message, "Error");
+        return;
+      }
+      localStorage.setItem('registered-user', this.cognitoUser.getUsername());
+      this.toastr.success("Confirmation code sent successfully", "Success");
+      this.router.navigate(['/otp-verification']);
+    });
+  }
+
+  updateAttributes(payload: any, email: any) {
     let poolData = {
       UserPoolId: environment.UserPoolId,
       ClientId: environment.ClientId,
@@ -154,7 +188,7 @@ export class AuthenticateService {
       this.toastr.success("User updated successfully", "Success");
     })
 
-   }
+  }
 
   changePassword(code: any, password: any) {
     let poolData = {
@@ -164,10 +198,10 @@ export class AuthenticateService {
 
     this.userPool = new CognitoUserPool(poolData);
     const email = localStorage.getItem("reset-password-user");
-    let userData :any = { Username: email, Pool: this.userPool };
+    let userData: any = { Username: email, Pool: this.userPool };
     this.cognitoUser = new CognitoUser(userData);
 
-    this.cognitoUser.confirmPassword(code, password,{
+    this.cognitoUser.confirmPassword(code, password, {
       onSuccess: (result: any) => {
         this.toastr.success("Password changed successfully", "Success");
         this.router.navigate(["/login"]);
