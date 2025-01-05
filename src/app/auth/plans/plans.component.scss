@@ -1,0 +1,87 @@
+/* General reset */
+body, h1, h2, p {
+  margin: 0;
+  padding: 0;
+  // font-family: Helvetica;
+  // color: #333;
+}
+
+// body {
+//   background-color: #f9f9f9;
+//   padding: 20px;
+//   text-align: center;
+// }
+body {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh; /* Ensure the body is at least the viewport height */
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+}
+
+h1 {
+  margin-bottom: 0px;
+  font-size: 24px;
+  color: #333;
+}
+
+/* Layout container */
+.plans-container {
+  flex: 1; /* Allow the main content to expand and push the footer to the bottom */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  gap: 20px; /* Add spacing between plans */
+  flex-wrap: wrap; /* Wrap if needed */
+}
+
+/* Info tiles */
+.info-tile {
+  // background-color: #fff;
+  // border: 1px solid #ddd;
+  // border-radius: 8px;
+  // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.info-tile .header {
+  background: linear-gradient(to right, #6200ea, #4a148c);
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px 8px 0 0;
+}
+
+.info-tile .header h2 {
+  // font-size: 20px;
+  margin-bottom: 0px;
+}
+
+.info-tile .header p {
+  margin: 0;
+  // font-size: 16px;
+}
+
+.info-tile .details p {
+  margin: 25px 0;
+  // font-size: 14px;
+}
+
+/* Premium styling */
+.info-tile .header.premium {
+  background: linear-gradient(to right, #003c8f, #d500f9);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .plans-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .info-tile {
+    width: 90%;
+  }
+}

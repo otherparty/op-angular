@@ -4,6 +4,7 @@ import { ApplicationConfig } from '@angular/core';
 import { StoriesComponent } from './stories/stories.component';
 import { SubscribersPageComponent } from './subscribers-page/subscribers-page.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { PlansComponent } from './plans-and-features/plans/plans.component';
 import { LoginComponent } from './auth/login/login.component';
 import { OtpVerificationComponent } from './auth/otp-verification/otp-verification.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
@@ -13,48 +14,53 @@ import { CreateNewPasswordComponent } from './auth/create-new-password/create-ne
 
 export const routes: Routes = [
   {
-    path : '',
-    component: StoriesComponent
+    path: '',
+    component: StoriesComponent,
   },
   {
-    path : 'register',
+    path: 'register',
     component: RegisterComponent,
-    canActivate: [alreadyLoggedInGuard] // Apply the guard here
+    canActivate: [alreadyLoggedInGuard], // Apply the guard here
   },
   {
-    path : 'login',
+    path: 'plans',
+    component: PlansComponent,
+    canActivate: [alreadyLoggedInGuard], // Apply the guard here
+  },
+  {
+    path: 'login',
     component: LoginComponent,
-    canActivate: [alreadyLoggedInGuard] // Apply the guard here
+    canActivate: [alreadyLoggedInGuard], // Apply the guard here
   },
   {
-    path : 'otp-verification',
+    path: 'otp-verification',
     component: OtpVerificationComponent,
-    canActivate: [alreadyLoggedInGuard] // Apply the guard here
+    canActivate: [alreadyLoggedInGuard], // Apply the guard here
   },
   {
-    path : 'reset-password',
+    path: 'reset-password',
     component: ResetPasswordComponent,
-    canActivate: [alreadyLoggedInGuard] // Apply the guard here
+    canActivate: [alreadyLoggedInGuard], // Apply the guard here
   },
   {
-    path : 'new-password',
+    path: 'new-password',
     component: CreateNewPasswordComponent,
-    canActivate: [alreadyLoggedInGuard] // Apply the guard here
+    canActivate: [alreadyLoggedInGuard], // Apply the guard here
   },
   {
-    path : 'about',
+    path: 'about',
     component: AboutComponent,
   },
   {
-    path : 'story/:id',
-    component: FullStoryComponent
+    path: 'story/:id',
+    component: FullStoryComponent,
   },
   {
-    path : 'subscriber-view/:id',
-    component: SubscribersPageComponent
+    path: 'subscriber-view/:id',
+    component: SubscribersPageComponent,
   },
   {
-    path: "**",
-    redirectTo: '/'
-  }
+    path: '**',
+    redirectTo: '/',
+  },
 ];

@@ -1,0 +1,8 @@
+body {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh; /* Ensure the body is at least the viewport height */
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+}

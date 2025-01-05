@@ -7,10 +7,10 @@ import { Observable, Subject, catchError, of, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class BillService {
-  // billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
-  // baseURL = 'http://localhost:9000/api/v1'; // URL to web api
-  baseURL = 'https://backend.otherparty.ai/api/v1/'; // URL to web api
-  billsURL = `https://backend.otherparty.ai/api/v1/stories`;
+  billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
+  baseURL = 'http://localhost:9000/api/v1'; // URL to web api
+  // baseURL = 'https://backend.otherparty.ai/api/v1/'; // URL to web api
+  // billsURL = `https://backend.otherparty.ai/api/v1/stories`;
 
   private xFunctionSubject = new Subject<[any, boolean]>();
   private yFunctionSubject = new Subject<[any, boolean]>();
@@ -91,12 +91,11 @@ export class BillService {
     this.yFunctionSubject.next([tab, isChecked]);
   }
 
-  getRepsFromZipCode(zip: any): Observable<any> {    
+  getRepsFromZipCode(zip: any): Observable<any> {
     return this.http
       .get(`${this.baseURL}/user/zip/${zip}`)
       .pipe(catchError(this.handleError<any>('getRepsFromZipCode')));
   }
-
 
   /**
    * Handle Http operation that failed.
