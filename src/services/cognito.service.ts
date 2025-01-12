@@ -49,7 +49,10 @@ export class AuthenticateService {
     this.cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: (result: any) => {
         this.router.navigate(['/']);
-        console.log('Success Results : ', result);
+        localStorage.setItem(
+          'registered-user',
+          email
+        );
         return result;
       },
       onFailure: (error: any) => {
@@ -115,7 +118,7 @@ export class AuthenticateService {
           return;
         }
         this.cognitoUser = result.user;
-        localStorage.setItem('registered-user', this.cognitoUser.getUsername());
+        localStorage.setItem('registered-user', payload.email);
         this.router.navigate(['/otp-verification']);
       }
     );
@@ -206,7 +209,7 @@ export class AuthenticateService {
         this.toastr.error(error.message, 'Error');
         return;
       }
-      localStorage.setItem('registered-user', this.cognitoUser.getUsername());
+      localStorage.setItem('registered-user', email);
       this.toastr.success('Confirmation code sent successfully', 'Success');
       this.router.navigate(['/otp-verification']);
     });
@@ -283,21 +286,67 @@ export class AuthenticateService {
     }
   }
 
+  isSessionValid = (cognitoUser: any) => {
+    return cognitoUser.getSession((err: any, session: any) => {
+      if (err) {
+        console.error(err)
+        return false;
+      }
+  
+      // Return whether the session is valid
+      if (session.isValid()) {
+        localStorage.setItem('registered-reps', `${session.getIdToken().payload['custom:reps']}`);
+        return true;
+      }
+  
+      return false;
+    });
+  }
+
+  isAuthenticated() {
+    let poolData = {
+      UserPoolId: environment.UserPoolId,
+      ClientId: environment.ClientId,
+    };
+    this.userPool = new CognitoUserPool(poolData);
+    this.cognitoUser = this.userPool.getCurrentUser();
+
+    if (!this.cognitoUser) return false;
+
+    return this.isSessionValid(this.cognitoUser);
+  }  
+
+
   getUser() {
     let poolData = {
       UserPoolId: environment.UserPoolId,
       ClientId: environment.ClientId,
     };
     this.userPool = new CognitoUserPool(poolData);
+    
     return this.userPool.getCurrentUser();
   }
 
   getUserAttributes() {
+
     let poolData = {
       UserPoolId: environment.UserPoolId,
       ClientId: environment.ClientId,
     };
+
     this.userPool = new CognitoUserPool(poolData);
-    this.cognitoUser = this.userPool.getUsername();
+
+    const email = localStorage.getItem('registered-user');
+    let userData: any = { Username: email, Pool: this.userPool };
+    this.cognitoUser = new CognitoUser(userData);
+
+    this.cognitoUser.getSession((err: any, session: any) => {
+      if (err) {
+        console.log("🚀 ~ file: cognito.service.ts:311 ~ AuthenticateService ~ getUserAttributes ~ err", err)
+        return;
+      }
+      console.log("🚀 ~ file: cognito.service.ts:311 ~ AuthenticateService ~ getUserAttributes ~ session:", session)
+      return session;
+    });
   }
 }

@@ -39,7 +39,11 @@ export class FullStoryComponent implements OnInit {
   public fallbackImage = "https://d2646mjd05vkml.cloudfront.net/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png"
   public isLoading: any;
   public isError: any = false;
-  user: any;
+  public YeaText: any;
+  public NayText: any;
+  public user: any;
+  public reps: any;
+
 
   constructor(
     private billService: BillService,
@@ -52,6 +56,7 @@ export class FullStoryComponent implements OnInit {
   ) {
     console.log(this.router.url);
     this.user = this.cognito.getUser();
+    this.reps = localStorage.getItem('registered-reps');
   }
 
   ngOnInit(): void {
@@ -69,6 +74,10 @@ export class FullStoryComponent implements OnInit {
             this.bill = data.data;
             this.billSummery = data.data?.billsummery[0];
             this.bill.twitterText = `${this.billSummery.headLine} \n\nread more: https://otherparty.ai/story/${this.bill.bill_id}`;
+            this.bill.YeaText = `Yea on ${this.billSummery.headLine} \n\n https://otherparty.ai/story/${this.bill.bill_id}`;
+            this.bill.NayText = `Nay on ${this.billSummery.headLine} \n\n https://otherparty.ai/story/${this.bill.bill_id}`;
+            console.log(this.reps);
+            
             this.bill.faceBookText = `https://otherparty.ai/story/${this.bill.bill_id}`
 
             if (this.billSummery.image) {
