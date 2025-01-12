@@ -265,7 +265,7 @@ export class ContentComponent implements OnInit {
         this.repsNames = reps.map((r: any) => {
           return {
             id: r._id,
-            name: `${r.account.first_name} ${r.account.last_name}`,
+            name: `${r.first_name} ${r.last_name}`,
           };
         });
       });

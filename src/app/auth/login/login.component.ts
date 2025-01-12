@@ -1,8 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AuthenticateService } from '../../../services/cognito.service';
-import {  RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../navbar/navbar.component';
 
 @Component({
@@ -10,7 +15,7 @@ import { NavbarComponent } from '../../navbar/navbar.component';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule, NavbarComponent],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   loginForm: FormGroup;
@@ -18,24 +23,30 @@ export class LoginComponent {
 
   userPool: any;
   cognitoUser: any;
-  username: string = "";
+  username: string = '';
 
-  constructor(private readonly cognito: AuthenticateService ,private readonly fb: FormBuilder) {
+  constructor(
+    private readonly cognito: AuthenticateService,
+    private readonly fb: FormBuilder
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
   onSubmit() {
-    console.log("this.loginForm.valid",this.loginForm.valid);
-    
+    console.log('this.loginForm.valid', this.loginForm.valid);
+
     if (this.loginForm.valid) {
-     this.loading = true;
-     this.cognito.login(this.loginForm.value.email, this.loginForm.value.password);
-     setTimeout(() => {
-      this.loading = false;
-     }, 2000);
+      this.loading = true;
+      this.cognito.login(
+        this.loginForm.value.email,
+        this.loginForm.value.password
+      );
+      setTimeout(() => {
+        this.loading = false;
+      }, 2000);
     } else {
       console.log('Form is invalid');
     }

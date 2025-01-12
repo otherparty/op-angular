@@ -212,6 +212,46 @@ export class AuthenticateService {
     });
   }
 
+  getTransformedAttribute(
+    attributeName: string,
+    transformer?: (value: string) => string
+  ): Promise<string | null> {
+    // Initialize Cognito User Pool
+    const userPool = new CognitoUserPool({
+      UserPoolId: environment.UserPoolId,
+      ClientId: environment.ClientId,
+    });
+  
+    // Get the current Cognito user
+    const cognitoUser = userPool.getCurrentUser();
+  
+    if (!cognitoUser) {
+      console.error('No user is currently signed in.');
+      return Promise.resolve(null);
+    }
+  
+    // Fetch user attributes
+    return new Promise((resolve, reject) => {
+      cognitoUser.getUserAttributes((err: Error | undefined, attributes: CognitoUserAttribute[] | undefined) => {
+        if (err) {
+          console.error('Error fetching attributes:', err);
+          reject(err);
+          return;
+        }
+  
+        const attribute = attributes?.find((attr) => attr.getName() === attributeName);
+  
+        if (attribute) {
+          const value = attribute.getValue();
+          resolve(transformer ? transformer(value) : value);
+        } else {
+          console.warn(`Attribute "${attributeName}" not found.`);
+          resolve(null);
+        }
+      });
+    });
+  }
+
   updateAttributes(payload: any, email: any) {
     let poolData = {
       UserPoolId: environment.UserPoolId,
