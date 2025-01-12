@@ -9,7 +9,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { OtpVerificationComponent } from './auth/otp-verification/otp-verification.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { AboutComponent } from './about/about.component';
-import { alreadyLoggedInGuard } from './auth.guard';
+import { alreadyLoggedInGuard, authGuard } from './auth.guard';
 import { CreateNewPasswordComponent } from './auth/create-new-password/create-new-password.component';
 
 export const routes: Routes = [
@@ -54,6 +54,8 @@ export const routes: Routes = [
   {
     path: 'story/:id',
     component: FullStoryComponent,
+    canActivate: [authGuard], // Apply the guard here
+
   },
   {
     path: 'subscriber-view/:id',

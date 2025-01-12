@@ -7,10 +7,10 @@ export const authGuard = () => {
   const authService = inject(AuthenticateService);
   const router = inject(Router);
 
-  if (authService.getUser()) { 
+  if (authService.isAuthenticated()) { 
     return true; 
   } else {
-    router.navigate(['/login']);
+    // router.navigate(['/login']);
     return false;
   }
 };
@@ -19,7 +19,7 @@ export const alreadyLoggedInGuard = () => {
   const authService = inject(AuthenticateService);
   const router = inject(Router);
 
-  if (authService.getUser()) {
+  if (authService.isAuthenticated()) {
     // Redirect logged-in users to the home page
     router.navigate(['/']);
     return false;
