@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MessageService } from './message.service';
 import { Observable, Subject, catchError, of, tap } from 'rxjs';
+import { AuthenticateService } from './cognito.service';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -18,9 +20,11 @@ export class BillService {
   xFunctionCalled$ = this.xFunctionSubject.asObservable();
   yFunctionCalled$ = this.yFunctionSubject.asObservable();
 
+
   constructor(
     private http: HttpClient,
-    private messageService: MessageService
+    private messageService: MessageService,
+    // public cognito: AuthenticateService
   ) {}
 
   /** POST: add a new hero to the server */
@@ -36,9 +40,9 @@ export class BillService {
   }
 
   /** POST: add a new hero to the server */
-  getFullStory(bill_id: string): Observable<any> {
+  getFullStory(bill_id: string, reps: Array<number>): Observable<any> {
     return this.http
-      .post(`${this.billsURL}/full-story`, { bill_id })
+      .post(`${this.billsURL}/full-story`, { bill_id, reps })
       .pipe(catchError(this.handleError<any>('getFullStory')));
   }
 
@@ -116,6 +120,19 @@ export class BillService {
       return of(result as T);
     };
   }
+
+  // postContent(user: any, endpoint: any): Observable<any> {
+  //   // Fetch account info using AccountService
+  //   return this.cognito.getAccountInfo(accountId).pipe(
+  //     switchMap((accountInfo) => {
+  //       console.log('Account Info:', accountInfo);
+
+  //       // Use the account info to make a POST request for content
+  //       const url = `${this.contentBaseUrl}/specific-endpoint`;
+  //       return this.http.post(url, { content, accountInfo });
+  //     })
+  //   );
+  // }
 
   /** Log a HeroService message with the MessageService */
   private log(message: string) {

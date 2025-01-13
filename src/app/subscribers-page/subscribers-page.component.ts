@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { Title, Meta, DomSanitizer } from '@angular/platform-browser';
+import { AuthenticateService } from '../../services/cognito.service';
 
 @Component({
   selector: 'app-subscribers-page',
@@ -36,8 +37,8 @@ import { Title, Meta, DomSanitizer } from '@angular/platform-browser';
     DividerComponent,
     FooterComponent,
     ReactiveFormsModule,
-    DatePipe,
-  ],
+    DatePipe
+    ],
   templateUrl: './subscribers-page.component.html',
   styleUrl: './subscribers-page.component.scss'
 })
@@ -53,6 +54,9 @@ export class SubscribersPageComponent implements OnInit {
   public bill: any;
   public billSummery: any;
   public fallbackImage = "https://d2646mjd05vkml.cloudfront.net/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png"
+  public user: any;
+  public reps: any;
+  public processedReps: any[];
 
   constructor(private headLineService: BillService,
     private formBuilder: FormBuilder,
@@ -64,8 +68,12 @@ export class SubscribersPageComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private title: Title,
     private meta: Meta,
-  ) {
+    private readonly cognito: AuthenticateService    
 
+  ) {
+    this.processedReps = [];
+    this.user = this.cognito.getUser();
+    this.reps = localStorage.getItem('registered-reps');
   }
 
   ngOnInit() {
@@ -116,7 +124,7 @@ export class SubscribersPageComponent implements OnInit {
     this.bill = null;
     this.billSummery = null;
 
-    this.billService.getFullStory(bill.bill_id).subscribe((data) => {
+    this.billService.getFullStory(bill.bill_id, this.reps).subscribe((data) => {
       if (!data) {
         this.isLoading = false;
         this.isError = true;

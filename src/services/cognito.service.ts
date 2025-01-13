@@ -389,4 +389,8 @@ export class AuthenticateService {
       return session;
     });
   }
+
+  sendUserAttribute(user: any, endpoint: any): Observable<any[]> { // Observable is correctly used here as a type
+    return this.http.post<any[]>(`${endpoint}`, { user }); // The response is expected to be an array
+  }
 }

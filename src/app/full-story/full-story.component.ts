@@ -43,7 +43,7 @@ export class FullStoryComponent implements OnInit {
   public NayText: any;
   public user: any;
   public reps: any;
-
+  public processedReps: any[];
 
   constructor(
     private billService: BillService,
@@ -55,8 +55,10 @@ export class FullStoryComponent implements OnInit {
     private readonly cognito: AuthenticateService    
   ) {
     console.log(this.router.url);
+    this.processedReps = [];
     this.user = this.cognito.getUser();
     this.reps = localStorage.getItem('registered-reps');
+    console.log(this.reps)
   }
 
   ngOnInit(): void {
@@ -65,7 +67,14 @@ export class FullStoryComponent implements OnInit {
 
       if (this._id) {
         this.isLoading = true;
-        this.billService.getFullStory(this._id).subscribe((data) => {
+        this.billService.getFullStory(this._id, this.reps).subscribe((data) => {
+          // this.cognito.sendUserAttribute(this.reps, `http://localhost:9000/api/v1/stories/full-story`).subscribe(
+          //   (data: any[]) => {
+          //     this.processedReps = data
+          //   }, (error) => {
+          //     console.error('Error', error)
+          //   }
+          // )
           if (!data) {
             this.isLoading = false;
             this.isError = true;
