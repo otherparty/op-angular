@@ -77,9 +77,9 @@ export class FullStoryComponent implements OnInit {
             this.bill = data.data;
             this.twitterHandles = data.data?.reps;
             this.billSummery = data.data?.billsummery[0];
-            this.bill.twitterText = `${this.billSummery.headLine} @${this.twitterHandles.join('')} \n\nread more: https://otherparty.ai/story/${this.bill.bill_id}`;
-            this.bill.YeaText = `Yea on ${this.billSummery.headLine} @${this.twitterHandles.join('')} \n\n https://otherparty.ai/story/${this.bill.bill_id}`;
-            this.bill.NayText = `Nay on ${this.billSummery.headLine} @${this.twitterHandles.join('')} \n\n https://otherparty.ai/story/${this.bill.bill_id} `;
+            this.bill.twitterText = `${this.billSummery.headLine} ${this.twitterHandles.map((h:any) => `@${h}`).join(', ')} \n\nread more: https://otherparty.ai/story/${this.bill.bill_id}`;
+            this.bill.YeaText = `Yea on ${this.billSummery.headLine} ${this.twitterHandles.map((h:any) => `@${h}`).join(', ')} \n\n https://otherparty.ai/story/${this.bill.bill_id}`;
+            this.bill.NayText = `Nay on ${this.billSummery.headLine} ${this.twitterHandles.map((h:any) => `@${h}`).join(', ')} \n\n https://otherparty.ai/story/${this.bill.bill_id} `;
             
             this.bill.faceBookText = `https://otherparty.ai/story/${this.bill.bill_id}`
 
