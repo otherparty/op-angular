@@ -44,6 +44,7 @@ export class FullStoryComponent implements OnInit {
   public user: any;
   public reps: any;
   public processedReps: any[];
+  twitterHandles: any;
 
   constructor(
     private billService: BillService,
@@ -68,24 +69,17 @@ export class FullStoryComponent implements OnInit {
       if (this._id) {
         this.isLoading = true;
         this.billService.getFullStory(this._id, this.reps).subscribe((data) => {
-          // this.cognito.sendUserAttribute(this.reps, `http://localhost:9000/api/v1/stories/full-story`).subscribe(
-          //   (data: any[]) => {
-          //     this.processedReps = data
-          //   }, (error) => {
-          //     console.error('Error', error)
-          //   }
-          // )
           if (!data) {
             this.isLoading = false;
             this.isError = true;
             return;
           } else {
             this.bill = data.data;
+            this.twitterHandles = data.data?.reps;
             this.billSummery = data.data?.billsummery[0];
-            this.bill.twitterText = `${this.billSummery.headLine} \n\nread more: https://otherparty.ai/story/${this.bill.bill_id}`;
-            this.bill.YeaText = `Yea on ${this.billSummery.headLine} \n\n https://otherparty.ai/story/${this.bill.bill_id}`;
-            this.bill.NayText = `Nay on ${this.billSummery.headLine} \n\n https://otherparty.ai/story/${this.bill.bill_id}`;
-            console.log(this.reps);
+            this.bill.twitterText = `${this.billSummery.headLine} ${this.twitterHandles.map((h:any) => `@${h}`).join(', ')} \n\nread more: https://otherparty.ai/story/${this.bill.bill_id}`;
+            this.bill.YeaText = `Yea on ${this.billSummery.headLine} ${this.twitterHandles.map((h:any) => `@${h}`).join(', ')} \n\n https://otherparty.ai/story/${this.bill.bill_id}`;
+            this.bill.NayText = `Nay on ${this.billSummery.headLine} ${this.twitterHandles.map((h:any) => `@${h}`).join(', ')} \n\n https://otherparty.ai/story/${this.bill.bill_id} `;
             
             this.bill.faceBookText = `https://otherparty.ai/story/${this.bill.bill_id}`
 
