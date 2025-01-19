@@ -13,6 +13,36 @@ p {
   padding-bottom: 20px;
 }
 
+.desktop-only {
+  display: none; /* Hidden on screens smaller than 768px */
+}
+
+@media (min-width: 768px) {
+  .desktop-only {
+    display: block;
+  }
+}
+
+.mobile-only {
+  display: none; /* Hidden on screens smaller than 768px */
+}
+
+@media (max-width: 768px) {
+  .mobile-only {
+    display: block;
+  }
+}
+
+.desktop-break {
+  display: none; /* Hidden by default (mobile) */
+}
+
+@media (min-width: 768px) {
+  .desktop-break {
+    display: inline; /* Visible on desktop */
+  }
+}
+
 .subscribe-button {
   flex: 0 1 auto; /* Allows the button to wrap when needed */
   margin: 10px; /* Optional: adds spacing around the button */
