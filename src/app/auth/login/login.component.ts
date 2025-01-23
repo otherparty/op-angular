@@ -9,6 +9,7 @@ import {
 import { AuthenticateService } from '../../../services/cognito.service';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../navbar/navbar.component';
+import { BillService } from '../../../services/bill.service';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,7 @@ export class LoginComponent {
 
   constructor(
     private readonly cognito: AuthenticateService,
+    private readonly auth: BillService,
     private readonly fb: FormBuilder
   ) {
     this.loginForm = this.fb.group({
@@ -36,16 +38,21 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    console.log('this.loginForm.valid', this.loginForm.valid);
-
     if (this.loginForm.valid) {
       this.loading = true;
       this.cognito.login(
         this.loginForm.value.email,
         this.loginForm.value.password
       );
+      
       setTimeout(() => {
         this.loading = false;
+        console.log(this.cognito.getIdToken().jwtToken);
+        
+        const idToken = this.cognito.getIdToken().jwtToken;
+        this.auth.getUserSubscriptions(idToken).subscribe((data) => {
+          console.log(data);
+        })
       }, 2000);
     } else {
       console.log('Form is invalid');

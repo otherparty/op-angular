@@ -101,6 +101,12 @@ export class BillService {
       .pipe(catchError(this.handleError<any>('getRepsFromZipCode')));
   }
 
+  getUserSubscriptions(token: string): Observable<any> {
+    return this.http
+      .get(`${this.baseURL}/user/subscriptions`, {headers : {'Authorization': token}})
+      .pipe(catchError(this.handleError<any>('getUserSubscriptions')));
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

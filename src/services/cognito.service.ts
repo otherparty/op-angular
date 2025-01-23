@@ -343,6 +343,27 @@ export class AuthenticateService {
     });
   }
 
+  getIdToken() {
+    let poolData = {
+      UserPoolId: environment.UserPoolId,
+      ClientId: environment.ClientId,
+    };
+    this.userPool = new CognitoUserPool(poolData);
+    this.cognitoUser = this.userPool.getCurrentUser();
+
+    if (!this.cognitoUser) return null;
+
+    return this.cognitoUser.getSession((err: any, session: any) => {
+      console.log("🚀 ~ file: cognito.service.ts:357 ~ AuthenticateService ~ returnthis.cognitoUser.getSession ~ session:", session)
+      console.log("🚀 ~ file: cognito.service.ts:357 ~ AuthenticateService ~ returnthis.cognitoUser.getSession ~ err:", err)
+      if (err) {
+        return null;
+      }
+      return session.getIdToken()
+    });
+
+  }
+
   isAuthenticated() {
     let poolData = {
       UserPoolId: environment.UserPoolId,
@@ -382,10 +403,8 @@ export class AuthenticateService {
 
     this.cognitoUser.getSession((err: any, session: any) => {
       if (err) {
-        console.log("🚀 ~ file: cognito.service.ts:311 ~ AuthenticateService ~ getUserAttributes ~ err", err)
         return;
       }
-      console.log("🚀 ~ file: cognito.service.ts:311 ~ AuthenticateService ~ getUserAttributes ~ session:", session)
       return session;
     });
   }
