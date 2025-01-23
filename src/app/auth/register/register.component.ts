@@ -5,11 +5,12 @@ import { AuthenticateService } from '../../../services/cognito.service';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { BillService } from '../../../services/bill.service';
+import { FooterComponent } from '../../footer/footer.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NavbarComponent],
+  imports: [CommonModule, ReactiveFormsModule, NavbarComponent, FooterComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })

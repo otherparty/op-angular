@@ -8,9 +8,9 @@
 <div class="invert white">
   <div class="table-responsive wrap-1600">
     <div class="body flex flow-text lucida">
-      <!-- IMAGE, TRACKING, GENERIC SOCIAL -->
+      <!-- IMAGE, TRACKING -->
       <div class="visual third padded evenly infinitile">
-        <p class="huge impact">{{billSummery?.headLine}}</p>
+        <p class="mobile-only huge impact">{{billSummery?.headLine}}</p>
         <div class="mobile-only">
           <br>
           <p class="brutal-text fittext float-right">{{ bill.latest_major_action_date | date}}</p>
@@ -34,8 +34,8 @@
             </li>
           </ul>
         </div>
+        <!-- MOBILE STORY -->
         <div class="mobile-only verbal third padded">
-          <!-- STORY -->
           <span class="helvetica larger keep-all flow-text justify"
             [innerHTML]="billSummery?.summary || billSummery?.story"></span>
           <br>
@@ -58,13 +58,6 @@
             <br>
           </div>
           <br>
-          <!-- <p class="brutal-text fittext float-right">{{ bill.latest_major_action_date | date}}</p>
-          <ul class="tags">
-            <li>
-              <span class="flow-text justify">{{ bill.latest_major_action }}
-              </span>
-            </li>
-          </ul> -->
           <br>
 
           @if (!user) {
@@ -126,6 +119,7 @@
           <br>
         </div>
         <br>
+        <!-- DESKTOP FTB -->
         <div class="desktop-only">
           @if (!user) {
           <a [routerLink]="['/register']">
@@ -144,23 +138,12 @@
           <br>
         </div>
       </div>
-      <!-- CONTENT, TARGETED SOCIAL -->
-      <!-- HEADLINE -->
+      <!-- DESKTOP STORY -->
       <div class="desktop-only verbal third padded">
-        <!-- <p class="huge impact">{{billSummery?.headLine}}</p>
-        <br> -->
-        <!-- STORY -->
-        <div class="desktop-break">
-          <br>
-          <br>
-          <br>
-        </div>
+        <p class="huge impact">{{billSummery?.headLine}}</p>
         <span class="helvetica keep-all flow-text justify"
           [innerHTML]="billSummery?.summary || billSummery?.story"></span>
         <br>
-        <!-- TODO: remove post resolution -->
-        <!-- <span class="bill-text-summary helvetica keep-all flow-text justify"
-        [innerHTML]="billSummery?.bill_text_summary"></span> -->
         <br>
 
         @if (!user) {
