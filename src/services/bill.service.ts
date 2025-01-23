@@ -103,7 +103,7 @@ export class BillService {
 
   getUserSubscriptions(token: string): Observable<any> {
     return this.http
-      .get(`${this.baseURL}/user/subscriptions`, {headers : {'Authorization': token}})
+      .get(`${this.baseURL}/stripe/get-subscription-status`, {headers : {'Authorization': token}})
       .pipe(catchError(this.handleError<any>('getUserSubscriptions')));
   }
 

@@ -46,9 +46,7 @@ export class LoginComponent {
       );
       
       setTimeout(() => {
-        this.loading = false;
-        console.log(this.cognito.getIdToken().jwtToken);
-        
+        this.loading = false;        
         const idToken = this.cognito.getIdToken().jwtToken;
         this.auth.getUserSubscriptions(idToken).subscribe((data) => {
           console.log(data);
