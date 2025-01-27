@@ -24,8 +24,8 @@ export class BillService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
-    // public cognito: AuthenticateService
-  ) {}
+    private cognito: AuthenticateService,
+  ) { }
 
   /** POST: add a new hero to the server */
   getHeadLines(
@@ -99,12 +99,6 @@ export class BillService {
     return this.http
       .get(`${this.baseURL}/user/zip/${zip}`)
       .pipe(catchError(this.handleError<any>('getRepsFromZipCode')));
-  }
-
-  getUserSubscriptions(token: string): Observable<any> {
-    return this.http
-      .get(`${this.baseURL}/stripe/get-subscription-status`, {headers : {'Authorization': token}})
-      .pipe(catchError(this.handleError<any>('getUserSubscriptions')));
   }
 
   /**

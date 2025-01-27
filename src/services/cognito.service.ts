@@ -8,9 +8,10 @@ import {
 import { environment } from './../environments/environment';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { BillService } from '../services/bill.service';
 import { HttpClient } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -25,9 +26,8 @@ export class AuthenticateService {
   constructor(
     private readonly router: Router,
     private toastr: ToastrService,
-    private userService: BillService,
     private http: HttpClient
-  ) {}
+  ) { }
 
   // Login
   login(email: any, password: any) {
@@ -70,6 +70,39 @@ export class AuthenticateService {
       },
     });
   }
+
+  getUserSubscriptions(): Promise<Observable<any>> {
+    return this.getIdToken().then((token) => {
+      if (!token) {
+        console.error('No authentication token found.');
+        this.toastr.error('Session expired, please log in again.', 'Error');
+        return throwError(() => new Error('Token is missing'));
+      }
+
+      return this.http
+        .get(`${this.baseURL}/stripe/get-subscription-status`, {
+          headers: { Authorization: token }
+        })
+        .pipe(catchError(this.handleError<any>('getUserSubscriptions')));
+    }).catch((error) => {
+      console.error('Error fetching ID token:', error);
+      this.toastr.error('Unable to retrieve authentication token.', 'Error');
+      return throwError(() => new Error(error));
+    });
+  }
+
+  private handleError<T>(operation = 'operation') {
+    return (error: any): Observable<T> => {
+      console.error(`${operation} failed:`, error);
+
+      // Optionally, show an error message to the user
+      this.toastr.error(`${operation} failed: ${error.message}`, 'Error');
+
+      // Return an observable with an appropriate error message
+      return throwError(() => new Error(`Something went wrong during ${operation}. Please try again.`));
+    };
+  }
+
 
   register(payload: any) {
     let poolData = {
@@ -224,15 +257,15 @@ export class AuthenticateService {
       UserPoolId: environment.UserPoolId,
       ClientId: environment.ClientId,
     });
-  
+
     // Get the current Cognito user
     const cognitoUser = userPool.getCurrentUser();
-  
+
     if (!cognitoUser) {
       console.error('No user is currently signed in.');
       return Promise.resolve(null);
     }
-  
+
     // Fetch user attributes
     return new Promise((resolve, reject) => {
       cognitoUser.getUserAttributes((err: Error | undefined, attributes: CognitoUserAttribute[] | undefined) => {
@@ -241,9 +274,9 @@ export class AuthenticateService {
           reject(err);
           return;
         }
-  
+
         const attribute = attributes?.find((attr) => attr.getName() === attributeName);
-  
+
         if (attribute) {
           const value = attribute.getValue();
           resolve(transformer ? transformer(value) : value);
@@ -286,6 +319,90 @@ export class AuthenticateService {
       }
     );
   }
+
+  async updateSubscriptionAttribute(payload: any, email: string) {
+    let poolData = {
+      UserPoolId: environment.UserPoolId,
+      ClientId: environment.ClientId,
+    };
+
+    this.userPool = new CognitoUserPool(poolData);
+    let userData = { Username: email, Pool: this.userPool };
+    this.cognitoUser = new CognitoUser(userData);
+
+    try {
+      const idToken = await this.getIdToken(); // Await the async function
+
+      if (!idToken) {
+        console.error('User is not authenticated. Please log in again.');
+        this.toastr.error('Session expired. Please log in again.', 'Error');
+        return;
+      }
+
+      this.cognitoUser.getSession((err: any, session: any) => {
+        if (err || !session) {
+          console.error('Session retrieval error:', err);
+          this.toastr.error('Session expired. Please log in again.', 'Error');
+          return;
+        }
+
+        if (!session.isValid()) {
+          console.log('Session expired. Refreshing...');
+          this.cognitoUser.refreshSession(session.getRefreshToken(), (refreshErr: any, newSession: any) => {
+            if (refreshErr) {
+              console.error('Failed to refresh session:', refreshErr);
+              this.toastr.error('Session expired. Please log in again.', 'Error');
+              return;
+            }
+
+            console.log('Session refreshed successfully.');
+            this.performUpdateAttribute(payload);
+          });
+        } else {
+          this.performUpdateAttribute(payload);
+        }
+      });
+
+    } catch (error) {
+      console.error('Error fetching ID token:', error);
+      this.toastr.error('Unable to retrieve authentication token.', 'Error');
+    }
+  }
+
+  performUpdateAttribute(payload: any) {
+    const attributeList = [
+      new CognitoUserAttribute({
+        Name: 'custom:subscription',
+        Value: payload,
+      }),
+    ];
+
+    this.cognitoUser.updateAttributes(attributeList, (error: any, result: any) => {
+      if (error) {
+        console.error('Error updating attribute:', error);
+        this.toastr.error(error.message, 'Error');
+        return;
+      }
+      this.toastr.success('User updated successfully', 'Success');
+    });
+  }
+
+  // Function to refresh tokens if session is expired
+  refreshCognitoToken(refreshToken: any) {
+    return new Promise((resolve, reject) => {
+      this.cognitoUser.refreshSession(refreshToken, (err: any, session: any) => {
+        if (err) {
+          reject(err);
+        } else {
+          console.log('Session refreshed successfully');
+          localStorage.setItem('idToken', session.getIdToken().getJwtToken());
+          localStorage.setItem('accessToken', session.getAccessToken().getJwtToken());
+          resolve(session);
+        }
+      });
+    });
+  }
+
 
   changePassword(code: any, password: any) {
     let poolData = {
@@ -332,37 +449,51 @@ export class AuthenticateService {
         console.error(err)
         return false;
       }
-  
+
       // Return whether the session is valid
       if (session.isValid()) {
         localStorage.setItem('registered-reps', `${session.getIdToken().payload['custom:reps']}`);
         return true;
       }
-  
+
       return false;
     });
   }
 
-  getIdToken() {
-    let poolData = {
-      UserPoolId: environment.UserPoolId,
-      ClientId: environment.ClientId,
-    };
-    this.userPool = new CognitoUserPool(poolData);
-    this.cognitoUser = this.userPool.getCurrentUser();
+  getIdToken(): Promise<string | null> {
+    return new Promise((resolve, reject) => {
+      let poolData = {
+        UserPoolId: environment.UserPoolId,
+        ClientId: environment.ClientId,
+      };
 
-    if (!this.cognitoUser) return null;
+      this.userPool = new CognitoUserPool(poolData);
+      this.cognitoUser = this.userPool.getCurrentUser();
 
-    return this.cognitoUser.getSession((err: any, session: any) => {
-      console.log("🚀 ~ file: cognito.service.ts:357 ~ AuthenticateService ~ returnthis.cognitoUser.getSession ~ session:", session)
-      console.log("🚀 ~ file: cognito.service.ts:357 ~ AuthenticateService ~ returnthis.cognitoUser.getSession ~ err:", err)
-      if (err) {
-        return null;
+      if (!this.cognitoUser) {
+        console.log('No current user found');
+        return resolve(null);
       }
-      return session.getIdToken()
-    });
 
+      this.cognitoUser.getSession((err: any, session: any) => {
+        console.log("Session retrieved:", session);
+        console.log("Error:", err);
+
+        if (err) {
+          console.error('Error getting session:', err);
+          return resolve(null);
+        }
+
+        if (!session.isValid()) {
+          console.log('Session is invalid or expired.');
+          return resolve(null);
+        }
+
+        resolve(session.getIdToken().getJwtToken());
+      });
+    });
   }
+
 
   isAuthenticated() {
     let poolData = {
@@ -375,7 +506,7 @@ export class AuthenticateService {
     if (!this.cognitoUser) return false;
 
     return this.isSessionValid(this.cognitoUser);
-  }  
+  }
 
 
   getUser() {
@@ -384,7 +515,7 @@ export class AuthenticateService {
       ClientId: environment.ClientId,
     };
     this.userPool = new CognitoUserPool(poolData);
-    
+
     return this.userPool.getCurrentUser();
   }
 
