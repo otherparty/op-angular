@@ -12,7 +12,6 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 import { BillService } from '../../../services/bill.service';
 import { ToastrService } from 'ngx-toastr';
 
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -32,7 +31,7 @@ export class LoginComponent {
     private readonly cognito: AuthenticateService,
     private readonly auth: BillService,
     private readonly fb: FormBuilder,
-    private toastr: ToastrService,
+    private toastr: ToastrService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -43,62 +42,75 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       this.loading = true;
-      this.cognito.login(
-        this.loginForm.value.email,
-        this.loginForm.value.password
-      );
-
-      setTimeout(() => {
-        this.loading = false;
-
-        const idToken = this.cognito.getIdToken().then((idToken) => {
-          if (idToken) {
-            console.log('ID Token retrieved');
-          } else {
-            console.error('User is not authenticated.');
-          }
-        });
-
-        this.cognito.getUserSubscriptions().then(subscription$ => {
-          subscription$.subscribe({
-            next: (data) => {
-              console.log('Subscription Data:', data);
-              if (data?.data?.subscriptionStatus) {
-                if (data?.data?.amount > 3) {
-                  this.cognito.updateSubscriptionAttribute("Lincoln", this.loginForm.value.email);
-                } else if (data?.data?.amount > 1) {
-                  this.cognito.updateSubscriptionAttribute("Jefferson", this.loginForm.value.email);
+      this.cognito
+        .login(this.loginForm.value.email, this.loginForm.value.password)
+        .then((data: any) => {
+          setTimeout(() => {
+            this.loading = false;
+          }, 2000);
+          this.cognito.getIdToken().then((idToken) => {
+            if (idToken) {
+              this.auth.checkForUserSubscription(idToken).subscribe((data) => {
+                if (data?.data?.subscriptionStatus) {
+                  if (data?.data?.amount > 3) {
+                    this.cognito.updateSubscriptionAttribute(
+                      'Lincoln',
+                      this.loginForm.value.email
+                    );
+                  } else if (data?.data?.amount > 1) {
+                    this.cognito.updateSubscriptionAttribute(
+                      'Jefferson',
+                      this.loginForm.value.email
+                    );
+                  } else {
+                    this.cognito.updateSubscriptionAttribute(
+                      'Commons',
+                      this.loginForm.value.email
+                    );
+                  }
                 } else {
-                  this.cognito.updateSubscriptionAttribute("Commons", this.loginForm.value.email);
+                  this.cognito.updateSubscriptionAttribute(
+                    'Commons',
+                    this.loginForm.value.email
+                  );
                 }
-              }
-            },
-            error: (error) => {
-              console.error('Subscription API Error:', error);
-            },
-            complete: () => {
-              console.log('Subscription completed.');
+              });
+            } else {
+              console.error('User is not authenticated.');
             }
           });
-        }).catch((error) => {
-          console.error('Error calling getUserSubscriptions:', error);
+        })
+        .catch((error: any) => {
+          console.log(
+            '🚀 ~ file: login.component.ts:63 ~ LoginComponent ~ ).then ~ error:',
+            error
+          );
         });
 
-
-        // this.auth.getUserSubscriptions(idToken).subscribe((data) => {
-        //   console.log(data);
-
-        //   if (data?.data?.subscriptionStatus) {
-        //     if (data?.data?.amount > 3) {
-        //       this.cognito.updateSubscriptionAttribute("Lincoln", this.loginForm.value.email);
-        //     } else if (data?.data?.amount > 1) {
-        //       this.cognito.updateSubscriptionAttribute("Jefferson", this.loginForm.value.email);
-        //     } else {
-        //       this.cognito.updateSubscriptionAttribute("Commons", this.loginForm.value.email);
-        //     }
-        //   }
-        // });
-      }, 2000);
+      // this.cognito.getUserSubscriptions().then(subscription$ => {
+      //   subscription$.subscribe({
+      //     next: (data) => {
+      //       console.log('Subscription Data:', data);
+      //       if (data?.data?.subscriptionStatus) {
+      //         if (data?.data?.amount > 3) {
+      //           this.cognito.updateSubscriptionAttribute("Lincoln", this.loginForm.value.email);
+      //         } else if (data?.data?.amount > 1) {
+      //           this.cognito.updateSubscriptionAttribute("Jefferson", this.loginForm.value.email);
+      //         } else {
+      //           this.cognito.updateSubscriptionAttribute("Commons", this.loginForm.value.email);
+      //         }
+      //       }
+      //     },
+      //     error: (error) => {
+      //       console.error('Subscription API Error:', error);
+      //     },
+      //     complete: () => {
+      //       console.log('Subscription completed.');
+      //     }
+      //   });
+      // }).catch((error) => {
+      //   console.error('Error calling getUserSubscriptions:', error);
+      // });
     } else {
       console.log('Form is invalid');
     }
