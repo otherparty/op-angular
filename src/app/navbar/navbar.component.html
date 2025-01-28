@@ -29,21 +29,22 @@
 						}
 						<!-- <li><a [routerLink]="['shop.otherparty.ai']"><i class="bi bi-flag"></i> Shop</a></li> -->
 						<li><a [routerLink]="['/about']"><i class="bi bi-navigate"></i> About</a></li>
-						<!-- <li>
+						<li>
 							<app-privacy-policy>Privacy</app-privacy-policy>
-						</li> -->
+						</li>
 					</ul>
 					<ul class="simple-nav two-col flow-text" style="width: 100%; border-top: 2px solid #fff;">
 						<li><a href="https://x.com/otherpartyai"><i class="bi bi-smoking"></i> X</a></li>
-						<!-- <li><a href="#"> appTermsAndConditions>Ts & Cs</a></li> --> -->
+						<li>
+							<app-terms-and-conditions></app-terms-and-conditions>
+						</li>
+						<!-- <li><a href="#"> appTermsAndConditions>Ts & Cs</a></li> -->
 						<!-- <li><a href="https://facebook.com/otherpartyai"><i class="bi bi-approve"></i> FB</a></li>
 						<li><a href="https://instagram.com/otherpartyai"><i class="bi bi-camera"></i> Insta</a></li> -->
 						@if (user) {
 						<ul class="simple-nav two-col flow-text" style="width: 100%; border-top: 2px solid #fff;">
 							<li><a href='javascript:;' (click)="logOut()"><i class="bi bi-core-block"></i>Logout</a></li>
-							<!-- <li>
-								<app-terms-and-conditions></app-terms-and-conditions>
-							</li> -->
+							<li><a href='javascript:;' (click)="logOut()"><i class="bi bi-core-block"></i>Cancel</a></li>
 						</ul>
 						}
 
