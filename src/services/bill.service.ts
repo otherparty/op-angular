@@ -4,15 +4,16 @@ import { MessageService } from './message.service';
 import { Observable, Subject, catchError, of, tap } from 'rxjs';
 import { AuthenticateService } from './cognito.service';
 import { switchMap } from 'rxjs/operators';
+import { environment } from '../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BillService {
-  billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
-  baseURL = 'http://localhost:9000/api/v1'; // URL to web api
-  // baseURL = 'https://backend.otherparty.ai/api/v1/'; // URL to web api
-  // billsURL = `https://backend.otherparty.ai/api/v1/stories`;
+  // billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
+  // baseURL = 'http://localhost:9000/api/v1'; // URL to web api
+  baseURL = environment.baseURL; // URL to web api
+  billsURL = environment.billsURL; // URL to web api
 
   private xFunctionSubject = new Subject<[any, boolean]>();
   private yFunctionSubject = new Subject<[any, boolean]>();
