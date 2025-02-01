@@ -30,7 +30,7 @@ export class AuthenticateService {
   ) { }
 
   // Login
-  login(email: any, password: any) : Promise<any> {
+  login(email: any, password: any): Promise<any> {
     let authenticationDetails = new AuthenticationDetails({
       Username: email,
       Password: password,
@@ -63,10 +63,10 @@ export class AuthenticateService {
               'registered-user',
               this.cognitoUser.getUsername()
             );
-            this.toastr.error('User is not confirmed', 'Error');
+            this.toastr.error(`Let's confirm your account`, 'Error');
             this.router.navigate(['/otp-verification']);
           } else {
-            this.toastr.error(error.message, 'Error');
+            this.toastr.error(`Let's confirm your account.`, 'Error');
           }
           reject(error);
         },
@@ -79,7 +79,7 @@ export class AuthenticateService {
     return this.getIdToken().then((token) => {
       if (!token) {
         console.error('No authentication token found.');
-        this.toastr.error('Session expired, please log in again.', 'Error');
+        this.toastr.error('Please log in again.', 'Error');
         return throwError(() => new Error('Token is missing'));
       }
 
@@ -90,7 +90,7 @@ export class AuthenticateService {
         .pipe(catchError(this.handleError<any>('getUserSubscriptions')));
     }).catch((error) => {
       console.error('Error fetching ID token:', error);
-      this.toastr.error('Unable to retrieve authentication token.', 'Error');
+      this.toastr.error(`We're having trouble signing you in`, 'Error');
       return throwError(() => new Error(error));
     });
   }
@@ -100,7 +100,7 @@ export class AuthenticateService {
       console.error(`${operation} failed:`, error);
 
       // Optionally, show an error message to the user
-      this.toastr.error(`${operation} failed: ${error.message}`, 'Error');
+      this.toastr.error(`It's not you, it's me.`, 'Error');
 
       // Return an observable with an appropriate error message
       return throwError(() => new Error(`Something went wrong during ${operation}. Please try again.`));
@@ -151,7 +151,7 @@ export class AuthenticateService {
       (error: any, result: any) => {
         if (error) {
           console.log('error', error);
-          this.toastr.error(error.message, 'Error');
+          this.toastr.error(`We're having trouble signing you up.`, 'Error');
           return;
         }
         this.cognitoUser = result.user;
@@ -181,10 +181,10 @@ export class AuthenticateService {
       (error: any, result: any) => {
         if (error) {
           console.log('error', error);
-          this.toastr.error(error.message, 'Error');
+          this.toastr.error(`We're having trouble confirming your account.`, 'Error');
           return;
         }
-        this.toastr.success('User verified successfully', 'Success');
+        // this.toastr.success('Success!', 'Success');
         this.router.navigate(['/plans']);
       }
     );
@@ -218,7 +218,7 @@ export class AuthenticateService {
         },
         inputVerificationCode: (data: any) => {
           this.toastr.success(
-            'Verification code sent to your email',
+            'We sent a verification code to your email',
             'Success'
           );
           localStorage.setItem('reset-password-user', email);
@@ -243,11 +243,11 @@ export class AuthenticateService {
     this.cognitoUser.resendConfirmationCode((error: any, result: any) => {
       if (error) {
         console.log('error', error);
-        this.toastr.error(error.message, 'Error');
+        this.toastr.error(`We're having trouble finding your confirmation code.`, 'Error');
         return;
       }
       localStorage.setItem('registered-user', email);
-      this.toastr.success('Confirmation code sent successfully', 'Success');
+      this.toastr.success('We sent you a confirmation code.', 'Success');
       this.router.navigate(['/otp-verification']);
     });
   }
@@ -304,12 +304,12 @@ export class AuthenticateService {
     this.cognitoUser.updateAttributes(attributeList, (error: any, result: any) => {
       if (error) {
         console.error('Error updating attribute:', error);
-        this.toastr.error(error.message, 'Error');
+        this.toastr.error('Robo-rage', 'Error');
         return;
       }
-      this.toastr.success('User updated successfully', 'Success');
+      // this.toastr.success('Success!', 'Success');
     });
-    
+
   }
 
   updateAttributes(payload: any, email: any) {
@@ -336,10 +336,10 @@ export class AuthenticateService {
       (error: any, result: any) => {
         if (error) {
           console.log('error', error);
-          this.toastr.error(error.message, 'Error');
+          this.toastr.error('Robo-rage', 'Error');
           return;
         }
-        this.toastr.success('User updated successfully', 'Success');
+        // this.toastr.success('Success!', 'Success');
       }
     );
   }
@@ -374,12 +374,12 @@ export class AuthenticateService {
 
     this.cognitoUser.confirmPassword(code, password, {
       onSuccess: (result: any) => {
-        this.toastr.success('Password changed successfully', 'Success');
+        this.toastr.success('Your password has been updated.', 'Success');
         this.router.navigate(['/login']);
       },
       onFailure: (err: any) => {
         console.log(err);
-        this.toastr.error(err.message, 'Error');
+        this.toastr.error(`We're having trouble right now. Please try again later.`, 'Error');
       },
     });
   }
@@ -395,7 +395,7 @@ export class AuthenticateService {
     if (this.cognitoUser) {
       this.cognitoUser.signOut();
       localStorage.clear();
-      this.toastr.success('User logged out successfully', 'Success');
+      // this.toastr.success(`You're logged out.`, 'Success');
       this.router.navigate(['login']);
     }
   }
@@ -408,7 +408,7 @@ export class AuthenticateService {
       }
 
       console.log(session);
-      
+
 
       // Return whether the session is valid
       if (session.isValid()) {

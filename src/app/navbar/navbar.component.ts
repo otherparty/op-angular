@@ -34,7 +34,7 @@ export class NavbarComponent {
       this.userService
         .cancelForUserSubscription(idToken || '')
         .subscribe((response) => {
-          this.toastr.success('User verified successfully', 'Success');
+          this.toastr.success('User cancelled successfully', 'Success');
         });
     });
   }
