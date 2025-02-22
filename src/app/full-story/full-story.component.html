@@ -10,7 +10,7 @@
     <div class="body flex flow-text lucida">
       <!-- IMAGE, TRACKING -->
       <div class="visual third padded evenly">
-        <p class="mobile-only huge impact white-t">{{billSummery?.headLine}}</p>
+        <p class="mobile-only larger impact white-t">{{billSummery?.headLine}}</p>
         <div class="mobile-only">
           <span class="white-t helvetica midsize keep-all justify"
             [innerHTML]="billSummery?.summary || billSummery?.story"></span>
@@ -47,8 +47,8 @@
             <a [routerLink]="['/register']">
               <div class="left-align">
                 <button class="river-b sand small-btn zoom-in">
-                  <p class="smaller">Follow
-                    #{{bill?.bill_slug}}</p>
+                  <p class="smaller">Get updates
+                  </p>
                 </button>
               </div>
             </a>
@@ -119,8 +119,7 @@
             @if (user) {
             <div class="left-align">
               <button class="river-b sand small-btn zoom-in" (click)="openGovTrack(bill?.govtrack_url)">
-                <p class="smaller">Follow
-                  #{{bill?.bill_slug}}</p>
+                <p class="smaller">Get updates</p>
               </button>
             </div>
             <button class="small-btn white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
@@ -139,27 +138,30 @@
             @if (!user) {
             <a [routerLink]="['/register']">
               <!-- <div class="left-align"> -->
-              <button class="river-b sand small-btn zoom-in">Follow
-                #{{bill?.bill_slug}}</button>
+              <button class="river-b sand small-btn zoom-in">
+                <p class="smaller">Get updates
+                </p>
+              </button>
               <!-- </div> -->
             </a>
             }
             @if (user) {
             <div class="left-align">
               <button class="river-b sand small-btn zoom-in" (click)="openGovTrack(bill?.govtrack_url)">
-                <p class="smaller">Follow
-                  #{{bill?.bill_slug}}</p>
+                <p class="smaller">Get updates
+                </p>
               </button>
             </div>
             }
             <button class="small-btn white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
-              &#64;{{bill?.account?.twitter_account}}</button>
+              <p class="smaller">&#64;{{bill?.account?.twitter_account}}</p>
+            </button>
           </div>
         </div>
       </div>
       <!-- DESKTOP STORY -->
       <div class="desktop-only verbal third padded">
-        <p class="white-t huge impact">{{billSummery?.headLine}}</p>
+        <p class="white-t larger impact">{{billSummery?.headLine}}</p>
         <span class="white-t helvetica keep-all midsize justify"
           [innerHTML]="billSummery?.summary || billSummery?.story"></span>
         <br>
