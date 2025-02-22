@@ -1,8 +1,8 @@
-<div class="body sand">
+<div class="body black">
   <app-navbar></app-navbar>
   <div class="container">
     <div class="create-account b-s-f">
-      <h1 class="helvetica heavy">Create a profile</h1>
+      <h1 class="helvetica heavy white-t">Create a profile</h1>
       <form [formGroup]="createAccountForm" (ngSubmit)="onSubmit()">
         <input type="text" placeholder="First Name *" formControlName="firstName">
         <div *ngIf="createAccountForm.get('firstName')?.invalid && createAccountForm.get('firstName')?.touched">
@@ -46,15 +46,15 @@
 
         <label class="checkbox-container">
           <input type="checkbox" formControlName="receiveEmails">
-          <span class="checkbox-label">Email me about bills I'm interested in.</span>
+          <span class="checkbox-label white-t">Email me about bills I'm interested in.</span>
         </label>
 
-        <button type="submit" [disabled]="createAccountForm.invalid">Join the Party</button>
+        <button type="mint helvetica black-t" [disabled]="createAccountForm.invalid">Join the Party</button>
         <!-- <p>This site is protected by reCAPTCHA and the Google <a href="#">Privacy Policy</a> and <a href="#">Terms of
             Service</a> apply.</p> -->
       </form>
     </div>
-    <div class="sand info-tile inline-block helvetica">
+    <div class="black info-tile inline-block helvetica">
       <div style="padding: 3px;" class="mint">
         <div class="padded black white-t">
           <div class="b-d-f mint-b rounded" style="border-radius: 4rem">

@@ -1,8 +1,8 @@
-<div class="body sand">
+<div class="body">
   <app-navbar></app-navbar>
   <div class="container">
     <div class="login-form">
-      <h2 class="login-heading">Log in.</h2>
+      <h2 class="login-heading white-t">Log in.</h2>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <input type="email" placeholder="Email *" formControlName="email">
         <div *ngIf="email?.invalid && email?.touched">
@@ -16,11 +16,17 @@
           <small *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters.</small>
         </div>
 
-        <a [routerLink]="['/reset-password']">Password Help?</a>
-        <button class="mint-t crumble" type="submit" [disabled]="loginForm.invalid || loading">{{loading ? 'Shaking
+        <a [routerLink]="['/reset-password']">
+          <p class="white-t">Password Help</p>
+        </a>
+        <button class="mint helvetica black-t" type="submit" [disabled]="loginForm.invalid || loading">{{loading ?
+          'Shaking
           hands...' : 'Do the secret handshake'}}</button>
         <br>
-        <p>Don’t have a profile? <a [routerLink]="['/register']">Create One</a></p>
+        <br>
+        <p class="white-t">Don’t have a profile?</p> <a [routerLink]="['/register']">
+          <p class="strong gray-t glitchtext">Create One</p>
+        </a>
       </form>
     </div>
 
@@ -33,7 +39,8 @@
       </div>
     </div>
   </div>
-  <div class="sand-b b-s-k padded inline-block" style="margin-top: -2px; width: 100%; border-radius: 0 1rem 2rem 3rem;">
+  <div class="black-b b-s-k padded inline-block"
+    style="margin-top: -2px; width: 100%; border-radius: 0 1rem 2rem 3rem;">
     <div style="padding: 2px;" class="sliced-corner mint">
       <div class="padded black white-t sliced-corner">
         <div id="mc_embed_signup" class="b-s-t mint-b rounded">

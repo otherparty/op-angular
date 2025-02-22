@@ -11,6 +11,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ContentComponent } from '../stories/content/content.component';
 import { AuthenticateService } from '../../services/cognito.service';
+import { TruncatePipe } from '../shared/pipes/truncate.pipe';
 
 @Component({
   selector: 'app-full-story',
@@ -31,6 +32,7 @@ import { AuthenticateService } from '../../services/cognito.service';
   ],
   templateUrl: './full-story.component.html',
   styleUrl: './full-story.component.scss',
+  providers: [TruncatePipe]
 })
 export class FullStoryComponent implements OnInit {
   public _id: any;
@@ -53,7 +55,8 @@ export class FullStoryComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private title: Title,
     private meta: Meta,
-    private readonly cognito: AuthenticateService    
+    private truncatePipe: TruncatePipe,
+    private readonly cognito: AuthenticateService
   ) {
     console.log(this.router.url);
     this.processedReps = [];
@@ -77,12 +80,12 @@ export class FullStoryComponent implements OnInit {
             this.bill = data.data;
             this.twitterHandles = data.data?.reps;
             this.billSummery = data.data?.billsummery[0];
-            this.bill.twitterText = `${this.billSummery.headLine} ${this.twitterHandles.map((h:any) => `@${h}`).join(', ')} \n\nread more: https://otherparty.ai/story/${this.bill.bill_id}`;
-            this.bill.YeaText = `Yea on ${this.billSummery.headLine} ${this.twitterHandles.map((h:any) => `@${h}`).join(', ')} \n\n https://otherparty.ai/story/${this.bill.bill_id}`;
-            this.bill.NayText = `Nay on ${this.billSummery.headLine} ${this.twitterHandles.map((h:any) => `@${h}`).join(', ')} \n\n https://otherparty.ai/story/${this.bill.bill_id} `;
-            
-            this.bill.faceBookText = `https://otherparty.ai/story/${this.bill.bill_id}`
+            this.bill.twitterText = `${this.billSummery.headLine} ${this.twitterHandles.map((h: any) => `@${h}`).join(', ')} \n\nread more: https://otherparty.ai/story/${this.bill.bill_id}`;
+            this.bill.YeaText = `Yea on ${this.billSummery.headLine} ${this.twitterHandles.map((h: any) => `@${h}`).join(', ')} \n\n https://otherparty.ai/story/${this.bill.bill_id}`;
+            this.bill.NayText = `Nay on ${this.billSummery.headLine} ${this.twitterHandles.map((h: any) => `@${h}`).join(', ')} \n\n https://otherparty.ai/story/${this.bill.bill_id} `;
 
+            this.bill.faceBookText = `https://otherparty.ai/story/${this.bill.bill_id}`
+            this.bill.bill_text_summary = this.billSummery?.bill_text_summary;
             if (this.billSummery.image) {
               this.billSummery.image = this.billSummery.image.replace('https://other-party-images.s3.amazonaws.com', 'https://d2646mjd05vkml.cloudfront.net');
 
@@ -136,6 +139,10 @@ export class FullStoryComponent implements OnInit {
   openGovTrack(link: string) {
     const url = `${link}`;
     window.open(url, '_blank');
+  }
+
+  getTruncatedSummary(): string {
+    return this.truncatePipe.transform(this.bill.bill_text_summary, 56)
   }
 
   fallbackHome() {

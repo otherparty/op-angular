@@ -223,3 +223,9 @@ p {
 .bigger {
   font-size: 1.6rem; /* 160% of the root font size */
 }
+
+.button-container {
+  display: flex;
+  // align-items: center; /* Aligns them on the same y-axis */
+  gap: 20px; /* Adjust spacing between elements */
+}

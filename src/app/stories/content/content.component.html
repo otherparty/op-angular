@@ -5,11 +5,11 @@
   }
 </div> -->
 
-<div class="invert white">
+<div class="black">
   <div class="wrap-1600">
     <div class="flow-text lucida flex" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500"
       (scrolled)="onScroll()">
-      <div class="full padded black-b b-a-f neon-text shine">
+      <div class="full padded b-a-f white-b neon-text shine">
         <div class="bitstream flex">
           <form class="grey-t" [formGroup]="searchForm">
             <div class="form-group">
@@ -68,25 +68,25 @@
     </div> -->
       @if (stories) { @for (story of stories; track $index && story.bill_id) {
       @if (story.billsummery[0].summary || story.billsummery[0].story) {
-      <div class="padded b-s-t black-b full" (click)="changeRoute(story.bill_id)"
+      <div class="padded b-b-k white-b full" (click)="changeRoute(story.bill_id)"
         [ngClass]="$index === 0 ? 'half' : story.className" [routerLink]="['/story', story.bill_id]">
-        <p class="impact larger">{{ story?.billsummery[0]?.headLine }}</p>
+        <p class="impact larger white-t">{{ story?.billsummery[0]?.headLine }}</p>
         <p class="spacer"></p>
 
         @if(story.isImage) {
-        <img class="resize-both responsive" src="{{ story?.billsummery[0]?.image }}"
+        <img class="invert resize-both responsive" src="{{ story?.billsummery[0]?.image }}"
           alt="{{ story?.billsummery[0]?.headLine }}" />
         <p class="spacer"></p>
-        <span class="helvetica keep-all flow-text justify guard" [innerHTML]="story.cSummery"></span>
+        <span class="helvetica  keep-all justify guard white-t smaller" [innerHTML]="story.cSummery"></span>
         } @if(!story.isImage) {
-        <span class="helvetica keep-all flow-text justify guard" [innerHTML]="story.cSummery"></span>
+        <span class="helvetica keep-all justify guard white-t smaller" [innerHTML]="story.cSummery"></span>
         }
         <p class="spacer"></p>
         @if (story.latest_major_action && story.latest_major_action_date) {
-        <p class="brutal-text smaller float-right">
-          {{ story.latest_major_action_date }}
+        <p class="mint-t smaller float-right">
+          {{ story.latest_major_action_date | date }}
         </p>
-        <blockquote class="helvetica justify">
+        <blockquote class="helvetica smaller">
           {{ story.latest_major_action }}
         </blockquote>
         } @if (story?.account?.twitter_account) {
@@ -101,9 +101,8 @@
       <br>
       <p class="comfortable helvetica larger baffle-longer">Follow the Bills...</p>
       <p class="helvetica comfortable">Search for reps or specific topics to see what Congress is doing about
-        the issues
-        that matter
-        to you.</p>
+        issues
+        that matter.</p>
       }
     </div>
     @if (isLoading) {

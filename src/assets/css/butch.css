@@ -64,6 +64,10 @@ html {
   font-size: 0.8rem; /* 80% of the root font size */
 }
 
+.midsize {
+  font-size: 0.9rem; /* 80% of the root font size */
+}
+
 .larger,
 .bigger {
   font-size: 1.6rem; /* 160% of the root font size */

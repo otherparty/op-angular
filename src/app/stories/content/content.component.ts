@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import {
   ChangeDetectorRef,
@@ -27,6 +27,7 @@ import { AuthenticateService } from '../../../services/cognito.service';
   standalone: true,
   imports: [
     HttpClientModule,
+    DatePipe,
     NgIf,
     NgFor,
     NgClass,
@@ -71,7 +72,7 @@ export class ContentComponent implements OnInit {
     private readonly cdr: ChangeDetectorRef,
     private readonly title: Title,
     private readonly meta: Meta,
-    private readonly cognito: AuthenticateService 
+    private readonly cognito: AuthenticateService
   ) {
     this.searchForm = this.formBuilder.group({
       search: [''],
@@ -111,7 +112,7 @@ export class ContentComponent implements OnInit {
       this.getDataBasedOnTags({ name: queryParams['tab'] });
     });
 
-   }
+  }
 
   ngOnInit() { }
 
@@ -164,7 +165,7 @@ export class ContentComponent implements OnInit {
       .subscribe({
         next: (response) => {
           for (let i = 0; i < response?.data?.length; i++) {
-            const story :any = response?.data[i];
+            const story: any = response?.data[i];
             if (story.image) {
               story.image = story.image.replace(
                 'https://other-party-images.s3.amazonaws.com',
@@ -212,18 +213,18 @@ export class ContentComponent implements OnInit {
   };
 
   assignClassesToStories(array: any) {
-  
+
     let i = 0;
     while (i < array.length) {
-        // Assign 'half' to the next two elements, if available.
-        for (let j = 0; j < 2 && i < array.length; j++, i++) {
-            array[i].className = 'half';
-        }
+      // Assign 'half' to the next two elements, if available.
+      for (let j = 0; j < 2 && i < array.length; j++, i++) {
+        array[i].className = 'half';
+      }
 
-        // Assign 'third' to the next three elements, if available.
-        for (let j = 0; j < 3 && i < array.length; j++, i++) {
-            array[i].className = 'third';
-        }
+      // Assign 'third' to the next three elements, if available.
+      for (let j = 0; j < 3 && i < array.length; j++, i++) {
+        array[i].className = 'third';
+      }
     }
 
     return array;
@@ -283,7 +284,7 @@ export class ContentComponent implements OnInit {
         // https://github.com/angular/universal#universal-gotchas
       }
 
-      if(!query.name) {
+      if (!query.name) {
         return;
       }
 

@@ -21,12 +21,13 @@ export class TitleComponent {
   public tabs = [
     // { name: "Recent Votes", checked: false },
     { name: 'Latest', checked: true },
-    { name: 'Business', checked: false },
-    { name: 'Military', checked: false },
-    { name: 'Education', checked: false },
-    { name: 'Technology', checked: false },
-    { name: 'Healthcare', checked: false },
-    { name: 'Environment', checked: false },
+    { name: 'Money', checked: false },
+    { name: 'Energy', checked: false },
+    { name: 'AI', checked: false },
+    { name: 'War', checked: false },
+    { name: 'Drugs', checked: false },
+    // { name: 'Healthcare', checked: false },
+    // { name: 'Environment', checked: false },
   ];
   public isSubscriberPage = false;
   constructor(
@@ -38,14 +39,14 @@ export class TitleComponent {
   ) {
     if (isPlatformServer(this._platformId)) {
       return;
-    } 
-
-    if(!isPlatformServer(this._platformId)) {
-      const path = this.router.url.split('/');
-       this.isSubscriberPage = path.includes("subscriber-view");
     }
 
-    this.api.yFunctionCalled$.subscribe(([tab,isChecked]) => {
+    if (!isPlatformServer(this._platformId)) {
+      const path = this.router.url.split('/');
+      this.isSubscriberPage = path.includes("subscriber-view");
+    }
+
+    this.api.yFunctionCalled$.subscribe(([tab, isChecked]) => {
       this.tabs.map((t) => {
         t.checked = t.name === tab.name ? true : false;
       });
@@ -53,17 +54,17 @@ export class TitleComponent {
   }
 
   getDataBasedOnTags(tab: any) {
-    if(this.isSubscriberPage)  {
+    if (this.isSubscriberPage) {
       this.tabs.map((t) => {
         t.checked = t.name === tab.name ? true : false;
       });
-      
+
       this.router.navigate(['/'], {
         queryParams: {
           tab: tab.name,
         }
       });
-      
+
     } else {
       this.tabs.map((t) => {
         t.checked = t.name === tab.name ? true : false;
