@@ -38,7 +38,7 @@ import { AuthenticateService } from '../../services/cognito.service';
     FooterComponent,
     ReactiveFormsModule,
     DatePipe
-    ],
+  ],
   templateUrl: './subscribers-page.component.html',
   styleUrl: './subscribers-page.component.scss'
 })
@@ -60,7 +60,7 @@ export class SubscribersPageComponent implements OnInit {
 
   constructor(private headLineService: BillService,
     private formBuilder: FormBuilder,
-    @Inject(PLATFORM_ID) private _platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
     private cdr: ChangeDetectorRef,
     private route: ActivatedRoute,
@@ -68,12 +68,15 @@ export class SubscribersPageComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private title: Title,
     private meta: Meta,
-    private readonly cognito: AuthenticateService    
+    private readonly cognito: AuthenticateService
 
   ) {
     this.processedReps = [];
     this.user = this.cognito.getUser();
-    this.reps = localStorage.getItem('registered-reps');
+    if (isPlatformBrowser(this.platformId)) {
+      this.reps = localStorage.getItem('registered-reps');
+      console.log(this.reps)
+    }
   }
 
   ngOnInit() {
@@ -119,7 +122,7 @@ export class SubscribersPageComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  getStory(bill:any) {
+  getStory(bill: any) {
     this.isLoading = true;
     this.bill = null;
     this.billSummery = null;
@@ -142,10 +145,10 @@ export class SubscribersPageComponent implements OnInit {
           this.billSummery.image = this.billSummery.image || this.fallbackImage
         }
 
-        window.scroll({ 
-          top: 0, 
-          left: 0, 
-          behavior: 'smooth' 
+        window.scroll({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
         });
 
         this.isLoading = false;

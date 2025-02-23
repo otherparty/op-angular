@@ -39,6 +39,18 @@ export class LoginComponent {
     });
   }
 
+  private parseJwt(token: string): any {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+    return JSON.parse(jsonPayload);
+  }
+
   onSubmit() {
     if (this.loginForm.valid) {
       this.loading = true;
@@ -50,6 +62,9 @@ export class LoginComponent {
           }, 2000);
           this.cognito.getIdToken().then((idToken) => {
             if (idToken) {
+              const decoded = this.parseJwt(idToken);
+              const cognitoUsername = decoded['cognito:username'];
+              console.log('Cognito Username', cognitoUsername)
               this.auth.checkForUserSubscription(idToken).subscribe((data) => {
                 if (data?.data?.subscriptionStatus) {
                   if (data?.data?.amount > 3) {
