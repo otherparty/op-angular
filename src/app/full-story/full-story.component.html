@@ -12,7 +12,7 @@
       <div class="visual third padded evenly">
         <p class="mobile-only larger impact white-t">{{billSummery?.headLine}}</p>
         <div class="mobile-only">
-          <span class="white-t helvetica midsize keep-all justify"
+          <span class="white-t helvetica summary-text keep-all justify"
             [innerHTML]="billSummery?.summary || billSummery?.story"></span>
         </div>
         <br>
@@ -78,6 +78,7 @@
             </a>
           </div>
           }
+          <br>
           <!-- LOGGED IN -->
           @if (user) {
           <div class="fourth interactive">
@@ -162,13 +163,13 @@
       <!-- DESKTOP STORY -->
       <div class="desktop-only verbal third padded">
         <p class="white-t larger impact">{{billSummery?.headLine}}</p>
-        <span class="white-t helvetica keep-all midsize justify"
+        <span class="white-t helvetica keep-all summary-text justify"
           [innerHTML]="billSummery?.summary || billSummery?.story"></span>
         <br>
+        @if (!user) {
         <span class="white-t bill-text-summary helvetica keep-all smaller justify"
           [innerHTML]="getTruncatedSummary()"></span>
         <br>
-        @if (!user) {
         <p class="white-t helvetica larger glitchtext">
           Get it in-depth</p>
         <br>

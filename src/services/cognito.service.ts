@@ -17,8 +17,8 @@ import { throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthenticateService {
-  baseURL = 'http://localhost:9000/api/v1'; // URL to web api
-  // baseURL = 'https://backend.otherparty.ai/api/v1/'; // URL to web api
+  // baseURL = 'http://localhost:9000/api/v1'; // URL to web api
+  baseURL = 'https://backend.otherparty.ai/api/v1/'; // URL to web api
   userPool: any;
   cognitoUser: any;
   username: string = '';

@@ -1,6 +1,6 @@
 import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, PLATFORM_ID, ViewEncapsulation, Inject } from '@angular/core';
 import { BillService } from '../../services/bill.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
@@ -12,6 +12,7 @@ import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ContentComponent } from '../stories/content/content.component';
 import { AuthenticateService } from '../../services/cognito.service';
 import { TruncatePipe } from '../shared/pipes/truncate.pipe';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-full-story',
@@ -28,7 +29,7 @@ import { TruncatePipe } from '../shared/pipes/truncate.pipe';
     DividerComponent,
     FooterComponent,
     DatePipe,
-    ContentComponent,
+    ContentComponent
   ],
   templateUrl: './full-story.component.html',
   styleUrl: './full-story.component.scss',
@@ -56,13 +57,16 @@ export class FullStoryComponent implements OnInit {
     private title: Title,
     private meta: Meta,
     private truncatePipe: TruncatePipe,
-    private readonly cognito: AuthenticateService
+    private readonly cognito: AuthenticateService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     console.log(this.router.url);
     this.processedReps = [];
     this.user = this.cognito.getUser();
-    this.reps = localStorage.getItem('registered-reps');
-    console.log(this.reps)
+    if (isPlatformBrowser(this.platformId)) {
+      this.reps = localStorage.getItem('registered-reps');
+      console.log(this.reps)
+    }
   }
 
   ngOnInit(): void {
