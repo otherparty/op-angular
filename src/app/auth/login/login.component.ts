@@ -64,7 +64,7 @@ export class LoginComponent {
             if (idToken) {
               const decoded = this.parseJwt(idToken);
               const cognitoUsername = decoded['cognito:username'];
-              console.log('Cognito Username', cognitoUsername)
+              // console.log('Cognito Username', cognitoUsername)
               this.auth.checkForUserSubscription(idToken).subscribe((data) => {
                 if (data?.data?.subscriptionStatus) {
                   if (data?.data?.amount > 3) {
