@@ -64,32 +64,36 @@ export class LoginComponent {
             if (idToken) {
               const decoded = this.parseJwt(idToken);
               const cognitoUsername = decoded['cognito:username'];
+              const userReps = decoded['custom:reps']
               // console.log('Cognito Username', cognitoUsername)
-              this.auth.checkForUserSubscription(idToken).subscribe((data) => {
-                if (data?.data?.subscriptionStatus) {
-                  if (data?.data?.amount > 3) {
-                    this.cognito.updateSubscriptionAttribute(
-                      'Lincoln',
-                      this.loginForm.value.email
-                    );
-                  } else if (data?.data?.amount > 1) {
-                    this.cognito.updateSubscriptionAttribute(
-                      'Jefferson',
-                      this.loginForm.value.email
-                    );
+              const body = { iCognitoId: cognitoUsername, representatives: userReps }
+              this.cognito.createUserAccountInDB(body).subscribe((data) => {
+                this.auth.checkForUserSubscription(idToken).subscribe((data) => {
+                  if (data?.data?.subscriptionStatus) {
+                    if (data?.data?.amount > 3) {
+                      this.cognito.updateSubscriptionAttribute(
+                        'Lincoln',
+                        this.loginForm.value.email
+                      );
+                    } else if (data?.data?.amount > 1) {
+                      this.cognito.updateSubscriptionAttribute(
+                        'Jefferson',
+                        this.loginForm.value.email
+                      );
+                    } else {
+                      this.cognito.updateSubscriptionAttribute(
+                        'Commons',
+                        this.loginForm.value.email
+                      );
+                    }
                   } else {
                     this.cognito.updateSubscriptionAttribute(
                       'Commons',
                       this.loginForm.value.email
                     );
                   }
-                } else {
-                  this.cognito.updateSubscriptionAttribute(
-                    'Commons',
-                    this.loginForm.value.email
-                  );
-                }
-              });
+                });
+              })
             } else {
               console.error('User is not authenticated.');
             }

@@ -17,7 +17,7 @@ import { throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthenticateService {
-  // baseURL = 'http://localhost:9000/api/v1'; // URL to web api
+  // baseURL = 'http://localhost:9000/api/v1/'; // URL to web api
   baseURL = 'https://backend.otherparty.ai/api/v1/'; // URL to web api
   userPool: any;
   cognitoUser: any;
@@ -84,7 +84,7 @@ export class AuthenticateService {
       }
 
       return this.http
-        .get(`${this.baseURL}/stripe/get-subscription-status`, {
+        .get(`${this.baseURL}stripe/get-subscription-status`, {
           headers: { Authorization: token }
         })
         .pipe(catchError(this.handleError<any>('getUserSubscriptions')));
@@ -191,8 +191,13 @@ export class AuthenticateService {
   }
 
   checkUserStatus(email: string, userPoolId: string): Observable<any> {
-    const url = `${this.baseURL}/check-user-status`;
+    const url = `${this.baseURL}check-user-status`;
     return this.http.post(url, { email, userPoolId });
+  }
+
+  createUserAccountInDB(body: any): Observable<any> {
+    const url = `${this.baseURL}auth/register`;
+    return this.http.post(url, body);
   }
 
   resetPassword(email: string): Observable<any> {
@@ -407,7 +412,7 @@ export class AuthenticateService {
         return false;
       }
 
-      console.log(session);
+      // console.log(session);
 
 
       // Return whether the session is valid
