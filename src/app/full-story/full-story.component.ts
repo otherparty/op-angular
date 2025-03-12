@@ -140,9 +140,36 @@ export class FullStoryComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-  openGovTrack(link: string) {
-    const url = `${link}`;
-    window.open(url, '_blank');
+  openGovTrack(bill: any) {
+    this.cognito.getIdToken().then((idToken) => {
+      if (idToken) {
+        const decoded = this.parseJwt(idToken);
+        const cognitoUsername = decoded['cognito:username'];
+        const userReps = decoded['custom:reps'];
+
+        this.billService
+          .updateUserWithFollowBills(bill.bill_id, cognitoUsername)
+          .subscribe({
+            next: (response) => {
+              const url = `${bill?.govtrack_url}`;
+              window.open(url, '_blank');
+            },
+            error: (err) => console.log(err),
+          });
+      }
+    });
+  }
+
+  private parseJwt(token: string): any {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+    return JSON.parse(jsonPayload);
   }
 
   getTruncatedSummary(): string {

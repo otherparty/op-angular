@@ -25,7 +25,7 @@ export class BillService {
     private http: HttpClient,
     private messageService: MessageService,
     private cognito: AuthenticateService
-  ) {}
+  ) { }
 
   /** POST: add a new hero to the server */
   getHeadLines(
@@ -115,6 +115,12 @@ export class BillService {
         headers: { Authorization: token },
       })
       .pipe(catchError(this.handleError<any>('cancelForUserSubscription')));
+  }
+
+  updateUserWithFollowBills(followBills: string, iCognitoId: string): Observable<any> {
+    return this.http
+      .put(`${this.baseURL}auth/update-user`, { followBills, iCognitoId })
+      .pipe(catchError(this.handleError<any>('updateUserWithFollowBills')));
   }
 
   /**
