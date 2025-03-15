@@ -52,9 +52,11 @@
                 </button>
               </div>
             </a>
+            @if (bill?.account?.twitter_account) {
             <button class="small-btn white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
               <p class="smaller">&#64;{{bill?.account?.twitter_account}}</p>
             </button>
+            }
           </div>
 
           <br>
@@ -123,13 +125,13 @@
                 <p class="smaller">Get updates</p>
               </button>
             </div>
+            @if (bill?.account?.twitter_account) {
             <button class="small-btn white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
               <p class="smaller">&#64;{{bill?.account?.twitter_account}}</p>
             </button>
             }
-            <!-- <button class="small-btn white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
-              <p class="smaller">&#64;{{bill?.account?.twitter_account}}</p>
-            </button> -->
+            }
+
           </div>
         </div>
         <br>
@@ -154,9 +156,11 @@
               </button>
             </div>
             }
+            @if (bill?.account?.twitter_account) {
             <button class="small-btn white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
               <p class="smaller">&#64;{{bill?.account?.twitter_account}}</p>
             </button>
+            }
           </div>
         </div>
       </div>
