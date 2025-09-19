@@ -10,10 +10,10 @@ import { environment } from '../environments/environment.prod';
   providedIn: 'root',
 })
 export class BillService {
-  // billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
-  // baseURL = 'http://localhost:9000/api/v1'; // URL to web api
-  baseURL = environment.baseURL; // URL to web api
-  billsURL = environment.billsURL; // URL to web api
+  billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
+  baseURL = 'http://localhost:9000/api/v1'; // URL to web api
+  // baseURL = environment.baseURL; // URL to web api
+  // billsURL = environment.billsURL; // URL to web api
 
   private xFunctionSubject = new Subject<[any, boolean]>();
   private yFunctionSubject = new Subject<[any, boolean]>();

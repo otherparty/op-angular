@@ -15,30 +15,90 @@
           <span class="white-t helvetica summary-text keep-all justify"
             [innerHTML]="billSummery?.summary || billSummery?.story"></span>
         </div>
-        <br>
-        <div class="invert resize-both responsive"><img [src]="sanitize(billSummery.image)" style="max-height: 80%"
+        <!-- <br> -->
+        <!-- <div class="invert resize-both responsive"><img [src]="sanitize(billSummery.image)" style="max-height: 80%"
             sanitize>
-        </div>
-        <br>
-        <div class="desktop-only">
-          <p class="mint-t fittext float-right">{{ bill.latest_major_action_date | date}}</p>
-          <ul class="tags">
-            <li>
-              <span class="white-t justify smaller">{{ bill.latest_major_action }}
-              </span>
-            </li>
-          </ul>
+        </div> -->
+        <!-- <br> -->
+
+        <!-- DESKTOP STORY -->
+        <div class="desktop-only third padded evenly">
+          <div class="desktop-only verbal third padded evenly">
+            <p class="white-t larger impact">{{billSummery?.headLine}}</p>
+            <span class="white-t helvetica keep-all summary-text justify"
+              [innerHTML]="billSummery?.summary || billSummery?.story"></span>
+            <!-- <br>
+            <br> -->
+            <p class="mint-t larger helvetica float-right">{{ bill.latest_major_action_date | date}}</p>
+            <ul class="tags">
+              <li>
+                <span class="white-t justify smaller">{{ bill.latest_major_action }}
+                </span>
+              </li>
+            </ul>
+            @if (!user) {
+            <span class="white-t helvetica summary-text keep-all justify" [innerHTML]="getTruncatedSummary()"></span>
+            <br>
+            <a [routerLink]="['/register']">
+              <p class="white-t helvetica larger glitchtext">
+                Get it in-depth
+              </p>
+            </a>
+            <br>
+            <br>
+            <div class="button-container">
+              <a [routerLink]="['/register']">
+                <p class="white-t helvetica padded love-b">
+                  Subscribe</p>
+              </a>
+              <br>
+              <br>
+              <a [routerLink]="['/login']">
+                <p class="mint-t helvetica padded hottie-b">
+                  Login</p>
+              </a>
+            </div>
+            }
+            <!-- LOGGED IN -->
+            @if (user) {
+            <div class="fourth interactive">
+              <!-- <div class="center visual">
+            <p class="impact white-t smaller">What's your vote?</p>
+            <p class="helvetica smaller white-t">Let your rep know on X.</p>
+            <br>
+            <ul class="tags">
+              <li>
+                <a href="https://twitter.com/intent/tweet?text={{bill.YeaText}}" target="_blank" class="white-t"><i
+                    class="bi bi-approve love-b padded"></i></a>
+              </li>
+              <li>
+                <a href="https://twitter.com/intent/tweet?text={{bill.NayText}}" target="_blank" class="white-t"><i
+                    class="bi bi-disapprove hottie-b padded"></i></a>
+              </li>
+            </ul>
+          </div> -->
+              <!-- <br> -->
+            </div>
+            <br>
+            <!-- BILL TEXT SUMMARY -->
+            <span class="white-t helvetica summary-text keep-all justify"
+              [innerHTML]="billSummery?.bill_text_summary"></span>
+            <br>
+            }
+            <!-- <br>
+            <br> -->
+          </div>
         </div>
         <!-- MOBILE STORY -->
         <div class="mobile-only verbal third padded">
-          <p class="midsize mint-t fittext float-right">{{ bill.latest_major_action_date | date}}</p>
+          <p class="summary-text mint-t helvetica float-right">{{ bill.latest_major_action_date | date}}</p>
           <ul class="tags">
             <li>
               <span class="white-t justify smaller">{{ bill.latest_major_action }}
               </span>
             </li>
           </ul>
-          <br>
+          <!-- <br> -->
           <div>
           </div>
 
@@ -60,11 +120,13 @@
           </div>
 
           <br>
-          <span class="white-t bill-text-summary helvetica keep-all smaller justify"
-            [innerHTML]="getTruncatedSummary()"></span>
+          <span class="white-t helvetica summary-text keep-all justify" [innerHTML]="getTruncatedSummary()"></span>
           <br>
-          <p class="white-t helvetica larger glitchtext">
-            Get it in-depth</p>
+          <a [routerLink]="['/register']">
+            <p class="white-t helvetica larger glitchtext">
+              Get it in-depth
+            </p>
+          </a>
           <br>
           <br>
           <div class="button-container">
@@ -84,7 +146,7 @@
           <!-- LOGGED IN -->
           @if (user) {
           <div class="fourth interactive">
-            <div class="center visual">
+            <!-- <div class="center visual">
               <p class="impact white-t">What's your vote?</p>
               <p class="helvetica smaller white-t">Let your rep know on X.</p>
               <br>
@@ -98,12 +160,12 @@
                       class="bi bi-disapprove hottie-b padded"></i></a>
                 </li>
               </ul>
-            </div>
-            <br>
+            </div> -->
+            <!-- <br> -->
           </div>
-          <br>
+          <!-- <br> -->
           <!-- BILL TEXT SUMMARY -->
-          <span class="white-t bill-text-summary helvetica keep-all smaller justify"
+          <span class="white-t helvetica summary-text keep-all justify"
             [innerHTML]="billSummery?.bill_text_summary"></span>
           <br>
           }
@@ -134,7 +196,7 @@
 
           </div>
         </div>
-        <br>
+        <!-- <br> -->
         <!-- DESKTOP FTB -->
         <div class="desktop-only">
           <div class="button-container">
@@ -164,63 +226,7 @@
           </div>
         </div>
       </div>
-      <!-- DESKTOP STORY -->
-      <div class="desktop-only verbal third padded">
-        <p class="white-t larger impact">{{billSummery?.headLine}}</p>
-        <span class="white-t helvetica keep-all summary-text justify"
-          [innerHTML]="billSummery?.summary || billSummery?.story"></span>
-        <br>
-        <br>
-        @if (!user) {
-        <span class="white-t bill-text-summary helvetica keep-all smaller justify"
-          [innerHTML]="getTruncatedSummary()"></span>
-        <br>
-        <p class="white-t helvetica larger glitchtext">
-          Get it in-depth</p>
-        <br>
-        <br>
-        <div class="button-container">
-          <a [routerLink]="['/register']">
-            <p class="white-t helvetica padded love-b">
-              Subscribe</p>
-          </a>
-          <br>
-          <br>
-          <a [routerLink]="['/login']">
-            <p class="mint-t helvetica padded hottie-b">
-              Login</p>
-          </a>
-        </div>
-        }
-        <!-- LOGGED IN -->
-        @if (user) {
-        <div class="fourth interactive">
-          <div class="center visual">
-            <p class="impact white-t smaller">What's your vote?</p>
-            <p class="helvetica smaller white-t">Let your rep know on X.</p>
-            <br>
-            <ul class="tags">
-              <li>
-                <a href="https://twitter.com/intent/tweet?text={{bill.YeaText}}" target="_blank" class="white-t"><i
-                    class="bi bi-approve love-b padded"></i></a>
-              </li>
-              <li>
-                <a href="https://twitter.com/intent/tweet?text={{bill.NayText}}" target="_blank" class="white-t"><i
-                    class="bi bi-disapprove hottie-b padded"></i></a>
-              </li>
-            </ul>
-          </div>
-          <br>
-        </div>
-        <br>
-        <!-- BILL TEXT SUMMARY -->
-        <span class="white-t bill-text-summary helvetica keep-all smaller justify"
-          [innerHTML]="billSummery?.bill_text_summary"></span>
-        <br>
-        }
-        <br>
-        <br>
-      </div>
+
     </div>
   </div>
 </div>
