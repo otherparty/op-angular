@@ -1,27 +1,76 @@
-# OtherPartyUiBrut
+# Other Party UI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.5.
+Other Party UI is an Angular 17 application that surfaces legislative stories, subscription plans, and account management flows for the Other Party platform. The app renders both on the client and server (Angular SSR) and integrates with AWS Cognito for authentication, Stripe for subscriptions, and a custom backend for story data.
 
-## Development server
+## Highlights
+- Curated legislative stories with infinite scrolling, search, and social share helpers.
+- Deep-dive "Full Story" views with shareable messaging, meta tags, and follow actions.
+- Auth flows (register, login, OTP verification, password reset) backed by AWS Cognito.
+- Subscriber experience with bill tracking and cancellation via Stripe APIs.
+- Server-side rendering powered by Express to support SEO and fast initial paints.
+- Shared UI primitives (navbar, footer, dividers, pipes) designed for standalone components.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Tech Stack
+- Angular 17 standalone components with Angular Router
+- Angular SSR Express host (`server.ts`) for hydration
+- AWS Cognito (amazon-cognito-identity-js) and Stripe pricing table embeds
+- RxJS for data flow, ngx-infinite-scroll for feed pagination, ngx-toastr for notifications
 
-## Code scaffolding
+## Getting Started
+1. **Install dependencies**
+   ```bash
+   npm install
+   ```
+2. **Configure environments**
+   - Default dev settings live in `src/environments/environment.ts`.
+   - Mirror changes in `environment.prod.ts` when adding new variables.
+   - Backend endpoints are derived from `baseURL` and `billsURL`.
+3. **Run the browser dev server**
+   ```bash
+   npm run watch
+   ```
+   Navigate to `http://localhost:4200/`. Builds rebuild incrementally.
+4. **Run the SSR dev server** (tests both server and browser bundles)
+   ```bash
+   npm run dev:ssr
+   ```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Common Commands
+- `npm run watch` – browser bundle with live rebuilds.
+- `npm run dev:ssr` – SSR development server using settings from `angular.json`.
+- `npm run build` – client bundle in `dist/browser`.
+- `npm run build:ssr` – browser + server bundles.
+- `npm run serve:ssr` – serve the production SSR build from `dist/other-party-ui`.
+- `npm test` – Karma/Jasmine unit tests. Append `-- --code-coverage` for HTML reports under `coverage/`.
 
-## Build
+## Testing
+- Place specs beside sources as `*.spec.ts`.
+- Cover both happy and failure paths for new behavior.
+- Guards and directives should have focused specs (see `src/app/auth.guard.spec.ts`).
+- Generate coverage as needed via `npm test -- --code-coverage`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Project Structure
+```
+src/
+  app/                Feature components and routes (standalone)
+  services/           HTTP services, Cognito helpers, interceptors
+  app/shared/         Shared pipes/directives/module utilities
+  assets/             Static assets served with the app
+  environments/       Environment toggles (`environment.ts`, `.prod`)
+server.ts             Express host for Angular SSR
+angular.json          CLI configuration, SSR targets, builder options
+```
+Refer to `docs/architecture.md` for a detailed tour of feature modules and data flow.
 
-## Running unit tests
+## Documentation
+- [`docs/architecture.md`](docs/architecture.md) – feature map, routing, and data dependencies.
+- [`docs/development.md`](docs/development.md) – local workflows, SSR tips, and linting/testing expectations.
+- [`docs/authentication.md`](docs/authentication.md) – Cognito, Stripe, and guard behaviors.
+- [`src/app/README.md`](src/app/README.md) – component-level reference for the main UI surfaces.
+- [`src/services/README.md`](src/services/README.md) – service APIs and integration notes.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Contributing
+- Follow the short, imperative commit style (`add story carousel`).
+- Reference relevant issues in commit footers when available.
+- Run `npm test` (and `npm run dev:ssr` for SSR-touching changes) before opening a PR.
+- See `docs/development.md` for branch workflow tips and environment updates.

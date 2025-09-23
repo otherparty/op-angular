@@ -118,6 +118,9 @@ export class ContentComponent implements OnInit {
 
   ngOnInit() { }
 
+  /**
+   * Normalizes raw story payloads into the card view model used by the feed.
+   */
   public filterStories = (stories: any, type?: string) => {
     this.stories = stories.filter((story: any) => story);
 
@@ -145,6 +148,9 @@ export class ContentComponent implements OnInit {
     this.stories = this.assignClassesToStories(this.stories);
   };
 
+  /**
+   * Initial feed fetch used on load and when resetting filters.
+   */
   public loadData = (type?: string) => {
     this.toggleLoading();
     this.headLineService
@@ -160,6 +166,9 @@ export class ContentComponent implements OnInit {
 
   toggleLoading = () => (this.isLoading = !this.isLoading);
 
+  /**
+   * Fetch additional stories when infinite scroll hits the threshold.
+   */
   appendData = () => {
     this.toggleLoading();
     this.headLineService

@@ -91,6 +91,9 @@ export class FullStoryComponent implements OnInit {
     });
   }
 
+  /**
+   * Fetch a full story payload, update share/meta data, and handle error states.
+   */
   private loadFullStory(id: string) {
     this.currentStoryId = id;
     this._id = id;

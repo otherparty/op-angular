@@ -25,7 +25,9 @@ export class BillService {
     private cognito: AuthenticateService
   ) { }
 
-  /** POST: add a new hero to the server */
+  /**
+   * Fetch paginated headline cards for the stories feed.
+   */
   getHeadLines(
     nLimit: number,
     nOffset: number,
@@ -37,7 +39,9 @@ export class BillService {
     );
   }
 
-  /** POST: add a new hero to the server */
+  /**
+   * Load a full story payload by bill identifier. Optionally scope data to specific reps.
+   */
   getFullStory(bill_id: string, reps?: Array<number> | string[]): Observable<any> {
     const payload: Record<string, unknown> = { bill_id };
     if (Array.isArray(reps) && reps.length) {
@@ -49,31 +53,45 @@ export class BillService {
       .pipe(catchError(this.handleError<any>('getFullStory')));
   }
 
-  /** POST: add a new hero to the server */
+  /**
+   * Search for a single bill by slug/identifier.
+   */
   searchBill(search: string): Observable<any> {
     return this.http
       .get(`${this.storiesBase}/${search}`)
       .pipe(catchError(this.handleError<any>('searchBill')));
   }
 
+  /**
+   * Load subscriber engagement metrics for a representative.
+   */
   getSubscriberDetails(sponsorId: string): Observable<any> {
     return this.http
       .post(`${this.storiesBase}/emailVotes`, { sponsorId })
       .pipe(catchError(this.handleError<any>('getSubscriberDetails')));
   }
 
+  /**
+   * Fetch bills a representative voted in favor of.
+   */
   votedForList(sponsorId: string): Observable<any> {
     return this.http
       .post(`${this.storiesBase}/votedForList`, { sponsorId })
       .pipe(catchError(this.handleError<any>('votedForList')));
   }
 
+  /**
+   * Fetch bills a representative sponsored or co-sponsored.
+   */
   votedSponsoredCosponsoredList(sponsorId: string): Observable<any> {
     return this.http
       .post(`${this.storiesBase}/votedSponsoredCosponsoredList`, { sponsorId })
       .pipe(catchError(this.handleError<any>('votedSponsoredCosponsoredList')));
   }
 
+  /**
+   * Search for representatives using a free-form term.
+   */
   searchForReps(search: string): Observable<any> {
     return this.http
       .post(`${this.storiesBase}/rep`, { search })
@@ -81,9 +99,7 @@ export class BillService {
   }
 
   /**
-   *
-   * @param sponsorId
-   * @returns
+   * Retrieve the list of bills a representative voted against.
    */
   votedAgainstList(sponsorId: string): Observable<any> {
     return this.http
@@ -91,19 +107,32 @@ export class BillService {
       .pipe(catchError(this.handleError<any>('votedAgainstList')));
   }
 
+  /**
+   * Broadcast subscriber tab changes to listeners.
+   */
   callXFunction(tab: any, isSubscriberPage: boolean) {
     this.xFunctionSubject.next([tab, isSubscriberPage]);
   }
+
+  /**
+   * Broadcast feed tab toggles (e.g. checkboxes) to listeners.
+   */
   callYFunction(tab: any, isChecked: boolean) {
     this.yFunctionSubject.next([tab, isChecked]);
   }
 
+  /**
+   * Resolve representatives for a supplied ZIP code.
+   */
   getRepsFromZipCode(zip: any): Observable<any> {
     return this.http
       .get(`${this.apiBase}/user/zip/${zip}`)
       .pipe(catchError(this.handleError<any>('getRepsFromZipCode')));
   }
 
+  /**
+   * Verify an authenticated user's Stripe subscription status.
+   */
   checkForUserSubscription(token: string): Observable<any> {
     return this.http
       .get(`${this.apiBase}/stripe/get-subscription-status`, {
@@ -112,6 +141,9 @@ export class BillService {
       .pipe(catchError(this.handleError<any>('checkForUserSubscription')));
   }
 
+  /**
+   * Cancel the authenticated user's Stripe subscription.
+   */
   cancelForUserSubscription(token: string): Observable<any> {
     return this.http
       .delete(`${this.apiBase}/stripe/cancel-subscription-status`, {
@@ -120,6 +152,9 @@ export class BillService {
       .pipe(catchError(this.handleError<any>('cancelForUserSubscription')));
   }
 
+  /**
+   * Persist the set of bills a user follows in the backend.
+   */
   updateUserWithFollowBills(followBills: string, iCognitoId: string): Observable<any> {
     return this.http
       .put(`${this.apiBase}/auth/update-user`, { followBills, iCognitoId })
@@ -127,11 +162,7 @@ export class BillService {
   }
 
   /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   *
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
+   * Generic RxJS error handler that logs and returns a safe fallback observable.
    */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -159,8 +190,8 @@ export class BillService {
   //   );
   // }
 
-  /** Log a HeroService message with the MessageService */
+  /** Log a message through the shared MessageService. */
   private log(message: string) {
-    this.messageService.add(`HeroService: ${message}`);
+    this.messageService.add(`BillService: ${message}`);
   }
 }
