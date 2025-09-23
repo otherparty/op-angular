@@ -57,6 +57,7 @@ export class SubscribersPageComponent implements OnInit {
   public user: any;
   public reps: any;
   public processedReps: any[];
+  private readonly isBrowser: boolean;
 
   constructor(private headLineService: BillService,
     private formBuilder: FormBuilder,
@@ -71,9 +72,10 @@ export class SubscribersPageComponent implements OnInit {
     private readonly cognito: AuthenticateService
 
   ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
     this.processedReps = [];
     this.user = this.cognito.getUser();
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.isBrowser) {
       this.reps = localStorage.getItem('registered-reps');
       console.log(this.reps)
     }
@@ -109,11 +111,17 @@ export class SubscribersPageComponent implements OnInit {
   }
 
   openTwitter(username: string) {
+    if (!this.isBrowser) {
+      return;
+    }
     const url = `https://twitter.com/intent/tweet?screen_name=${username}&ref_src=twsrc%5Etfw`;
     window.open(url, '_blank');
   }
 
   openGovTrack(link: string) {
+    if (!this.isBrowser) {
+      return;
+    }
     const url = `${link}`;
     window.open(url, '_blank');
   }
@@ -145,11 +153,13 @@ export class SubscribersPageComponent implements OnInit {
           this.billSummery.image = this.billSummery.image || this.fallbackImage
         }
 
-        window.scroll({
-          top: 0,
-          left: 0,
-          behavior: 'smooth'
-        });
+        if (this.isBrowser) {
+          window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+          });
+        }
 
         this.isLoading = false;
         this.isError = false;

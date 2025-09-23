@@ -62,6 +62,7 @@ export class ContentComponent implements OnInit {
     'https://d2646mjd05vkml.cloudfront.net/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png';
 
   public repsNames: any;
+  private readonly isBrowser: boolean;
 
   constructor(
     private readonly headLineService: BillService,
@@ -74,6 +75,7 @@ export class ContentComponent implements OnInit {
     private readonly meta: Meta,
     private readonly cognito: AuthenticateService
   ) {
+    this.isBrowser = isPlatformBrowser(this._platformId);
     this.searchForm = this.formBuilder.group({
       search: [''],
     });
@@ -231,14 +233,18 @@ export class ContentComponent implements OnInit {
   }
 
   openTwitter(username: string) {
+    if (!this.isBrowser) {
+      return;
+    }
     const url = `https://twitter.com/intent/tweet?screen_name=${username}&ref_src=twsrc%5Etfw`;
     window.open(url, '_blank');
   }
 
   changeRoute(id: string) {
-    // this.router.navigate([`/story/${id}`]);
-    // this.cdr.detectChanges();
-    window.open(`/story/${id}`, '_blank')
+    if (!this.isBrowser) {
+      return;
+    }
+    this.router.navigate(['/story', id]);
   }
 
   search(query: string) {

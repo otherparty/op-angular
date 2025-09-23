@@ -6,7 +6,7 @@ import {
   Inject,
   PLATFORM_ID,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { FooterComponent } from '../../footer/footer.component';
 
@@ -20,11 +20,17 @@ import { FooterComponent } from '../../footer/footer.component';
 })
 export class PlansComponent implements OnInit, AfterViewInit {
   scriptLoaded = false;
+  private readonly isBrowser: boolean;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(
+    @Inject(PLATFORM_ID) private readonly platformId: Object,
+    @Inject(DOCUMENT) private readonly document: Document,
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.isBrowser) {
       this.loadStripeScript();
     }
   }
@@ -36,14 +42,17 @@ export class PlansComponent implements OnInit, AfterViewInit {
   }
 
   loadStripeScript(): void {
-    const script = document.createElement('script');
+    if (!this.isBrowser) {
+      return;
+    }
+    const script = this.document.createElement('script');
     script.src = 'https://js.stripe.com/v3/pricing-table.js';
     script.async = true;
     script.onload = () => {
       this.scriptLoaded = true;
       this.initializeStripePricingTable();
     };
-    document.body.appendChild(script);
+    this.document.body?.appendChild(script);
   }
 
   initializeStripePricingTable(): void {

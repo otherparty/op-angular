@@ -1,5 +1,5 @@
-import { Component, Renderer2 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Inject, PLATFORM_ID, Renderer2 } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-terms-and-conditions',
@@ -10,13 +10,23 @@ import { CommonModule } from '@angular/common';
 })
 export class TermsAndConditions {
   policyLoaded = false;  // Track policy load state
+  private readonly isBrowser: boolean;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(
+    private readonly renderer: Renderer2,
+    @Inject(DOCUMENT) private readonly document: Document,
+    @Inject(PLATFORM_ID) private readonly platformId: Object,
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   loadPolicy() {
+    if (!this.isBrowser) {
+      return;
+    }
     if (this.policyLoaded) return; // Prevent reloading the policy
 
-    const policyContainer = document.getElementById('policy-container');
+    const policyContainer = this.document.getElementById('policy-container');
     if (policyContainer) {
       policyContainer.innerHTML = `
       <div id="policy" width="640" height="480"
@@ -31,7 +41,9 @@ export class TermsAndConditions {
       const script = this.renderer.createElement('script');
       script.src = 'https://app.termageddon.com/js/termageddon.js';
       script.async = true;
-      this.renderer.appendChild(document.body, script);
+      if (this.document.body) {
+        this.renderer.appendChild(this.document.body, script);
+      }
       this.policyLoaded = true;
     }
   }

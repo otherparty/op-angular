@@ -4,16 +4,14 @@ import { MessageService } from './message.service';
 import { Observable, Subject, catchError, of, tap } from 'rxjs';
 import { AuthenticateService } from './cognito.service';
 import { switchMap } from 'rxjs/operators';
-import { environment } from '../environments/environment.prod';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BillService {
-  // billsURL = 'http://localhost:9000/api/v1/stories'; // URL to web api
-  // baseURL = 'http://localhost:9000/api/v1'; // URL to web api
-  baseURL = environment.baseURL; // URL to web api
-  billsURL = environment.billsURL; // URL to web api
+  private readonly apiBase = environment.baseURL?.replace(/\/?$/, '') || '';
+  private readonly storiesBase = environment.billsURL || `${this.apiBase}/stories`;
 
   private xFunctionSubject = new Subject<[any, boolean]>();
   private yFunctionSubject = new Subject<[any, boolean]>();
@@ -33,47 +31,52 @@ export class BillService {
     nOffset: number,
     orderBy: string
   ): Observable<any> {
-    return this.http.post(this.billsURL, { nLimit, nOffset, orderBy }).pipe(
+    return this.http.post(this.storiesBase, { nLimit, nOffset, orderBy }).pipe(
       tap((headlines) => this.log(`Got 10 headlines`)),
       catchError(this.handleError<any>('getHeadLines'))
     );
   }
 
   /** POST: add a new hero to the server */
-  getFullStory(bill_id: string, reps: Array<number>): Observable<any> {
+  getFullStory(bill_id: string, reps?: Array<number> | string[]): Observable<any> {
+    const payload: Record<string, unknown> = { bill_id };
+    if (Array.isArray(reps) && reps.length) {
+      payload['reps'] = reps;
+    }
+
     return this.http
-      .post(`${this.billsURL}/full-story`, { bill_id, reps })
+      .post(`${this.storiesBase}/full-story`, payload)
       .pipe(catchError(this.handleError<any>('getFullStory')));
   }
 
   /** POST: add a new hero to the server */
   searchBill(search: string): Observable<any> {
     return this.http
-      .get(`${this.billsURL}/${search}`)
+      .get(`${this.storiesBase}/${search}`)
       .pipe(catchError(this.handleError<any>('searchBill')));
   }
 
   getSubscriberDetails(sponsorId: string): Observable<any> {
     return this.http
-      .post(`${this.billsURL}/emailVotes`, { sponsorId })
+      .post(`${this.storiesBase}/emailVotes`, { sponsorId })
       .pipe(catchError(this.handleError<any>('getSubscriberDetails')));
   }
 
   votedForList(sponsorId: string): Observable<any> {
     return this.http
-      .post(`${this.billsURL}/votedForList`, { sponsorId })
+      .post(`${this.storiesBase}/votedForList`, { sponsorId })
       .pipe(catchError(this.handleError<any>('votedForList')));
   }
 
   votedSponsoredCosponsoredList(sponsorId: string): Observable<any> {
     return this.http
-      .post(`${this.billsURL}/votedSponsoredCosponsoredList`, { sponsorId })
+      .post(`${this.storiesBase}/votedSponsoredCosponsoredList`, { sponsorId })
       .pipe(catchError(this.handleError<any>('votedSponsoredCosponsoredList')));
   }
 
   searchForReps(search: string): Observable<any> {
     return this.http
-      .post(`${this.billsURL}/rep`, { search })
+      .post(`${this.storiesBase}/rep`, { search })
       .pipe(catchError(this.handleError<any>('searchForReps')));
   }
 
@@ -84,7 +87,7 @@ export class BillService {
    */
   votedAgainstList(sponsorId: string): Observable<any> {
     return this.http
-      .post(`${this.billsURL}/votedAgainstList`, { sponsorId })
+      .post(`${this.storiesBase}/votedAgainstList`, { sponsorId })
       .pipe(catchError(this.handleError<any>('votedAgainstList')));
   }
 
@@ -97,13 +100,13 @@ export class BillService {
 
   getRepsFromZipCode(zip: any): Observable<any> {
     return this.http
-      .get(`${this.baseURL}/user/zip/${zip}`)
+      .get(`${this.apiBase}/user/zip/${zip}`)
       .pipe(catchError(this.handleError<any>('getRepsFromZipCode')));
   }
 
   checkForUserSubscription(token: string): Observable<any> {
     return this.http
-      .get(`${this.baseURL}/stripe/get-subscription-status`, {
+      .get(`${this.apiBase}/stripe/get-subscription-status`, {
         headers: { Authorization: token },
       })
       .pipe(catchError(this.handleError<any>('checkForUserSubscription')));
@@ -111,7 +114,7 @@ export class BillService {
 
   cancelForUserSubscription(token: string): Observable<any> {
     return this.http
-      .delete(`${this.baseURL}/stripe/cancel-subscription-status`, {
+      .delete(`${this.apiBase}/stripe/cancel-subscription-status`, {
         headers: { Authorization: token },
       })
       .pipe(catchError(this.handleError<any>('cancelForUserSubscription')));
@@ -119,7 +122,7 @@ export class BillService {
 
   updateUserWithFollowBills(followBills: string, iCognitoId: string): Observable<any> {
     return this.http
-      .put(`${this.baseURL}auth/update-user`, { followBills, iCognitoId })
+      .put(`${this.apiBase}/auth/update-user`, { followBills, iCognitoId })
       .pipe(catchError(this.handleError<any>('updateUserWithFollowBills')));
   }
 

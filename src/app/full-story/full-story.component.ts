@@ -1,9 +1,9 @@
 import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit, PLATFORM_ID, ViewEncapsulation, Inject } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { BillService } from '../../services/bill.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { TitleComponent } from '../title/title.component';
 import { DividerComponent } from '../divider/divider.component';
@@ -45,9 +45,11 @@ export class FullStoryComponent implements OnInit {
   public YeaText: any;
   public NayText: any;
   public user: any;
-  public reps: any;
+  public reps: string[] | undefined;
   public processedReps: any[];
   twitterHandles: any;
+  private readonly isBrowser: boolean;
+  private currentStoryId?: string;
 
   constructor(
     private billService: BillService,
@@ -60,73 +62,93 @@ export class FullStoryComponent implements OnInit {
     private readonly cognito: AuthenticateService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
-    console.log(this.router.url);
+    this.isBrowser = isPlatformBrowser(this.platformId);
     this.processedReps = [];
     this.user = this.cognito.getUser();
-    if (isPlatformBrowser(this.platformId)) {
-      this.reps = localStorage.getItem('registered-reps');
-      console.log(this.reps)
+    if (this.isBrowser) {
+      const storedReps = localStorage.getItem('registered-reps');
+      if (storedReps) {
+        try {
+          const parsed = JSON.parse(storedReps);
+          this.reps = Array.isArray(parsed) ? parsed : undefined;
+        } catch (error) {
+          console.error('Failed to parse registered reps from storage', error);
+          this.reps = undefined;
+        }
+      }
     }
   }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this._id = params['id'];
+      const nextId = params['id'];
 
-      if (this._id) {
-        this.isLoading = true;
-        this.billService.getFullStory(this._id, this.reps).subscribe((data) => {
-          if (!data) {
-            this.isLoading = false;
-            this.isError = true;
-            return;
-          } else {
-            this.bill = data.data;
-            this.twitterHandles = data.data?.reps;
-            this.billSummery = data.data?.billsummery[0];
-            this.bill.twitterText = `${this.billSummery.headLine} ${this.twitterHandles.map((h: any) => `@${h}`).join(', ')} \n\nread more: https://otherparty.ai/story/${this.bill.bill_id}`;
-            this.bill.YeaText = `Yea on ${this.billSummery.headLine} ${this.twitterHandles.map((h: any) => `@${h}`).join(', ')} \n\n https://otherparty.ai/story/${this.bill.bill_id}`;
-            this.bill.NayText = `Nay on ${this.billSummery.headLine} ${this.twitterHandles.map((h: any) => `@${h}`).join(', ')} \n\n https://otherparty.ai/story/${this.bill.bill_id} `;
+      if (!nextId || nextId === this.currentStoryId) {
+        return;
+      }
 
-            this.bill.faceBookText = `https://otherparty.ai/story/${this.bill.bill_id}`
-            this.bill.bill_text_summary = this.billSummery?.bill_text_summary;
-            if (this.billSummery.image) {
-              this.billSummery.image = this.billSummery.image.replace('https://other-party-images.s3.amazonaws.com', 'https://d2646mjd05vkml.cloudfront.net');
+      this.loadFullStory(nextId);
+    });
+  }
 
-            } else {
-              this.billSummery.image = this.billSummery.image || this.fallbackImage
-            }
+  private loadFullStory(id: string) {
+    this.currentStoryId = id;
+    this._id = id;
+    this.isLoading = true;
 
-            /**
-             * TODO: Add meta tags
-             */
-            this.title.setTitle(`Other Party | ${this.billSummery.headLine}`);
-
-            this.meta.updateTag({ name: "description", content: this.billSummery?.summary || this.billSummery?.story });
-            this.meta.updateTag({ name: "title", content: `Other Party | ${this.billSummery.headLine}` });
-
-            this.meta.addTags([
-              { name: 'twitter:site', content: '@otherpartyai' },
-              { name: 'twitter:title', content: `Other Party | ${this.billSummery.headLine}` },
-              { name: 'twitter:description', content: this.billSummery?.summary || this.billSummery?.story },
-              { name: 'twitter:text:description', content: this.billSummery?.summary || this.billSummery?.story },
-              { name: 'twitter:image', content: 'https://otherparty.ai/assets/img/logo.png' },
-
-              { name: 'og:type', content: 'website' },
-              { name: 'og:url', content: `https://otherparty.ai${this.router.url}` },
-              { name: 'og:title', content: `Other Party | ${this.billSummery.headLine}` },
-              { name: 'og:description', content: this.billSummery?.summary || this.billSummery?.story },
-              { name: 'og:image', content: this.billSummery.image },
-
-            ], true);
-
-            this.isLoading = false;
-            this.isError = false;
-          }
-        }, error => {
+    this.billService.getFullStory(id, this.reps).subscribe({
+      next: (data) => {
+        if (!data) {
           this.isLoading = false;
           this.isError = true;
-        });
+          return;
+        }
+
+        this.bill = data.data;
+        this.twitterHandles = data.data?.reps;
+        this.billSummery = data.data?.billsummery[0];
+        this.bill.twitterText = `${this.billSummery.headLine} ${this.twitterHandles.map((h: any) => `@${h}`).join(', ')} \n\nread more: https://otherparty.ai/story/${this.bill.bill_id}`;
+        this.bill.YeaText = `Yea on ${this.billSummery.headLine} ${this.twitterHandles.map((h: any) => `@${h}`).join(', ')} \n\n https://otherparty.ai/story/${this.bill.bill_id}`;
+        this.bill.NayText = `Nay on ${this.billSummery.headLine} ${this.twitterHandles.map((h: any) => `@${h}`).join(', ')} \n\n https://otherparty.ai/story/${this.bill.bill_id} `;
+
+        this.bill.faceBookText = `https://otherparty.ai/story/${this.bill.bill_id}`
+        this.bill.bill_text_summary = this.billSummery?.bill_text_summary;
+        if (this.billSummery.image) {
+          this.billSummery.image = this.billSummery.image.replace('https://other-party-images.s3.amazonaws.com', 'https://d2646mjd05vkml.cloudfront.net');
+
+        } else {
+          this.billSummery.image = this.billSummery.image || this.fallbackImage
+        }
+
+        /**
+         * TODO: Add meta tags
+         */
+        this.title.setTitle(`Other Party | ${this.billSummery.headLine}`);
+
+        this.meta.updateTag({ name: "description", content: this.billSummery?.summary || this.billSummery?.story });
+        this.meta.updateTag({ name: "title", content: `Other Party | ${this.billSummery.headLine}` });
+
+        this.meta.addTags([
+          { name: 'twitter:site', content: '@otherpartyai' },
+          { name: 'twitter:title', content: `Other Party | ${this.billSummery.headLine}` },
+          { name: 'twitter:description', content: this.billSummery?.summary || this.billSummery?.story },
+          { name: 'twitter:text:description', content: this.billSummery?.summary || this.billSummery?.story },
+          { name: 'twitter:image', content: 'https://otherparty.ai/assets/img/logo.png' },
+
+          { name: 'og:type', content: 'website' },
+          { name: 'og:url', content: `https://otherparty.ai${this.router.url}` },
+          { name: 'og:title', content: `Other Party | ${this.billSummery.headLine}` },
+          { name: 'og:description', content: this.billSummery?.summary || this.billSummery?.story },
+          { name: 'og:image', content: this.billSummery.image },
+
+        ], true);
+
+        this.isLoading = false;
+        this.isError = false;
+      },
+      error: () => {
+        this.isLoading = false;
+        this.isError = true;
       }
     });
   }
@@ -136,11 +158,17 @@ export class FullStoryComponent implements OnInit {
   }
 
   openTwitter(username: string) {
+    if (!this.isBrowser) {
+      return;
+    }
     const url = `https://twitter.com/intent/tweet?screen_name=${username}&ref_src=twsrc%5Etfw`;
     window.open(url, '_blank');
   }
 
   openGovTrack(bill: any) {
+    if (!this.isBrowser) {
+      return;
+    }
     this.cognito.getIdToken().then((idToken) => {
       if (idToken) {
         const decoded = this.parseJwt(idToken);
@@ -161,6 +189,9 @@ export class FullStoryComponent implements OnInit {
   }
 
   private parseJwt(token: string): any {
+    if (!this.isBrowser) {
+      return null;
+    }
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(

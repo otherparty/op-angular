@@ -69,7 +69,7 @@
       @if (stories) { @for (story of stories; track $index && story.bill_id) {
       @if (story.billsummery[0].summary || story.billsummery[0].story) {
       <div class="padded b-b-k white-b full" (click)="changeRoute(story.bill_id)"
-        [ngClass]="$index === 0 ? 'half' : story.className" [routerLink]="['/story', story.bill_id]">
+        [ngClass]="$index === 0 ? 'half' : story.className">
         <p class="impact larger white-t">{{ story?.billsummery[0]?.headLine }}</p>
         <!-- <p class="spacer"></p> -->
         @if (story.latest_major_action && story.latest_major_action_date) {

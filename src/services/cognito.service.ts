@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import {
   AuthenticationDetails,
   CognitoUser,
@@ -9,9 +9,9 @@ import { environment } from './../environments/environment';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, Observable } from 'rxjs';
-import { BillService } from '../services/bill.service';
 import { HttpClient } from '@angular/common/http';
 import { throwError } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -22,12 +22,53 @@ export class AuthenticateService {
   userPool: any;
   cognitoUser: any;
   username: string = '';
+  private readonly isBrowser: boolean;
 
   constructor(
     private readonly router: Router,
-    private toastr: ToastrService,
-    private http: HttpClient
-  ) { }
+    private readonly toastr: ToastrService,
+    private readonly http: HttpClient,
+    @Inject(PLATFORM_ID) private readonly platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
+  private setStorageItem(key: string, value: unknown): void {
+    if (!this.isBrowser || value === null || value === undefined) {
+      return;
+    }
+
+    try {
+      localStorage.setItem(key, String(value));
+    } catch (error) {
+      console.warn('Unable to set localStorage item', { key, error });
+    }
+  }
+
+  private getStorageItem(key: string): string | null {
+    if (!this.isBrowser) {
+      return null;
+    }
+
+    try {
+      return localStorage.getItem(key);
+    } catch (error) {
+      console.warn('Unable to read localStorage item', { key, error });
+      return null;
+    }
+  }
+
+  private clearStorage(): void {
+    if (!this.isBrowser) {
+      return;
+    }
+
+    try {
+      localStorage.clear();
+    } catch (error) {
+      console.warn('Unable to clear localStorage', error);
+    }
+  }
 
   // Login
   login(email: any, password: any): Promise<any> {
@@ -50,19 +91,13 @@ export class AuthenticateService {
       this.cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: (session: any) => {
           this.router.navigate(['/']);
-          localStorage.setItem(
-            'registered-user',
-            email
-          );
+          this.setStorageItem('registered-user', email);
           resolve(session);
         },
         onFailure: (error: any) => {
           if (error.code === 'UserNotConfirmedException') {
             this.resendConfirmationCode(email);
-            localStorage.setItem(
-              'registered-user',
-              this.cognitoUser.getUsername()
-            );
+            this.setStorageItem('registered-user', this.cognitoUser.getUsername());
             this.toastr.error(`Let's confirm your account`, 'Error');
             this.router.navigate(['/otp-verification']);
           } else {
@@ -155,7 +190,7 @@ export class AuthenticateService {
           return;
         }
         this.cognitoUser = result.user;
-        localStorage.setItem('registered-user', payload.email);
+        this.setStorageItem('registered-user', payload.email);
         this.router.navigate(['/otp-verification']);
       }
     );
@@ -168,7 +203,7 @@ export class AuthenticateService {
       ClientId: environment.ClientId,
     };
 
-    const email = localStorage.getItem('registered-user');
+    const email = this.getStorageItem('registered-user');
 
     this.userPool = new CognitoUserPool(poolData);
 
@@ -226,7 +261,7 @@ export class AuthenticateService {
             'We sent a verification code to your email',
             'Success'
           );
-          localStorage.setItem('reset-password-user', email);
+          this.setStorageItem('reset-password-user', email);
           this.router.navigate(['/new-password']);
           observer.next(data); // Emit the verification code data
           observer.complete(); // Complete the observable
@@ -251,7 +286,7 @@ export class AuthenticateService {
         this.toastr.error(`We're having trouble finding your confirmation code.`, 'Error');
         return;
       }
-      localStorage.setItem('registered-user', email);
+      this.setStorageItem('registered-user', email);
       this.toastr.success('We sent you a confirmation code.', 'Success');
       this.router.navigate(['/otp-verification']);
     });
@@ -358,8 +393,8 @@ export class AuthenticateService {
           reject(err);
         } else {
           console.log('Session refreshed successfully');
-          localStorage.setItem('idToken', session.getIdToken().getJwtToken());
-          localStorage.setItem('accessToken', session.getAccessToken().getJwtToken());
+          this.setStorageItem('idToken', session.getIdToken().getJwtToken());
+          this.setStorageItem('accessToken', session.getAccessToken().getJwtToken());
           resolve(session);
         }
       });
@@ -373,7 +408,7 @@ export class AuthenticateService {
     };
 
     this.userPool = new CognitoUserPool(poolData);
-    const email = localStorage.getItem('reset-password-user');
+    const email = this.getStorageItem('reset-password-user');
     let userData: any = { Username: email, Pool: this.userPool };
     this.cognitoUser = new CognitoUser(userData);
 
@@ -399,7 +434,7 @@ export class AuthenticateService {
     this.cognitoUser = this.userPool.getCurrentUser();
     if (this.cognitoUser) {
       this.cognitoUser.signOut();
-      localStorage.clear();
+      this.clearStorage();
       // this.toastr.success(`You're logged out.`, 'Success');
       this.router.navigate(['login']);
     }
@@ -417,7 +452,7 @@ export class AuthenticateService {
 
       // Return whether the session is valid
       if (session.isValid()) {
-        localStorage.setItem('registered-reps', `${session.getIdToken().payload['custom:reps']}`);
+        this.setStorageItem('registered-reps', `${session.getIdToken().payload['custom:reps']}`);
         return true;
       }
 
@@ -491,7 +526,7 @@ export class AuthenticateService {
 
     this.userPool = new CognitoUserPool(poolData);
 
-    const email = localStorage.getItem('registered-user');
+    const email = this.getStorageItem('registered-user');
     let userData: any = { Username: email, Pool: this.userPool };
     this.cognitoUser = new CognitoUser(userData);
 
