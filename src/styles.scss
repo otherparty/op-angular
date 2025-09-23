@@ -1,3 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
-@import url('./assets/css/construct.css');
-
+/* Global styles consolidated for the Angular build pipeline */
+@import url('./assets/themes/default/theme.css');
+@import url('./assets/css/default.css');
+@import url('./assets/core/molds/tiles/construct.css');
+@import url('./assets/core/molds/boards/construct.css');
+@import url('./assets/css/variables.css');
+@import url('./assets/css/butch.css');
+@import url('./assets/css/flavors.css');
+@import url('./assets/css/rebar.css');
+@import url('./assets/css/bfx.css');
+@import url('./assets/css/bicons.css');
+@import url('./assets/css/filetypes.css');
+@import url('./assets/css/fonts/bitstream/font.css');
+@import url('./assets/css/fonts/communist/font.css');
+@import url('./assets/css/fonts/depixel/font.css');
+@import url('./assets/css/fonts/monolisk/font.css');
+@import url('./assets/css/fonts/vcr-mono/font.css');
+@import url('./assets/css/fonts/writer-duospace/font.css');
+@import url('./assets/css/fonts/construct-fonts.css');
+@import url('./assets/css/animate.css');
+@import url('./assets/core/molds/boards/blogboard/view.css');
+@import url('./assets/core/molds/boards/databoard/view.css');
+@import url('./assets/core/molds/boards/photoboard/view.css');
+@import url('./assets/core/molds/boards/productboard/view.css');
+@import url('./assets/core/molds/boards/slideboard/view.css');
+@import url('./assets/core/molds/tiles/shapes.css');
+@import url('./assets/core/molds/tiles/navigation.css');
+@import url('./assets/core/molds/tiles/multimedia.css');
+@import url('./assets/core/molds/tiles/uiux.css');
+@import url('./assets/css/buix.css');
