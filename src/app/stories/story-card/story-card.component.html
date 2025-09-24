@@ -1,0 +1,64 @@
+<div class="story-card">
+  <button
+    type="button"
+    class="story-card__header"
+    [attr.aria-expanded]="expanded"
+    (click)="onHeaderClick()"
+  >
+    <p class="impact larger white-t">{{ story?.billsummery?.[0]?.headLine }}</p>
+
+    <div class="meta" *ngIf="story?.latest_major_action && story?.latest_major_action_date">
+      <p class="mint-t smaller float-left">
+        {{ story.latest_major_action_date | date }}
+      </p>
+      <p class="helvetica smaller white-t">
+        {{ story.latest_major_action }}
+      </p>
+    </div>
+
+    <span
+      class="helvetica keep-all justify guard white-t summary-text"
+      [innerHTML]="story?.previewHtml || story?.cSummery"
+    ></span>
+  </button>
+
+  <div class="toggle-content" [class.is-open]="expanded" [attr.aria-hidden]="!expanded">
+    <span
+      class="helvetica keep-all justify guard white-t summary-text"
+      *ngIf="story?.fullSummaryHtml && story?.fullSummaryHtml !== story?.previewHtml"
+      [innerHTML]="story?.fullSummaryHtml"
+    ></span>
+
+    <span
+      class="helvetica keep-all justify guard white-t summary-text"
+      *ngIf="story?.fullStoryHtml && story?.fullStoryHtml !== story?.fullSummaryHtml"
+      [innerHTML]="story?.fullStoryHtml"
+    ></span>
+
+    <span
+      class="helvetica keep-all justify guard white-t summary-text"
+      *ngIf="story?.billTextSummary"
+      [innerHTML]="story?.billTextSummary"
+    ></span>
+
+    <div class="story-card__actions" *ngIf="story?.bill_id || story?.account?.twitter_account">
+      <button
+        type="button"
+        class="story-card__cta story-card__cta--primary"
+        *ngIf="story?.bill_id"
+        (click)="onViewDetails($event)"
+      >
+        Get updates
+      </button>
+
+      <button
+        type="button"
+        class="story-card__cta story-card__cta--secondary"
+        *ngIf="story?.account?.twitter_account"
+        (click)="onOpenTwitter($event)"
+      >
+        &#64;{{ story?.account?.twitter_account }}
+      </button>
+    </div>
+  </div>
+</div>

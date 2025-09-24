@@ -21,6 +21,7 @@ import { PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
 import { AuthenticateService } from '../../../services/cognito.service';
+import { StoryCardComponent } from '../story-card/story-card.component';
 
 @Component({
   selector: 'app-content',
@@ -38,6 +39,7 @@ import { AuthenticateService } from '../../../services/cognito.service';
     DividerComponent,
     FooterComponent,
     ReactiveFormsModule,
+    StoryCardComponent,
   ],
   templateUrl: './content.component.html',
   styleUrl: './content.component.scss',
@@ -63,6 +65,7 @@ export class ContentComponent implements OnInit {
 
   public repsNames: any;
   private readonly isBrowser: boolean;
+  expandedStoryId: string | null = null;
 
   constructor(
     private readonly headLineService: BillService,
@@ -126,8 +129,11 @@ export class ContentComponent implements OnInit {
 
     this.oldHeadlines = this.headLines;
 
+    this.expandedStoryId = null;
+
     for (let i = 0; i < this.stories?.length; i++) {
       const story = this.stories[i];
+      const billSummary = story?.billsummery?.[0] || {};
       if (story.image) {
         story.image = story.image.replace(
           'https://other-party-images.s3.amazonaws.com',
@@ -136,11 +142,16 @@ export class ContentComponent implements OnInit {
       } else {
         story.image = this.fallbackImage;
       }
-      story.headLine = story?.billsummery[0]?.headLine;
+      story.headLine = billSummary?.headLine;
       story.isImage = Math.round(Math.random());
-      story.cSummery = this.truncate(story?.billsummery[0]?.summary, story.isImage ? 30 : 100);
+      const previewSource = billSummary?.summary || billSummary?.story || story.story;
+      story.previewHtml = this.truncate(previewSource, story.isImage ? 30 : 100);
+      story.cSummery = story.previewHtml;
       story.latest_major_action = this.truncate(story.latest_major_action, 20);
       story.cStory = this.truncate(story.story, story.isImage ? 10 : 100);
+      story.fullSummaryHtml = billSummary?.summary;
+      story.fullStoryHtml = billSummary?.story || story.story;
+      story.billTextSummary = billSummary?.bill_text_summary;
       this.isSearching = false;
       this.isLoading = false;
     }
@@ -177,6 +188,7 @@ export class ContentComponent implements OnInit {
         next: (response) => {
           for (let i = 0; i < response?.data?.length; i++) {
             const story: any = response?.data[i];
+            const billSummary = story?.billsummery?.[0] || {};
             if (story.image) {
               story.image = story.image.replace(
                 'https://other-party-images.s3.amazonaws.com',
@@ -188,7 +200,7 @@ export class ContentComponent implements OnInit {
 
             story.isImage = Math.round(Math.random());
             story.cSummery = this.truncate(
-              story.billsummery[0]?.summary,
+              billSummary?.summary,
               story.isImage ? 10 : 100
             );
             story.latest_major_action = this.truncate(
@@ -196,6 +208,11 @@ export class ContentComponent implements OnInit {
               20
             );
             story.cStory = this.truncate(story.story, story.isImage ? 10 : 100);
+            const previewSource = billSummary?.summary || billSummary?.story || story.story;
+            story.previewHtml = this.truncate(previewSource, story.isImage ? 30 : 100);
+            story.fullSummaryHtml = billSummary?.summary;
+            story.fullStoryHtml = billSummary?.story || story.story;
+            story.billTextSummary = billSummary?.bill_text_summary;
           }
           if (response?.data) {
             this.stories = [...this.stories, ...response.data];
@@ -224,36 +241,85 @@ export class ContentComponent implements OnInit {
   };
 
   assignClassesToStories(array: any) {
-
-    let i = 0;
-    while (i < array.length) {
-      // Assign 'half' to the next two elements, if available.
-      for (let j = 0; j < 2 && i < array.length; j++, i++) {
-        array[i].className = 'half';
-      }
-
-      // Assign 'third' to the next three elements, if available.
-      for (let j = 0; j < 3 && i < array.length; j++, i++) {
-        array[i].className = 'third';
-      }
+    if (!Array.isArray(array)) {
+      return array;
     }
 
-    return array;
+    return array.map((story: any, index: number) => {
+      const mod = index % 5;
+      story.className = mod < 2 ? 'half' : 'third';
+      story.toggleId = this.buildToggleId(story, index);
+      return story;
+    });
   }
 
-  openTwitter(username: string) {
-    if (!this.isBrowser) {
+  private buildToggleId(story: any, index: number): string {
+    const raw = story?.bill_id || story?._id || `idx-${index}`;
+    const safe = String(raw).replace(/[^a-zA-Z0-9_-]/g, '-');
+    return `story-toggle-${safe}`;
+  }
+
+  openTwitter(story: any) {
+    if (!this.isBrowser || !story) {
       return;
     }
-    const url = `https://twitter.com/intent/tweet?screen_name=${username}&ref_src=twsrc%5Etfw`;
+
+    const username = story?.account?.twitter_account;
+    const headline = story?.headLine || story?.billsummery?.[0]?.headLine || '';
+    const storyUrl = story?.bill_id ? `https://otherparty.ai/story/${story.bill_id}` : 'https://otherparty.ai/';
+    const tweetParts = [headline, storyUrl].filter(Boolean);
+    const tweetText = encodeURIComponent(tweetParts.join(' '));
+
+    const url = username
+      ? `https://twitter.com/intent/tweet?screen_name=${encodeURIComponent(username)}&text=${tweetText}`
+      : `https://twitter.com/intent/tweet?text=${tweetText}`;
+
     window.open(url, '_blank');
   }
 
-  changeRoute(id: string) {
-    if (!this.isBrowser) {
+  changeRoute(id: string | null | undefined) {
+    if (!this.isBrowser || !id) {
       return;
     }
     this.router.navigate(['/story', id]);
+  }
+
+  onGetUpdates(story: any) {
+    if (!this.isBrowser || !story) {
+      return;
+    }
+
+    const govTrackUrl = story?.govtrack_url || story?.bill?.govtrack_url || story?.govtrackUrl;
+
+    const openWindow = () => {
+      if (govTrackUrl) {
+        window.open(govTrackUrl, '_blank');
+      }
+    };
+
+    this.cognito.getIdToken().then((idToken) => {
+      if (!idToken) {
+        openWindow();
+        return;
+      }
+
+      const decoded = this.parseJwt(idToken);
+      const cognitoUsername = decoded?.['cognito:username'];
+
+      if (!cognitoUsername) {
+        openWindow();
+        return;
+      }
+
+      this.headLineService
+        .updateUserWithFollowBills(story.bill_id, cognitoUsername)
+        .subscribe({
+          next: () => openWindow(),
+          error: () => openWindow(),
+        });
+    }).catch(() => {
+      openWindow();
+    });
   }
 
   search(query: string) {
@@ -329,5 +395,34 @@ export class ContentComponent implements OnInit {
 
   onImgError(event: any) {
     event.target.src = this.fallbackImage;
+  }
+
+  onStoryToggle(storyId: string | null) {
+    this.expandedStoryId = storyId;
+  }
+
+  trackStory(index: number, story: any) {
+    return story?.bill_id || story?.toggleId || index;
+  }
+
+  private parseJwt(token: string): any {
+    if (!this.isBrowser || !token) {
+      return null;
+    }
+
+    try {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+      );
+      return JSON.parse(jsonPayload);
+    } catch (error) {
+      console.error('Failed to parse JWT payload', error);
+      return null;
+    }
   }
 }
