@@ -75,6 +75,7 @@
               [story]="story"
               [toggleId]="story.toggleId"
               [expanded]="story.bill_id === expandedStoryId || story.toggleId === expandedStoryId"
+              [isAuthenticated]="!!user"
               (expand)="onStoryToggle($event)"
               (viewDetails)="onGetUpdates($event)"
               (openTwitter)="openTwitter($event)"

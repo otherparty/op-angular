@@ -151,7 +151,10 @@ export class ContentComponent implements OnInit {
       story.cStory = this.truncate(story.story, story.isImage ? 10 : 100);
       story.fullSummaryHtml = billSummary?.summary;
       story.fullStoryHtml = billSummary?.story || story.story;
-      story.billTextSummary = billSummary?.bill_text_summary;
+      story.billTextSummary = billSummary?.bill_text_summary || null;
+      story.billTextPreview = billSummary?.bill_text_summary
+        ? this.truncate(billSummary.bill_text_summary, story.isImage ? 25 : 40)
+        : null;
       this.isSearching = false;
       this.isLoading = false;
     }
@@ -212,7 +215,10 @@ export class ContentComponent implements OnInit {
             story.previewHtml = this.truncate(previewSource, story.isImage ? 30 : 100);
             story.fullSummaryHtml = billSummary?.summary;
             story.fullStoryHtml = billSummary?.story || story.story;
-            story.billTextSummary = billSummary?.bill_text_summary;
+            story.billTextSummary = billSummary?.bill_text_summary || null;
+            story.billTextPreview = billSummary?.bill_text_summary
+              ? this.truncate(billSummary.bill_text_summary, story.isImage ? 25 : 40)
+              : null;
           }
           if (response?.data) {
             this.stories = [...this.stories, ...response.data];

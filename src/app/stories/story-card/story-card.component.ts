@@ -1,10 +1,11 @@
 import { DatePipe, NgIf } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-story-card',
   standalone: true,
-  imports: [NgIf, DatePipe],
+  imports: [NgIf, DatePipe, RouterModule],
   templateUrl: './story-card.component.html',
   styleUrl: './story-card.component.scss'
 })
@@ -12,6 +13,7 @@ export class StoryCardComponent {
   @Input({ required: true }) story: any;
   @Input({ required: true }) toggleId!: string;
   @Input() expanded = false;
+  @Input() isAuthenticated = false;
   @Output() expand = new EventEmitter<string | null>();
   @Output() openTwitter = new EventEmitter<any>();
   @Output() viewDetails = new EventEmitter<any>();
