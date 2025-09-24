@@ -24,23 +24,24 @@
 
   <div class="toggle-content" [class.is-open]="expanded" [attr.aria-hidden]="!expanded">
     <ng-container *ngIf="isAuthenticated; else guestView">
-      <span
-        class="helvetica keep-all justify guard white-t summary-text"
-        *ngIf="story?.fullSummaryHtml && story?.fullSummaryHtml !== story?.previewHtml"
-        [innerHTML]="story?.fullSummaryHtml"
-      ></span>
+      <ng-container *ngIf="story?.billTextSummary">
+        <span
+          class="helvetica keep-all justify guard white-t summary-text"
+          *ngIf="story?.fullSummaryHtml && story?.fullSummaryHtml !== story?.previewHtml"
+          [innerHTML]="story?.fullSummaryHtml"
+        ></span>
 
-      <span
-        class="helvetica keep-all justify guard white-t summary-text"
-        *ngIf="story?.fullStoryHtml && story?.fullStoryHtml !== story?.fullSummaryHtml"
-        [innerHTML]="story?.fullStoryHtml"
-      ></span>
+        <span
+          class="helvetica keep-all justify guard white-t summary-text"
+          *ngIf="story?.fullStoryHtml && story?.fullStoryHtml !== story?.fullSummaryHtml"
+          [innerHTML]="story?.fullStoryHtml"
+        ></span>
 
-      <span
-        class="helvetica keep-all justify guard white-t summary-text"
-        *ngIf="story?.billTextSummary"
-        [innerHTML]="story?.billTextSummary"
-      ></span>
+        <span
+          class="helvetica keep-all justify guard white-t summary-text"
+          [innerHTML]="story?.billTextSummary"
+        ></span>
+      </ng-container>
 
       <div class="story-card__actions" *ngIf="story?.bill_id || story?.account?.twitter_account">
         <button
@@ -66,7 +67,8 @@
     <ng-template #guestView>
       <span
         class="helvetica keep-all justify guard white-t summary-text"
-        [innerHTML]="story?.billTextPreview || story?.previewHtml || story?.cSummery"
+        *ngIf="story?.billTextPreview"
+        [innerHTML]="story?.billTextPreview"
       ></span>
 
       <a routerLink="/register" class="story-card__deep-link">Get it in-depth</a>
