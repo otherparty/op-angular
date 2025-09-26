@@ -18,7 +18,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class AuthenticateService {
   // Normalize the API base URL so downstream calls can append paths safely.
-  private readonly baseURL: string = `${(environment.baseURL ?? 'http://127.0.0.1:9000/api/v1').replace(/\/?$/, '')}/`;
+  private readonly baseURL: string = `${(environment.baseURL ?? 'https://backend.otherparty.ai/api/v1').replace(/\/?$/, '')}/`;
   userPool: any;
   cognitoUser: any;
   username: string = '';
