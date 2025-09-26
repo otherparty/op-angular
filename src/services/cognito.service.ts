@@ -17,8 +17,8 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root',
 })
 export class AuthenticateService {
-  // baseURL = 'http://localhost:9000/api/v1/'; // URL to web api
-  baseURL = 'https://backend.otherparty.ai/api/v1/'; // URL to web api
+  // Normalize the API base URL so downstream calls can append paths safely.
+  private readonly baseURL: string = `${(environment.baseURL ?? 'http://127.0.0.1:9000/api/v1').replace(/\/?$/, '')}/`;
   userPool: any;
   cognitoUser: any;
   username: string = '';

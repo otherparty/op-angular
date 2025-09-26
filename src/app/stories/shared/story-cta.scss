@@ -1,0 +1,65 @@
+.story-card__actions,
+.story-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.story-card__cta,
+.story-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.1rem;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+.story-card__cta:hover,
+.story-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.story-card__cta--primary,
+.story-cta--primary {
+  color: #121212;
+  background: linear-gradient(135deg, #ffe9b3 0%, #f9d87a 100%);
+  border: 2px solid transparent;
+  border-image: linear-gradient(to right, #43cea2 0%, #185a9d 100%);
+  border-image-slice: 1;
+}
+
+.story-card__cta--secondary,
+.story-cta--secondary {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.story-card__cta--twitter,
+.story-cta--twitter {
+  font-family: 'Helvetica', sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.story-card__deep-link,
+.story-cta-link {
+  display: inline-block;
+  margin-top: 8px;
+  color: #ffe9b3;
+  text-decoration: underline;
+  font-size: 0.9rem;
+}
+
+.story-card__deep-link:hover,
+.story-cta-link:hover {
+  color: #fff5cf;
+}

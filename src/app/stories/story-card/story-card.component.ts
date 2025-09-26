@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [NgIf, DatePipe, RouterModule],
   templateUrl: './story-card.component.html',
-  styleUrl: './story-card.component.scss'
+  styleUrls: ['./story-card.component.scss', '../shared/story-cta.scss']
 })
 export class StoryCardComponent {
   @Input({ required: true }) story: any;

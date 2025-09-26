@@ -13,6 +13,7 @@ import { ContentComponent } from '../stories/content/content.component';
 import { AuthenticateService } from '../../services/cognito.service';
 import { TruncatePipe } from '../shared/pipes/truncate.pipe';
 import { isPlatformBrowser } from '@angular/common';
+import { shouldShowBillTextSummary } from '../stories/shared/story-content.utils';
 
 @Component({
   selector: 'app-full-story',
@@ -32,14 +33,14 @@ import { isPlatformBrowser } from '@angular/common';
     ContentComponent
   ],
   templateUrl: './full-story.component.html',
-  styleUrl: './full-story.component.scss',
+  styleUrls: ['./full-story.component.scss', '../stories/shared/story-cta.scss'],
   providers: [TruncatePipe]
 })
 export class FullStoryComponent implements OnInit {
   public _id: any;
   public bill: any;
   public billSummery: any;
-  public fallbackImage = "https://d2646mjd05vkml.cloudfront.net/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png"
+  public fallbackImage = 'https://d2646mjd05vkml.cloudfront.net/DALL%C2%B7E+2024-02-27+20.59.20+-+Craft+an+intricate+artwork+that+merges+Italian+Futurism+with+minimalism+to+reinterpret+the+American+flag%2C+focusing+on+a+higher+density+of+stars+while+.png';
   public isLoading: any;
   public isError: any = false;
   public YeaText: any;
@@ -115,7 +116,22 @@ export class FullStoryComponent implements OnInit {
         this.bill.NayText = `Nay on ${this.billSummery.headLine} ${this.twitterHandles.map((h: any) => `@${h}`).join(', ')} \n\n https://otherparty.ai/story/${this.bill.bill_id} `;
 
         this.bill.faceBookText = `https://otherparty.ai/story/${this.bill.bill_id}`
-        this.bill.bill_text_summary = this.billSummery?.bill_text_summary;
+        const rawBillTextSummary = this.billSummery?.bill_text_summary ?? '';
+        const showBillTextSummary = shouldShowBillTextSummary(rawBillTextSummary, {
+          fullSummary: this.billSummery?.summary,
+          fullStory: this.billSummery?.story,
+          preview: this.billSummery?.summary || this.billSummery?.story,
+        });
+
+        const normalizedBillTextSummary = showBillTextSummary ? rawBillTextSummary : null;
+
+        this.bill.showBillTextSummary = showBillTextSummary;
+        this.bill.bill_text_summary = normalizedBillTextSummary;
+
+        if (this.billSummery) {
+          this.billSummery.showBillTextSummary = showBillTextSummary;
+          this.billSummery.bill_text_summary = normalizedBillTextSummary;
+        }
         if (this.billSummery.image) {
           this.billSummery.image = this.billSummery.image.replace('https://other-party-images.s3.amazonaws.com', 'https://d2646mjd05vkml.cloudfront.net');
 
@@ -207,7 +223,8 @@ export class FullStoryComponent implements OnInit {
   }
 
   getTruncatedSummary(): string {
-    return this.truncatePipe.transform(this.bill.bill_text_summary, 56)
+    const summary = this.bill?.bill_text_summary;
+    return summary ? this.truncatePipe.transform(summary, 56) : '';
   }
 
   fallbackHome() {

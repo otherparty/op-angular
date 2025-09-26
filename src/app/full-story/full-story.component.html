@@ -37,52 +37,34 @@
               </li>
             </ul>
             @if (!user) {
+            @if (bill?.showBillTextSummary) {
             <span class="white-t helvetica summary-text keep-all justify" [innerHTML]="getTruncatedSummary()"></span>
+            }
+            <a [routerLink]="['/register']" class="story-card__deep-link">Get it in-depth</a>
             <br>
-            <a [routerLink]="['/register']">
-              <p class="white-t helvetica larger glitchtext">
-                Get it in-depth
-              </p>
-            </a>
-            <br>
-            <br>
-            <div class="button-container">
-              <a [routerLink]="['/register']">
-                <p class="white-t helvetica padded love-b">
-                  Subscribe</p>
-              </a>
-              <br>
-              <br>
-              <a [routerLink]="['/login']">
-                <p class="mint-t helvetica padded hottie-b">
-                  Login</p>
-              </a>
+            <div class="story-card__actions">
+              <a [routerLink]="['/register']" class="story-card__cta story-card__cta--primary">Subscribe</a>
+              <a [routerLink]="['/login']" class="story-card__cta story-card__cta--secondary">Login</a>
             </div>
             }
-            <!-- LOGGED IN -->
+
             @if (user) {
-            <div class="fourth interactive">
-              <!-- <div class="center visual">
-            <p class="impact white-t smaller">What's your vote?</p>
-            <p class="helvetica smaller white-t">Let your rep know on X.</p>
             <br>
-            <ul class="tags">
-              <li>
-                <a href="https://twitter.com/intent/tweet?text={{bill.YeaText}}" target="_blank" class="white-t"><i
-                    class="bi bi-approve love-b padded"></i></a>
-              </li>
-              <li>
-                <a href="https://twitter.com/intent/tweet?text={{bill.NayText}}" target="_blank" class="white-t"><i
-                    class="bi bi-disapprove hottie-b padded"></i></a>
-              </li>
-            </ul>
-          </div> -->
-              <!-- <br> -->
+            <div class="story-card__actions">
+              <button type="button" class="story-card__cta story-card__cta--primary" (click)="openGovTrack(bill)">
+                Get updates
+              </button>
+              @if (bill?.account?.twitter_account) {
+              <button type="button" class="story-card__cta story-card__cta--secondary story-card__cta--twitter"
+                (click)="openTwitter(bill?.account?.twitter_account)">
+                &#64;{{bill?.account?.twitter_account}}
+              </button>
+              }
             </div>
-            <br>
-            <!-- BILL TEXT SUMMARY -->
-            <span class="white-t helvetica summary-text keep-all justify"
-              [innerHTML]="billSummery?.bill_text_summary"></span>
+
+            @if (bill?.showBillTextSummary) {
+            <span class="white-t helvetica summary-text keep-all justify" [innerHTML]="bill?.bill_text_summary"></span>
+            }
             <br>
             }
             <!-- <br>
@@ -103,127 +85,46 @@
           </div>
 
           @if (!user) {
-          <div class="button-container">
-            <a [routerLink]="['/register']">
-              <div class="left-align">
-                <button class="river-b sand small-btn zoom-in">
-                  <p class="smaller">Get updates
-                  </p>
-                </button>
-              </div>
-            </a>
+          <div class="story-card__actions">
+            <a [routerLink]="['/register']" class="story-card__cta story-card__cta--primary">Get updates</a>
             @if (bill?.account?.twitter_account) {
-            <button class="small-btn white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
-              <p class="smaller">&#64;{{bill?.account?.twitter_account}}</p>
+            <button type="button" class="story-card__cta story-card__cta--secondary story-card__cta--twitter"
+              (click)="openTwitter(bill?.account?.twitter_account)">
+              &#64;{{bill?.account?.twitter_account}}
             </button>
             }
           </div>
 
-          <br>
+          @if (bill?.showBillTextSummary) {
           <span class="white-t helvetica summary-text keep-all justify" [innerHTML]="getTruncatedSummary()"></span>
-          <br>
-          <a [routerLink]="['/register']">
-            <p class="white-t helvetica larger glitchtext">
-              Get it in-depth
-            </p>
-          </a>
-          <br>
-          <br>
-          <div class="button-container">
-            <a [routerLink]="['/register']">
-              <p class="smaller white-t helvetica larger padded love-b">
-                Subscribe</p>
-            </a>
-            <br>
-            <br>
-            <a [routerLink]="['/login']">
-              <p class="smaller mint-t helvetica larger padded hottie-b">
-                Login</p>
-            </a>
+          }
+
+          <a [routerLink]="['/register']" class="story-card__deep-link">Get it in-depth</a>
+
+          <div class="story-card__actions">
+            <a [routerLink]="['/register']" class="story-card__cta story-card__cta--primary">Subscribe</a>
+            <a [routerLink]="['/login']" class="story-card__cta story-card__cta--secondary">Login</a>
           </div>
           }
           <br>
           <!-- LOGGED IN -->
           @if (user) {
-          <div class="fourth interactive">
-            <!-- <div class="center visual">
-              <p class="impact white-t">What's your vote?</p>
-              <p class="helvetica smaller white-t">Let your rep know on X.</p>
-              <br>
-              <ul class="tags">
-                <li>
-                  <a href="https://twitter.com/intent/tweet?text={{bill.YeaText}}" target="_blank"><i
-                      class="bi bi-approve love-b padded"></i></a>
-                </li>
-                <li>
-                  <a href="https://twitter.com/intent/tweet?text={{bill.NayText}}" target="_blank"><i
-                      class="bi bi-disapprove hottie-b padded"></i></a>
-                </li>
-              </ul>
-            </div> -->
-            <!-- <br> -->
-          </div>
-          <!-- <br> -->
-          <!-- BILL TEXT SUMMARY -->
-          <span class="white-t helvetica summary-text keep-all justify"
-            [innerHTML]="billSummery?.bill_text_summary"></span>
-          <br>
+          @if (bill?.showBillTextSummary) {
+          <span class="white-t helvetica summary-text keep-all justify" [innerHTML]="bill?.bill_text_summary"></span>
           }
-          <br>
-          <div class="button-container">
-            @if (!user) {
-            <!-- <a [routerLink]="['/register']">
-              <div class="left-align">
-                <button class="river-b sand small-btn zoom-in">
-                  <p class="smaller">Follow
-                    #{{bill?.bill_slug}}</p>
-                </button>
-              </div>
-            </a> -->
-            }
-            @if (user) {
-            <div class="left-align">
-              <button class="river-b sand small-btn zoom-in" (click)="openGovTrack(bill)">
-                <p class="smaller">Get updates</p>
-              </button>
-            </div>
-            @if (bill?.account?.twitter_account) {
-            <button class="small-btn white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
-              <p class="smaller">&#64;{{bill?.account?.twitter_account}}</p>
-            </button>
-            }
-            }
 
-          </div>
-        </div>
-        <!-- <br> -->
-        <!-- DESKTOP FTB -->
-        <div class="desktop-only">
-          <div class="button-container">
-            @if (!user) {
-            <a [routerLink]="['/register']">
-              <!-- <div class="left-align"> -->
-              <button class="river-b sand small-btn zoom-in">
-                <p class="smaller">Get updates
-                </p>
-              </button>
-              <!-- </div> -->
-            </a>
-            }
-            @if (user) {
-            <div class="left-align">
-              <button class="river-b sand small-btn zoom-in" (click)="openGovTrack(bill)">
-                <p class="smaller">Get updates
-                </p>
-              </button>
-            </div>
-            }
+          <div class="story-card__actions">
+            <button type="button" class="story-card__cta story-card__cta--primary" (click)="openGovTrack(bill)">
+              Get updates
+            </button>
             @if (bill?.account?.twitter_account) {
-            <button class="small-btn white-t gray" (click)="openTwitter(bill?.account?.twitter_account)">
-              <p class="smaller">&#64;{{bill?.account?.twitter_account}}</p>
+            <button type="button" class="story-card__cta story-card__cta--secondary story-card__cta--twitter"
+              (click)="openTwitter(bill?.account?.twitter_account)">
+              &#64;{{bill?.account?.twitter_account}}
             </button>
             }
           </div>
+          }
         </div>
       </div>
 

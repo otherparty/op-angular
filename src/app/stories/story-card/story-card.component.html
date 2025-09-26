@@ -24,24 +24,23 @@
 
   <div class="toggle-content" [class.is-open]="expanded" [attr.aria-hidden]="!expanded">
     <ng-container *ngIf="isAuthenticated; else guestView">
-      <ng-container *ngIf="story?.billTextSummary">
-        <span
-          class="helvetica keep-all justify guard white-t summary-text"
-          *ngIf="story?.fullSummaryHtml && story?.fullSummaryHtml !== story?.previewHtml"
-          [innerHTML]="story?.fullSummaryHtml"
-        ></span>
+      <span
+        class="helvetica keep-all justify guard white-t summary-text"
+        *ngIf="story?.fullSummaryHtml && story?.fullSummaryHtml !== story?.previewHtml"
+        [innerHTML]="story?.fullSummaryHtml"
+      ></span>
 
-        <span
-          class="helvetica keep-all justify guard white-t summary-text"
-          *ngIf="story?.fullStoryHtml && story?.fullStoryHtml !== story?.fullSummaryHtml"
-          [innerHTML]="story?.fullStoryHtml"
-        ></span>
+      <span
+        class="helvetica keep-all justify guard white-t summary-text"
+        *ngIf="story?.fullStoryHtml && story?.fullStoryHtml !== story?.fullSummaryHtml"
+        [innerHTML]="story?.fullStoryHtml"
+      ></span>
 
-        <span
-          class="helvetica keep-all justify guard white-t summary-text"
-          [innerHTML]="story?.billTextSummary"
-        ></span>
-      </ng-container>
+      <span
+        class="helvetica keep-all justify guard white-t summary-text"
+        *ngIf="story?.showBillTextSummary"
+        [innerHTML]="story?.billTextSummary"
+      ></span>
 
       <div class="story-card__actions" *ngIf="story?.bill_id || story?.account?.twitter_account">
         <button
