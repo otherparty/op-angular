@@ -17,6 +17,28 @@ export function normalizeHtmlContent(value: HtmlContent): string {
   return value.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
+function normalizeForComparison(value: HtmlContent): string {
+  return normalizeHtmlContent(value)
+    .replace(/\.\.\.$/, '')
+    .toLowerCase();
+}
+
+function hasUniqueContent(candidate: HtmlContent, ...refs: Array<HtmlContent>): boolean {
+  const normalizedCandidate = normalizeForComparison(candidate);
+  if (!normalizedCandidate) {
+    return false;
+  }
+
+  return !refs
+    .map((ref) => normalizeForComparison(ref))
+    .filter(Boolean)
+    .some((value) => value === normalizedCandidate);
+}
+
+export function shouldShowExpandedSummary(content: HtmlContent, refs: Array<HtmlContent>): boolean {
+  return hasUniqueContent(content, ...refs);
+}
+
 /**
  * Determine whether the bill text summary adds unique content compared to other sections.
  */
@@ -24,13 +46,10 @@ export function shouldShowBillTextSummary(
   billTextSummary: HtmlContent,
   refs: ComparisonRefs
 ): boolean {
-  const normalizedBillText = normalizeHtmlContent(billTextSummary);
-  if (!normalizedBillText) {
-    return false;
-  }
-
-  return ![refs.fullSummary, refs.fullStory, refs.preview]
-    .map(normalizeHtmlContent)
-    .filter(Boolean)
-    .some((candidate) => candidate === normalizedBillText);
+  return hasUniqueContent(
+    billTextSummary,
+    refs.fullSummary,
+    refs.fullStory,
+    refs.preview
+  );
 }

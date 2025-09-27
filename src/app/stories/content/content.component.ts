@@ -22,7 +22,7 @@ import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
 import { AuthenticateService } from '../../../services/cognito.service';
 import { StoryCardComponent } from '../story-card/story-card.component';
-import { shouldShowBillTextSummary } from '../shared/story-content.utils';
+import { shouldShowBillTextSummary, shouldShowExpandedSummary } from '../shared/story-content.utils';
 
 @Component({
   selector: 'app-content',
@@ -153,6 +153,9 @@ export class ContentComponent implements OnInit {
       story.fullSummaryHtml = billSummary?.summary;
       story.fullStoryHtml = billSummary?.story || story.story;
 
+      story.showFullSummary = shouldShowExpandedSummary(story.fullSummaryHtml, [story.previewHtml]);
+      story.showFullStory = shouldShowExpandedSummary(story.fullStoryHtml, [story.fullSummaryHtml, story.previewHtml]);
+
       const billTextSummary = billSummary?.bill_text_summary ?? '';
       const showBillTextSummary = shouldShowBillTextSummary(billTextSummary, {
         fullSummary: story.fullSummaryHtml,
@@ -225,6 +228,9 @@ export class ContentComponent implements OnInit {
             story.previewHtml = this.truncate(previewSource, story.isImage ? 30 : 100);
             story.fullSummaryHtml = billSummary?.summary;
             story.fullStoryHtml = billSummary?.story || story.story;
+
+            story.showFullSummary = shouldShowExpandedSummary(story.fullSummaryHtml, [story.previewHtml]);
+            story.showFullStory = shouldShowExpandedSummary(story.fullStoryHtml, [story.fullSummaryHtml, story.previewHtml]);
 
             const billTextSummary = billSummary?.bill_text_summary ?? '';
             const showBillTextSummary = shouldShowBillTextSummary(billTextSummary, {

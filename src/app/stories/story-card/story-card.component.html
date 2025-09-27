@@ -18,7 +18,7 @@
 
     <span
       class="helvetica keep-all justify guard white-t summary-text"
-      [innerHTML]="story?.previewHtml || story?.cSummery"
+      [innerHTML]="expanded && story?.showFullSummary ? story?.fullSummaryHtml : (story?.previewHtml || story?.cSummery)"
     ></span>
   </button>
 
@@ -26,13 +26,13 @@
     <ng-container *ngIf="isAuthenticated; else guestView">
       <span
         class="helvetica keep-all justify guard white-t summary-text"
-        *ngIf="story?.fullSummaryHtml && story?.fullSummaryHtml !== story?.previewHtml"
+        *ngIf="story?.showFullSummary && !expanded"
         [innerHTML]="story?.fullSummaryHtml"
       ></span>
 
       <span
         class="helvetica keep-all justify guard white-t summary-text"
-        *ngIf="story?.fullStoryHtml && story?.fullStoryHtml !== story?.fullSummaryHtml"
+        *ngIf="story?.showFullStory"
         [innerHTML]="story?.fullStoryHtml"
       ></span>
 

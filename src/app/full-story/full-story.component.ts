@@ -13,7 +13,7 @@ import { ContentComponent } from '../stories/content/content.component';
 import { AuthenticateService } from '../../services/cognito.service';
 import { TruncatePipe } from '../shared/pipes/truncate.pipe';
 import { isPlatformBrowser } from '@angular/common';
-import { shouldShowBillTextSummary } from '../stories/shared/story-content.utils';
+import { shouldShowBillTextSummary, shouldShowExpandedSummary } from '../stories/shared/story-content.utils';
 
 @Component({
   selector: 'app-full-story',
@@ -116,11 +116,21 @@ export class FullStoryComponent implements OnInit {
         this.bill.NayText = `Nay on ${this.billSummery.headLine} ${this.twitterHandles.map((h: any) => `@${h}`).join(', ')} \n\n https://otherparty.ai/story/${this.bill.bill_id} `;
 
         this.bill.faceBookText = `https://otherparty.ai/story/${this.bill.bill_id}`
+        const fullSummaryHtml = this.billSummery?.summary ?? '';
+        const fullStoryHtml = this.billSummery?.story ?? this.bill?.story ?? '';
+        const previewHtml = this.billSummery?.summary || this.billSummery?.story || '';
+
+        const showFullSummary = shouldShowExpandedSummary(fullSummaryHtml, [previewHtml]);
+        const showFullStory = shouldShowExpandedSummary(fullStoryHtml, [fullSummaryHtml, previewHtml]);
+
+        this.bill.showFullSummary = showFullSummary;
+        this.bill.showFullStory = showFullStory;
+
         const rawBillTextSummary = this.billSummery?.bill_text_summary ?? '';
         const showBillTextSummary = shouldShowBillTextSummary(rawBillTextSummary, {
-          fullSummary: this.billSummery?.summary,
-          fullStory: this.billSummery?.story,
-          preview: this.billSummery?.summary || this.billSummery?.story,
+          fullSummary: fullSummaryHtml,
+          fullStory: fullStoryHtml,
+          preview: previewHtml,
         });
 
         const normalizedBillTextSummary = showBillTextSummary ? rawBillTextSummary : null;
